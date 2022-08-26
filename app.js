@@ -57,7 +57,7 @@ app.engine(
             editIcon,
             select
         },
-        defaultLayout: 'main',
+        defaultLayout: 'default',
         extname: '.hbs'
     })
 );
