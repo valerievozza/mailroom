@@ -22,13 +22,13 @@
               <input type="hidden" name="_method" value="PUT">
               <button type="submit" class="btn btn-link"><h3><i class="fa-solid fa-circle-check"></i></h3></button>
             </form>
-            <p>Last checked today</p>
+            <span>Last checked today</span>
           {{else}}
             <form action="/clients/check/{{_id}}" method="POST">
               <input type="hidden" name="_method" value="PUT">
               <button type="submit" class="btn btn-link" alt="Check mail"><h3><i class="fa-regular fa-circle-check"></i></h3></button>
             </form>
-            <p>Last checked<br>{{formatDate lastChecked 'MM/D/YYYY'}}</p>
+            <span>Last checked {{formatDate lastChecked 'M/D/YY'}}</span>
           {{/if}}
         </div>
       </div>
