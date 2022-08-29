@@ -40,3 +40,11 @@
 .client-list {
   margin: 10px;
 }
+
+.uncheckedMailbox {
+  color: #adb5bd !important;
+}
+
+.uncheckedMailbox:hover {
+  color: #00bc8c !important;
+}

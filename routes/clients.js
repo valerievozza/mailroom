@@ -9,6 +9,8 @@ router.get('/add', clientsController.addPage)
 
 router.post('/createClient', ensureAuth, clientsController.createClient)
 
+router.get('/:id', ensureAuth, clientsController.showClient)
+
 router.get('/edit/:id', ensureAuth, clientsController.editClient)
 
 router.put('/:id', ensureAuth, clientsController.updateClient)

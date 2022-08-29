@@ -16,6 +16,30 @@ module.exports = {
             console.log(err)
         }
     },
+    showClient: async (req, res) => {
+        try {
+            const client = await Client.findOne({
+                _id: req.params.id
+            }).lean()
+
+            if (!client) {
+                res.render('error/404')
+            }
+
+            if (client.user != req.user.id) {
+                res.redirect('/')
+            } else {
+                res.render('clients/show', {
+                    client
+                })
+                console.log(client)
+            }
+
+            res.render('clients/show')
+        } catch (err) {
+            console.error(err)
+        }
+    },
     addPage: (req,res)=>{
         res.render('clients/add')
     },
