@@ -17,22 +17,19 @@
       </div>
       <div class="checkbox">
         <div>
-          {{!-- !Update action? --}}
-          {{!-- !Add conditional - if date is not equal to today, should be marked unchecked, otherwise checked --}}
-          <form action="/clients/check/{{_id}}" method="POST">
-            <input type="hidden" name="_method" value="PUT">
-            <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-solid fa-check fa-fw"></i> Check</button>
-          </form>
-        </div>
-        <div>
           {{#if (checkedToday lastChecked)}}
-            <i class="fa-solid fa-circle-check"></i>
+            <form action="/clients/check/{{_id}}" method="POST">
+              <input type="hidden" name="_method" value="PUT">
+              <button type="submit" class="btn btn-link"><h3><i class="fa-solid fa-circle-check"></i></h3></button>
+            </form>
+            <p>Last checked today</p>
           {{else}}
-            <i class="fa-regular fa-circle-check"></i>
+            <form action="/clients/check/{{_id}}" method="POST">
+              <input type="hidden" name="_method" value="PUT">
+              <button type="submit" class="btn btn-link" alt="Check mail"><h3><i class="fa-regular fa-circle-check"></i></h3></button>
+            </form>
+            <p>Last checked<br>{{formatDate lastChecked 'MM/D/YYYY'}}</p>
           {{/if}}
-        </div>
-        <div>
-          Last checked:<br>{{formatDate lastChecked 'MM/D/YYYY h:mm:ss a'}}
         </div>
       </div>
     </div>
