@@ -7,7 +7,7 @@
   <div class="card">
     <div class="card-body clientMailbox">
       <div class="box">
-        <h3>{{box}}</h3>
+        <h4>{{box}}</h4>
       </div>
       <div class="clientDetails">
         <h4 class="card-title">{{firstName}} {{lastName}}</h4>
@@ -16,10 +16,15 @@
       </div>
       <div class="checkbox">
         <div>
-          <a href="#" class="btn btn-success btn-lg"><i class="fas fa-solid fa-check fa-fw"></i> Check</a>
+          {{!-- !Update action? --}}
+          {{!-- !Add conditional - if date is not equal to today, should be marked unchecked, otherwise checked --}}
+          <form action="/clients/check/{{_id}}" method="POST">
+            <input type="hidden" name="_method" value="PUT">
+            <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-solid fa-check fa-fw"></i> Check</button>
+          </form>
         </div>
         <div>
-          Last checked:<br>{{formatDate client.lastChecked 'MM/D/YYYY'}}
+          Last checked:<br>{{formatDate lastChecked 'MM/D/YYYY h:mm:ss a'}}
         </div>
       </div>
     </div>

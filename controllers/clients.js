@@ -1,3 +1,4 @@
+const { findOneAndUpdate } = require('../models/Client')
 const Client = require('../models/Client')
 
 module.exports = {
@@ -74,6 +75,44 @@ module.exports = {
             console.error(err)
         }
     },
+    markChecked: async (req, res)=>{
+        try{
+            let client = await Client.findById(req.params.id).lean()
+
+            if (!client) {
+                res.render('error/404')
+            }
+
+            if (client.user != req.user.id) {
+                res.redirect('/')
+            } else {
+                client = await Client.findOneAndUpdate({ _id: req.params.id }, {lastChecked: Date.now()}, {
+                    new: true,
+                    runValidators: true
+                })
+                res.redirect('/clients')
+            }
+            
+            // await Client.findOneAndUpdate({_id: req.params.id}, {
+            //     lastChecked: Date.now()
+            // })
+            console.log('Mailbox Checked!')
+        } catch(err){
+            console.log(err)
+        }
+    },
+    // ! How to revert to previous version of document?
+    // markUnchecked: async (req, res)=>{
+    //     try{
+    //         await Client.findOneAndUpdate({_id:req.body.clientIdFromJSFile},{
+    //             completed: false
+    //         })
+    //         console.log('Mailbox Open')
+    //         res.json('Mailbox Open')
+    //     }catch(err){
+    //         console.log(err)
+    //     }
+    // },
     closeMailbox: async (req, res)=>{
         try{
             await Client.findOneAndUpdate({_id:req.body.clientIdFromJSFile},{

@@ -13,6 +13,10 @@ router.get('/edit/:id', ensureAuth, clientsController.editClient)
 
 router.put('/:id', ensureAuth, clientsController.updateClient)
 
+router.put('/check/:id', ensureAuth, clientsController.markChecked)
+
+// router.put('/markUnchecked', ensureAuth, clientsController.markChecked)
+
 router.put('/closeMailbox', clientsController.closeMailbox)
 
 router.put('/openMailbox', clientsController.openMailbox)

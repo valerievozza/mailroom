@@ -42,8 +42,8 @@ const ClientSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-    //! add option to set date manually
   },
+  //! add option to set date manually
   lastChecked: {
     type: Date,
     default: Date.now
