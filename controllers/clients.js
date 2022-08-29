@@ -86,7 +86,7 @@ module.exports = {
             if (client.user != req.user.id) {
                 res.redirect('/')
             } else {
-                client = await Client.findOneAndUpdate({ _id: req.params.id }, {lastChecked: new Date()}, {
+                client = await Client.findOneAndUpdate({ _id: req.params.id }, { lastChecked: new Date() }, {
                     new: true,
                     runValidators: true
                 })
