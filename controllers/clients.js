@@ -45,6 +45,7 @@ module.exports = {
                 res.render('clients/edit', {
                     client
                 })
+                console.log(client)
             }
 
         } catch (err) {
@@ -73,34 +74,34 @@ module.exports = {
             console.error(err)
         }
     },
-    // markComplete: async (req, res)=>{
-    //     try{
-    //         await Todo.findOneAndUpdate({_id:req.body.todoIdFromJSFile},{
-    //             completed: true
-    //         })
-    //         console.log('Marked Complete')
-    //         res.json('Marked Complete')
-    //     }catch(err){
-    //         console.log(err)
-    //     }
-    // },
-    // markIncomplete: async (req, res)=>{
-    //     try{
-    //         await Todo.findOneAndUpdate({_id:req.body.todoIdFromJSFile},{
-    //             completed: false
-    //         })
-    //         console.log('Marked Incomplete')
-    //         res.json('Marked Incomplete')
-    //     }catch(err){
-    //         console.log(err)
-    //     }
-    // },
-    deleteClient: async (req, res)=>{
-        console.log(req.body.clientIdFromJSFile)
+    closeMailbox: async (req, res)=>{
         try{
-            await Client.findOneAndDelete({_id:req.body.clientIdFromJSFile})
+            await Client.findOneAndUpdate({_id:req.body.clientIdFromJSFile},{
+                completed: true
+            })
+            console.log('Mailbox Closed')
+            res.json('Mailbox Closed')
+        }catch(err){
+            console.log(err)
+        }
+    },
+    openMailbox: async (req, res)=>{
+        try{
+            await Client.findOneAndUpdate({_id:req.body.clientIdFromJSFile},{
+                completed: false
+            })
+            console.log('Mailbox Open')
+            res.json('Mailbox Open')
+        }catch(err){
+            console.log(err)
+        }
+    },
+    deleteClient: async (req, res)=>{
+        try{
+            await Client.remove({ _id: req.params.id })
             console.log('Client deleted from database')
-            res.json('Deleted client')
+            res.redirect('/clients')
+
         }catch(err){
             console.log(err)
         }

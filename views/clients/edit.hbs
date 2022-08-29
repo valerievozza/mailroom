@@ -19,4 +19,8 @@
     <button type="submit" class="btn btn-primary">Update</button>
     <a href="/clients" class="btn btn-link">Cancel</a>
   </form>
+  <form action="/clients/{{client._id}}" method="POST" id="delete-form">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit" class="btn btn-danger">Delete</button>
+  </form>
 </div>

@@ -13,10 +13,10 @@ router.get('/edit/:id', ensureAuth, clientsController.editClient)
 
 router.put('/:id', ensureAuth, clientsController.updateClient)
 
-// router.put('/markComplete', clientsController.markComplete)
+router.put('/closeMailbox', clientsController.closeMailbox)
 
-// router.put('/markIncomplete', clientsController.markIncomplete)
+router.put('/openMailbox', clientsController.openMailbox)
 
-router.delete('/deleteClient', ensureAuth, clientsController.deleteClient)
+router.delete('/:id', ensureAuth, clientsController.deleteClient)
 
 module.exports = router
