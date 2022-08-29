@@ -9,12 +9,14 @@ const ClientSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  //! add fields for additional names
-  // status: {
-  //   type: String,
-  //   default: 'open',
-  //   enum: ['open', 'closed']
-  // },
+  otherNames: {
+    type: String
+  },
+  status: {
+    type: String,
+    default: 'open',
+    enum: ['open', 'closed']
+  },
   //! add function to autogenerate box letter from first letter of last name
   // boxLetter: {
   //   type: String,
@@ -30,7 +32,7 @@ const ClientSchema = new mongoose.Schema({
     //! letter hyphen number
   },
   notes: {
-    type: String
+    type: String,
   },
   safetyConcern: {
     type: Boolean,
