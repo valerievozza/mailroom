@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <h3>Edit Client</h3>
+  <form action="/clients/{{client._id}}" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+    <div class="client-form">
+      <div class="form-group">
+        <label class="col-form-label mt-4" for="firstName">First Name</label>
+        <input type="text" class="form-control" value="{{client.firstName}}" id="firstName" name="firstName" required>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label mt-4" for="title">Last Name</label>
+        <input type="text" class="form-control" value="{{client.lastName}}" id="lastName" name="lastName" required>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label mt-4" for="box">Mailbox</label>
+        <input type="text" class="form-control" value="{{client.box}}" id="box" name="box" required>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a href="/clients" class="btn btn-link">Cancel</a>
+  </form>
+</div>

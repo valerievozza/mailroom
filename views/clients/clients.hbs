@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="title-add">
+    <h1>Client Mailboxes</h1>
+    {{>_add_btn}}
+  </div>
+  {{#each clients}}
+  <div class="card">
+    <div class="card-body clientMailbox">
+      <div class="box">
+        <h3>{{box}}</h3>
+      </div>
+      <div class="clientDetails">
+        <h4 class="card-title">{{firstName}} {{lastName}}</h4>
+        <p class="card-text">Notes here</p>
+        <a href="/clients/edit/{{_id}}" class="card-link">Edit</a>
+      </div>
+      <div class="checkbox">
+        <div>
+          <a href="#" class="btn btn-success btn-lg"><i class="fas fa-solid fa-check fa-fw"></i> Check</a>
+        </div>
+        <div>
+          Last checked:<br>{{formatDate client.lastChecked 'MM/D/YYYY'}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{else}}
+  <p>There are no open mailboxes</p>
+  {{/each}}
+</div>

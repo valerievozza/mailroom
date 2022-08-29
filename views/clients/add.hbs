@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <h3>Add a Client</h3>
+  <form action="/clients/createClient" method="POST">
+    <div class="client-form">
+      <div class="form-group">
+        <label class="col-form-label mt-4" for="firstName">First Name</label>
+        <input type="text" class="form-control" placeholder="First Name" id="firstName" name="firstName" required>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label mt-4" for="title">Last Name</label>
+        <input type="text" class="form-control" placeholder="Last Name" id="lastName" name="lastName" required>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label mt-4" for="box">Mailbox</label>
+        <input type="text" class="form-control" placeholder="Mailbox" id="box" name="box" required>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+    <a href="/clients" class="btn btn-link">Cancel</a>
+  </form>
+</div>

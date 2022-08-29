@@ -10,25 +10,25 @@ const ClientSchema = new mongoose.Schema({
     required: true,
   },
   //! add fields for additional names
-  status: {
-    type: String,
-    default: 'open',
-    enum: ['open', 'closed']
-  },
-  //! add function to autogenerate box letter from first letter of last name
-  boxLetter: {
-    type: String,
-    required: true
-  },
-  //! add function to autogenerate box number from next available whole number for that letter
-  boxNumber: {
-    type: Number,
-    required: true
-  },
-  // box: {
+  // status: {
   //   type: String,
-  //   //! letter hyphen number
+  //   default: 'open',
+  //   enum: ['open', 'closed']
   // },
+  //! add function to autogenerate box letter from first letter of last name
+  // boxLetter: {
+  //   type: String,
+  //   required: true
+  // },
+  //! add function to autogenerate box number from next available whole number for that letter
+  // boxNumber: {
+  //   type: Number,
+  //   required: true
+  // },
+  box: {
+    type: String,
+    //! letter hyphen number
+  },
   notes: {
     type: String
   },
@@ -41,18 +41,23 @@ const ClientSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now
     //! add option to set date manually
   },
   lastChecked: {
     type: Date,
-    default: Date.now,
-    //! add option to set date manually
+    default: Date.now
   },
-  userId: {
-    type: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true
-  }
+  },
+  // org: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'Org',
+  //   required: true
+  // }
 })
 
 module.exports = mongoose.model('Client', ClientSchema)
