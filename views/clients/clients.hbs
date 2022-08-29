@@ -25,6 +25,13 @@
           </form>
         </div>
         <div>
+          {{#if (checkedToday lastChecked)}}
+            CHECKED TODAY
+          {{else}}
+            NOT CHECKED TODAY
+          {{/if}}
+        </div>
+        <div>
           Last checked:<br>{{formatDate lastChecked 'MM/D/YYYY h:mm:ss a'}}
         </div>
       </div>
