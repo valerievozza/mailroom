@@ -48,3 +48,8 @@
 .uncheckedMailbox:hover {
   color: #00bc8c !important;
 }
+
+.showBox {
+  display: inline-block;
+  float: right;
+}

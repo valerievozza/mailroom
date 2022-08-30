@@ -10,6 +10,9 @@ module.exports = {
         lastChecked.getMonth() == today.getMonth() &&
         lastChecked.getFullYear() == today.getFullYear()
     },
+    checkSafety: (safetyConcern) => {
+      return safetyConcern
+    },
     truncate: function (str, len) {
         if (str.length > len && str.length > 0) {
             let new_str = str + ' '
