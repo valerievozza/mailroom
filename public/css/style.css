@@ -53,3 +53,8 @@
   display: inline-block;
   float: right;
 }
+
+a.client-list-entry {
+  text-decoration: none;
+  color: inherit;
+}

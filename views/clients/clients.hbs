@@ -4,37 +4,38 @@
     {{>_add_btn}}
   </div>
   {{#each clients}}
-  <div class="card">
-    <div class="card-body clientMailbox">
-      <div class="box">
-        <h4>{{box}}</h4>
-      </div>
-      <div class="clientDetails">
-        <h4 class="card-title">{{firstName}} {{lastName}}</h4>
-        <h6 class="card-subtitle mb-2 text-muted">{{otherNames}}</h6>
-        <p class="card-text">{{notes}}</p>
-        <a href="/clients/edit/{{_id}}" class="card-link">Edit</a>
-        <a href="/clients/{{_id}}" class="card-link">Show</a>
-      </div>
-      <div class="checkbox">
-        <div>
-          {{#if (checkedToday lastChecked)}}
-            <form action="/clients/check/{{_id}}" method="POST">
-              <input type="hidden" name="_method" value="PUT">
-              <button type="submit" class="btn btn-link"><h3><i class="fa-solid fa-circle-check"></i></h3></button>
-            </form>
-            <span>Last checked today</span>
-          {{else}}
-            <form action="/clients/check/{{_id}}" method="POST">
-              <input type="hidden" name="_method" value="PUT">
-              <button type="submit" class="btn btn-link uncheckedMailbox" alt="Check mail"><h3><i class="fa-regular fa-circle-check"></i></h3></button>
-            </form>
-            <span>Last checked {{formatDate lastChecked 'M/D/YY'}}</span>
-          {{/if}}
+  <a href="/clients/{{_id}}" class="client-list-entry">
+    <div class="card">
+      <div class="card-body clientMailbox">
+        <div class="box">
+          <h4>{{box}}</h4>
+        </div>
+        <div class="clientDetails">
+          <h4 class="card-title">{{firstName}} {{lastName}}</h4>
+          <h6 class="card-subtitle mb-2 text-muted">{{otherNames}}</h6>
+          <p class="card-text">{{notes}}</p>
+        </div>
+        <div class="checkbox">
+          <div>
+            {{#if (checkedToday lastChecked)}}
+              <form action="/clients/check/{{_id}}" method="POST">
+                <input type="hidden" name="_method" value="PUT">
+                <button type="submit" class="btn btn-link"><h3><i class="fa-solid fa-circle-check"></i></h3></button>
+              </form>
+              <span>Last checked today</span>
+            {{else}}
+              <form action="/clients/check/{{_id}}" method="POST">
+                <input type="hidden" name="_method" value="PUT">
+                <button type="submit" class="btn btn-link uncheckedMailbox" alt="Check mail"><h3><i class="fa-regular fa-circle-check"></i></h3></button>
+              </form>
+              <span>Last checked {{formatDate lastChecked 'M/D/YY'}}</span>
+            {{/if}}
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </a>
+  
   {{else}}
   <p>There are no open mailboxes</p>
   {{/each}}
