@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { mailChecks } = require('../helpers/hbs')
 
 const ClientSchema = new mongoose.Schema({
   firstName: {
@@ -46,9 +47,14 @@ const ClientSchema = new mongoose.Schema({
     default: Date.now
   },
   //! add option to set date manually
-  lastChecked: {
+  mailChecks: [{
     type: Date,
     default: Date.now
+  }],
+  lastChecked: {
+    type: Date,
+    default: mailChecks[mailChecks.length - 1],
+    ref: 'Client'
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,

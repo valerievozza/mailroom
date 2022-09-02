@@ -20,7 +20,7 @@
 
 .clientMailbox {
   display: grid;
-  grid-template-columns: 1fr 12fr 1fr;
+  grid-template-columns: 1fr 4fr 1fr;
   gap: 10px;
   align-items: center;
 }
@@ -57,4 +57,12 @@
 a.client-list-entry {
   text-decoration: none;
   color: inherit;
+}
+
+.check-undo {
+  display: flex;
+}
+
+.undo {
+  color: #adb5bd !important;
 }

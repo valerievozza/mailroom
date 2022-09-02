@@ -4,6 +4,13 @@ module.exports = {
     formatDate: function (date, format) {
         return moment(date).format(format)
     },
+    mailChecks: (mailChecks) => {
+      return mailChecks
+    },
+    lastChecked: (lastChecked) => {
+      lastChecked = mailChecks[mailChecks.length - 1]
+      return lastChecked
+    },
     checkedToday: (lastChecked) => {
       const today = new Date()
       return lastChecked.getDate() == today.getDate() &&
