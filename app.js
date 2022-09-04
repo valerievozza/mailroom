@@ -7,6 +7,7 @@ const methodOverride = require('method-override')
 const passport = require('passport')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
+const flash = require('express-flash') // lets us render messages without refreshing page
 const connectDB = require('./config/db')
 
 const mainRoutes = require('./routes/main')
@@ -92,6 +93,8 @@ app.use(function(req, res, next){
 
 //STATIC FOLDER
 app.use(express.static(path.join(__dirname, 'public')))
+
+app.use(flash())
 
 //ROUTES
 app.use('/', mainRoutes)
