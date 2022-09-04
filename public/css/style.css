@@ -1,8 +1,10 @@
+/* hero */
 .jumbotron {
   margin-top: 2rem;
   background-color: none !important;
 }
 
+/* add space between containers with default bootstrap container classes */
 .container, .container-fluid {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -13,11 +15,13 @@
   column-gap: 1rem !important;
 } */
 
+/* aligns title of client mailbox page and 'add new client' button */
 .title-add {
   display: flex;
   justify-content: space-between;
 }
 
+/* mailbox list layout */
 .clientMailbox {
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
@@ -37,14 +41,10 @@
   grid-column: 15 / 16;
 } */
 
-.client-list {
-  margin: 10px;
-}
-
+/* styles check icon for an mailbox that has not been checked today */
 .uncheckedMailbox {
   color: #adb5bd !important;
 }
-
 .uncheckedMailbox:hover {
   color: #00bc8c !important;
 }
