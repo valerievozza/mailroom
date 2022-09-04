@@ -1,5 +1,4 @@
 const { lastChecked } = require('../helpers/hbs')
-const { findOneAndUpdate } = require('../models/Client')
 const Client = require('../models/Client')
 
 module.exports = {
@@ -134,16 +133,13 @@ module.exports = {
             if (client.user != req.user.id) {
                 res.redirect('/')
             } else {
-                client = await Client.findOneAndUpdate({ _id: req.params.id }, { $pull: {mailChecks: lastChecked} }, {
+                client = await Client.findOneAndUpdate({ _id: req.params.id }, { $pop: {mailChecks: 1} }, {
                     new: true,
                     runValidators: true
                 })
                 res.redirect('/clients')
             }
-            
-            // await Client.findOneAndUpdate({_id: req.params.id}, {
-            //     lastChecked: Date.now()
-            // })
+
             console.log('Last mailbox check deleted!')
         } catch(err){
             console.log(err)
