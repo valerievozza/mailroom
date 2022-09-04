@@ -21,23 +21,25 @@
       <span class="showRight">Status: {{client.status}}</span>
     </div>
   </div>
-  <div class="card">
-    <div class="card-body">
-      <form action="/clients/edit/{{client._id}}" method="GET">
-        <button class="btn btn-primary">Edit</button>
-      </form>
-      {{#if (checkStatus client.status)}}
-      <form action="/clients/close/{{client._id}}" method="POST">
-      <input type="hidden" name="_method" value="PUT">
-        <button class="btn btn-danger">Close Mailbox</button>
-      </form>
-      {{else}}
-      <form action="/clients/reopen/{{client._id}}" method="POST">
-      <input type="hidden" name="_method" value="PUT">
-        <button class="btn btn-success">Reopen Mailbox</button>
-      </form>
-      {{/if}}
-      <button class="btn btn-secondary">Delete</button>
-    </div>
+  <div>Client record created by {{client.user}}</div>
+  <div class="flex">
+    <form action="/clients/edit/{{client._id}}" method="GET">
+      <button class="btn btn-primary">Edit</button>
+    </form>
+    {{#if (checkStatus client.status)}}
+    <form action="/clients/close/{{client._id}}" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+      <button class="btn btn-secondary">Close Mailbox</button>
+    </form>
+    {{else}}
+    <form action="/clients/reopen/{{client._id}}" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+      <button class="btn btn-success">Reopen Mailbox</button>
+    </form>
+    {{/if}}
+    <form action="/clients/{{client._id}}" method="POST">
+    <input type="hidden" name="_method" value="DELETE">
+      <button class="btn btn-danger">Delete</button>
+    </form>
   </div>
 </div>

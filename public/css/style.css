@@ -73,3 +73,7 @@ a.client-list-entry {
   font-size: 2rem;
   display: inline-block;
 }
+
+.flex {
+  display: flex;
+}
