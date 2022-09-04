@@ -15,8 +15,8 @@ const ClientSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    default: 'open',
-    enum: ['open', 'closed']
+    default: 'Open',
+    enum: ['Open', 'Closed']
   },
   //! add function to autogenerate box letter from first letter of last name
   // boxLetter: {

@@ -20,6 +20,9 @@ module.exports = {
     checkSafety: (safetyConcern) => {
       return safetyConcern
     },
+    checkStatus: (status) => {
+      return status == 'Open'
+    },
     truncate: function (str, len) {
         if (str.length > len && str.length > 0) {
             let new_str = str + ' '

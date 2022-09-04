@@ -155,7 +155,7 @@ module.exports = {
                 res.redirect('/')
             } else {
                 client = await Client.findOneAndUpdate({_id: req.params.id}, {
-                    status: 'closed'
+                    status: 'Closed'
                 }, {
                     new: true,
                     runValidators: true
@@ -168,15 +168,29 @@ module.exports = {
             console.error(err)
         }
     },
-    openMailbox: async (req, res)=>{
-        try{
-            await Client.findOneAndUpdate({_id:req.body.clientIdFromJSFile},{
-                status: 'open'
-            })
-            console.log('Mailbox Open')
-            res.json('Mailbox Open')
-        }catch(err){
-            console.log(err)
+    reopenMailbox: async (req, res)=>{
+        try {
+            let client = await Client.findById(req.params.id).lean()
+
+            if (!client) {
+                return res.render('error/404')
+            }
+
+            if (client.user != req.user.id) {
+                res.redirect('/')
+            } else {
+                client = await Client.findOneAndUpdate({_id: req.params.id}, {
+                    status: 'Open'
+                }, {
+                    new: true,
+                    runValidators: true
+                })
+            console.log('Mailbox reopened!')
+            res.redirect('/clients')
+            }
+
+        } catch (err) {
+            console.error(err)
         }
     },
     deleteClient: async (req, res)=>{

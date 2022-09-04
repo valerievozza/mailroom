@@ -45,7 +45,7 @@ if(process.env.NODE_ENV === 'development') {
 }
 
 //HELPERS
-const { formatDate, mailChecks, lastChecked, checkedToday, checkSafety, stripTags, truncate, editIcon, select } = require('./helpers/hbs')
+const { formatDate, mailChecks, lastChecked, checkedToday, checkSafety, checkStatus, stripTags, truncate, editIcon, select } = require('./helpers/hbs')
 
 //Handlebars
 app.engine(
@@ -57,6 +57,7 @@ app.engine(
             lastChecked,
             checkedToday,
             checkSafety,
+            checkStatus,
             stripTags,
             truncate,
             editIcon,

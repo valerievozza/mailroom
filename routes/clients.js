@@ -21,7 +21,7 @@ router.put('/uncheck/:id', ensureAuth, clientsController.markUnchecked)
 
 router.put('/close/:id', clientsController.closeMailbox)
 
-router.put('/openMailbox', clientsController.openMailbox)
+router.put('/reopen/:id', clientsController.reopenMailbox)
 
 router.delete('/:id', ensureAuth, clientsController.deleteClient)
 

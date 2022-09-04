@@ -1,11 +1,11 @@
 <div class="container">
   <h1>Client Page</h1>
   <div class="card mb-3">
-    <h3 class="card-header">{{client.firstName}} {{client.lastName}} <span class="showBox"> {{client.box}}</span></h3>
+    <h3 class="card-header">{{client.firstName}} {{client.lastName}} <span class="showRight"> {{client.box}}</span></h3>
     <div class="card-body">
       <div>
         {{#if (checkSafety client.safetyConcern)}}
-        SAFETY CONCERN!
+        <span class="showRight"><i class="fa-solid fa-circle-exclamation safetyConcern fa-fw"></i> Safety Concern</span>
         {{/if}}
       </div>
       <h5 class="card-title">Other names client may receive mail addressed to</h5>
@@ -16,7 +16,8 @@
       <p class="card-text">{{client.notes}}</p>
     </div>
     <div class="card-footer text-muted">
-      Mailbox last checked {{formatDate client.lastChecked 'MMM Do, YYYY'}}
+      <span>Mailbox last checked {{formatDate client.lastChecked 'MMM Do, YYYY'}}</span>
+      <span class="showRight">Status: {{client.status}}</span>
     </div>
   </div>
   <div class="card">
@@ -24,10 +25,17 @@
       <form action="/clients/edit/{{client._id}}" method="GET">
         <button class="btn btn-primary">Edit</button>
       </form>
+      {{#if (checkStatus client.status)}}
       <form action="/clients/close/{{client._id}}" method="POST">
       <input type="hidden" name="_method" value="PUT">
         <button class="btn btn-danger">Close Mailbox</button>
       </form>
+      {{else}}
+      <form action="/clients/reopen/{{client._id}}" method="POST">
+      <input type="hidden" name="_method" value="PUT">
+        <button class="btn btn-success">Reopen Mailbox</button>
+      </form>
+      {{/if}}
       <button class="btn btn-secondary">Delete</button>
     </div>
   </div>

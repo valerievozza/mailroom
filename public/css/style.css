@@ -49,7 +49,8 @@
   color: #00bc8c !important;
 }
 
-.showBox {
+/* Aligns items to the right in the show client view */
+.showRight {
   display: inline-block;
   float: right;
 }
