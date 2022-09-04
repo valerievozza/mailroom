@@ -9,6 +9,9 @@
         <a href="/clients/{{_id}}" class="client-list-entry">
           <div class="box">
             <h4>{{box}}</h4>
+            {{#if safetyConcern}}
+            <span><i class="fa-solid fa-circle-exclamation safetyConcern"></i></span>
+            {{/if}}
           </div>
         </a>
         <a href="/clients/{{_id}}" class="client-list-entry">

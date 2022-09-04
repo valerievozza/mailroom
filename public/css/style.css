@@ -66,3 +66,9 @@ a.client-list-entry {
 .undo {
   color: #adb5bd !important;
 }
+
+.safetyConcern {
+  color: yellow;
+  font-size: 2rem;
+  display: inline-block;
+}
