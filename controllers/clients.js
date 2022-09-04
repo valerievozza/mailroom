@@ -34,8 +34,6 @@ module.exports = {
                 })
                 console.log(client)
             }
-
-            res.render('clients/show')
         } catch (err) {
             console.error(err)
         }
@@ -146,20 +144,34 @@ module.exports = {
         }
     },
     closeMailbox: async (req, res)=>{
-        try{
-            await Client.findOneAndUpdate({_id:req.body.clientIdFromJSFile},{
-                completed: true
-            })
-            console.log('Mailbox Closed')
-            res.json('Mailbox Closed')
-        }catch(err){
-            console.log(err)
+        try {
+            let client = await Client.findById(req.params.id).lean()
+
+            if (!client) {
+                return res.render('error/404')
+            }
+
+            if (client.user != req.user.id) {
+                res.redirect('/')
+            } else {
+                client = await Client.findOneAndUpdate({_id: req.params.id}, {
+                    status: 'closed'
+                }, {
+                    new: true,
+                    runValidators: true
+                })
+            console.log('Mailbox is closed!')
+            res.redirect('/clients')
+            }
+
+        } catch (err) {
+            console.error(err)
         }
     },
     openMailbox: async (req, res)=>{
         try{
             await Client.findOneAndUpdate({_id:req.body.clientIdFromJSFile},{
-                completed: false
+                status: 'open'
             })
             console.log('Mailbox Open')
             res.json('Mailbox Open')

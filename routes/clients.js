@@ -19,7 +19,7 @@ router.put('/check/:id', ensureAuth, clientsController.markChecked)
 
 router.put('/uncheck/:id', ensureAuth, clientsController.markUnchecked)
 
-router.put('/closeMailbox', clientsController.closeMailbox)
+router.put('/close/:id', clientsController.closeMailbox)
 
 router.put('/openMailbox', clientsController.openMailbox)
 
