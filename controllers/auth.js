@@ -94,9 +94,9 @@ const User = require('../models/User')
 
   exports.getDashboard = async (req, res) => {
     try {
-      const org = await User.find({user: req.user.id}).lean()
+      const org = await User.find({user: req.user.id, org: req.user.org}).lean()
       res.render('dashboard', {
-        org: req.user.org
+        org
       })
     } catch (err) {
       console.error(err)
