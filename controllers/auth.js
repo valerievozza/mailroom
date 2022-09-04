@@ -2,6 +2,7 @@ const passport = require('passport')
 const validator = require('validator')
 const User = require('../models/User')
 
+
  exports.getLogin = (req, res) => {
     if (req.user) {
       return res.redirect('/clients')
@@ -89,4 +90,16 @@ const User = require('../models/User')
         })
       })
     })
+  }
+
+  exports.getDashboard = async (req, res) => {
+    try {
+      const org = await User.find({user: req.user.id}).lean()
+      res.render('dashboard', {
+        org: req.user.org
+      })
+    } catch (err) {
+      console.error(err)
+      res.render('error/500')
+    }
   }
