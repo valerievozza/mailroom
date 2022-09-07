@@ -11,11 +11,13 @@
   <div>
     <ul class="nav nav-pills">
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Filter by Status</a>
         <div class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 42px);" data-popper-placement="bottom-start">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="/clients">Open
+            <span class="visually-hidden">(current)</span>
+          </a>
+          <a class="dropdown-item" href="/clients/closed">Closed</a>
+          <a class="dropdown-item" href="/clients/all">All</a>
         </div>
       </li>
     </ul>

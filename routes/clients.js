@@ -4,6 +4,8 @@ const clientsController = require('../controllers/clients')
 const { ensureAuth } = require('../middleware/auth')
 
 router.get('/', ensureAuth, clientsController.getOpenBoxes)
+router.get('/closed', ensureAuth, clientsController.getClosedBoxes)
+router.get('/all', ensureAuth, clientsController.getAllBoxes)
 
 router.get('/add', clientsController.addPage)
 
