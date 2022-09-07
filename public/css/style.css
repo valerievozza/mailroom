@@ -103,3 +103,8 @@ a.client-list-entry {
   background-color: #00bc8c;
   border-radius: 50%;
 }
+
+/* Styles search bar & buttons */
+.search {
+  column-gap: 10px;
+}

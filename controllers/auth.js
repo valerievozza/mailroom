@@ -1,7 +1,7 @@
 const passport = require('passport')
 const validator = require('validator')
 const User = require('../models/User')
-
+const Client = require('../models/Client')
 
  exports.getLogin = (req, res) => {
     if (req.user) {
@@ -93,14 +93,16 @@ const User = require('../models/User')
   }
 
   exports.getDashboard = async (req, res) => {
-    try {
-      const user = await User.findById(req.user.id)
-        .lean()
+    try{
+      const user = await User.findById(req.user.id).lean()
+      const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
+      const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
+      const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
       res.render('dashboard', {
-        user
+          user, open: openBoxes, closed: closedBoxes, total: totalBoxes
       })
-    } catch (err) {
+    } catch(err) {
       console.error(err)
       res.render('error/500')
-    }
   }
+}

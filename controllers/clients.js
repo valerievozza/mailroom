@@ -9,9 +9,10 @@ module.exports = {
                 .populate('user')
                 .sort({box: 'asc'})
                 .lean() //! Change this to org ID
-            const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
-            const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
-            const totalBoxes = await Client.countDocuments({user: req.user.id}).lean()
+            const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
+            const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
+            const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
+            console.log(clients)
             res.render('clients/clients', {
                 clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
             })
@@ -139,7 +140,10 @@ module.exports = {
     },
     search: async (req, res) => {
         try{
-            const clients = await Client.find({user: req.user.id, lastName: req.query.search})
+            const clients = await Client.find({
+                user: req.user.id,
+                lastName: req.query.search
+                })
                 .populate('user')
                 .sort({box: 'asc'})
                 .lean()
