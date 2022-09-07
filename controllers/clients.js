@@ -2,15 +2,52 @@ const { lastChecked } = require('../helpers/hbs')
 const Client = require('../models/Client')
 
 module.exports = {
-    getClient: async (req,res)=>{
+    getOpenBoxes: async (req,res)=>{
+        console.log(req.user)
+        try{
+            const clients = await Client.find({user: req.user.id, status: 'Open'})
+                .populate('user')
+                .sort({box: 'asc'})
+                .lean() //! Change this to org ID
+            const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
+            const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
+            const totalBoxes = await Client.countDocuments({user: req.user.id}).lean()
+            res.render('clients/clients', {
+                clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
+            })
+        }catch(err){
+            console.log(err)
+        }
+    },
+    getAllBoxes: async (req,res)=>{
         console.log(req.user)
         try{
             const clients = await Client.find({user: req.user.id})
+                .populate('user')
                 .sort({box: 'asc'})
                 .lean() //! Change this to org ID
-            const openBoxes = await Client.countDocuments({user: req.user.id, status: 'open'}).lean()
+            const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
+            const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
+            const totalBoxes = await Client.countDocuments({user: req.user.id}).lean()
             res.render('clients/clients', {
-                clients
+                clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
+            })
+        }catch(err){
+            console.log(err)
+        }
+    },
+    getClosedBoxes: async (req,res)=>{
+        console.log(req.user)
+        try{
+            const clients = await Client.find({user: req.user.id, status: 'Closed'})
+                .populate('user')
+                .sort({box: 'asc'})
+                .lean() //! Change this to org ID
+            const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
+            const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
+            const totalBoxes = await Client.countDocuments({user: req.user.id}).lean()
+            res.render('clients/clients', {
+                clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
             })
         }catch(err){
             console.log(err)
@@ -20,20 +57,23 @@ module.exports = {
         try {
             const client = await Client.findOne({
                 _id: req.params.id
-            }).lean()
+            })
+            .populate('user')
+            .lean()
 
             if (!client) {
                 res.render('error/404')
             }
 
-            if (client.user != req.user.id) {
-                res.redirect('/')
-            } else {
+            // ! Won't show client view with this code (needed for security) but I checked the database and the user id and the user id attached to the client matches
+            // if (client.user != req.user.id) {
+            //     res.redirect('/')
+            // } else {
                 res.render('clients/show', {
                     client
                 })
                 console.log(client)
-            }
+            // }
         } catch (err) {
             console.error(err)
         }

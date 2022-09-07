@@ -74,6 +74,23 @@ a.client-list-entry {
   display: inline-block;
 }
 
+/* Displays items in a row */
 .flex {
   display: flex;
+  justify-content: space-around;
+}
+
+.features-list {
+  margin-top: 30px;
+}
+
+.feature-item h3 {
+  text-align: center;
+}
+
+.feature-circle {
+  height: 150px;
+  width: 150px;
+  background-color: #00bc8c;
+  border-radius: 50%;
 }

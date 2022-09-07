@@ -3,7 +3,7 @@ const router = express.Router()
 const clientsController = require('../controllers/clients') 
 const { ensureAuth } = require('../middleware/auth')
 
-router.get('/', ensureAuth, clientsController.getClient)
+router.get('/', ensureAuth, clientsController.getOpenBoxes)
 
 router.get('/add', clientsController.addPage)
 

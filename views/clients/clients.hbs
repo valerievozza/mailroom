@@ -3,6 +3,23 @@
     <h1>Client Mailboxes</h1>
     {{>_add_btn}}
   </div>
+  <div>
+    <p>Open Mailboxes: {{open}}</p>
+    <p>Closed Mailboxes: {{closed}}</p>
+    <p>Total Mailboxes: {{total}}</p>  
+  </div>
+  <div>
+    <ul class="nav nav-pills">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        <div class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 42px);" data-popper-placement="bottom-start">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+    </ul>
+  </div>
   {{#each clients}}
     <div class="card">
       <div class="card-body clientMailbox">
@@ -19,6 +36,7 @@
             <h4 class="card-title">{{firstName}} {{lastName}}</h4>
             <h6 class="card-subtitle mb-2 text-muted">{{otherNames}}</h6>
             <p class="card-text">{{notes}}</p>
+            <span>{{status}}</span>
           </div>
         </a>
         <div class="checkbox">

@@ -21,25 +21,25 @@
       <span class="showRight">Status: {{client.status}}</span>
     </div>
   </div>
-  <div>Client record created by {{client.user}}</div>
+  <div>Client record created by {{client.user.username}}</div>
   <div class="flex">
     <form action="/clients/edit/{{client._id}}" method="GET">
-      <button class="btn btn-primary">Edit</button>
+      <button class="btn btn-primary btn-lg">Edit</button>
     </form>
     {{#if (checkStatus client.status)}}
     <form action="/clients/close/{{client._id}}" method="POST">
     <input type="hidden" name="_method" value="PUT">
-      <button class="btn btn-secondary">Close Mailbox</button>
+      <button class="btn btn-secondary btn-lg">Close Mailbox</button>
     </form>
     {{else}}
     <form action="/clients/reopen/{{client._id}}" method="POST">
     <input type="hidden" name="_method" value="PUT">
-      <button class="btn btn-success">Reopen Mailbox</button>
+      <button class="btn btn-success btn-lg">Reopen Mailbox</button>
     </form>
     {{/if}}
     <form action="/clients/{{client._id}}" method="POST">
     <input type="hidden" name="_method" value="DELETE">
-      <button class="btn btn-danger">Delete</button>
+      <button class="btn btn-danger btn-lg">Delete</button>
     </form>
   </div>
 </div>
