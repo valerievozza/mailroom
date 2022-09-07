@@ -79,6 +79,15 @@ a.client-list-entry {
   display: flex;
   justify-content: space-around;
 }
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+}
 
 .features-list {
   margin-top: 30px;

@@ -3,21 +3,18 @@
     <h1>Client Mailboxes</h1>
     {{>_add_btn}}
   </div>
-  <div>
-    <p>Open Mailboxes: {{open}}</p>
-    <p>Closed Mailboxes: {{closed}}</p>
-    <p>Total Mailboxes: {{total}}</p>  
-  </div>
-  <div>
+  <div class="right">
     <ul class="nav nav-pills">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Filter by Status</a>
         <div class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 42px);" data-popper-placement="bottom-start">
-          <a class="dropdown-item" href="/clients">Open
+          <a class="dropdown-item" href="/clients">Open 
+          <span class="text-success"><strong>{{open}}</strong></span>
             <span class="visually-hidden">(current)</span>
           </a>
-          <a class="dropdown-item" href="/clients/closed">Closed</a>
-          <a class="dropdown-item" href="/clients/all">All</a>
+          <a class="dropdown-item" href="/clients/closed">Closed 
+          <span class="text-danger"><strong>{{closed}}</strong></span></a>
+          <a class="dropdown-item" href="/clients/all">All <span class="text-info"><strong>{{total}}</strong></span></a>
         </div>
       </li>
     </ul>
