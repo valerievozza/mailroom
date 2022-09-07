@@ -137,6 +137,22 @@ module.exports = {
             console.error(err)
         }
     },
+    search: async (req, res) => {
+        try{
+            const clients = await Client.find({user: req.user.id, lastName: req.query.search})
+                .populate('user')
+                .sort({box: 'asc'})
+                .lean()
+            const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
+            const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
+            const totalBoxes = await Client.countDocuments({user: req.user.id}).lean()
+            res.render('clients/clients', {
+                clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
+            })
+        }catch(err){
+            console.log(err)
+        }
+    },
     markChecked: async (req, res)=>{
         try{
             let client = await Client.findById(req.params.id).lean()

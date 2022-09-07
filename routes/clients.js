@@ -7,6 +7,8 @@ router.get('/', ensureAuth, clientsController.getOpenBoxes)
 router.get('/closed', ensureAuth, clientsController.getClosedBoxes)
 router.get('/all', ensureAuth, clientsController.getAllBoxes)
 
+router.get('/search', ensureAuth, clientsController.search)
+
 router.get('/add', clientsController.addPage)
 
 router.post('/createClient', ensureAuth, clientsController.createClient)

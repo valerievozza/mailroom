@@ -11,11 +11,15 @@ module.exports = {
       lastChecked = mailChecks[mailChecks.length - 1]
       return lastChecked
     },
+    //! Something about this isn't working -- without if statement getting error
+    //! TypeError: Cannot read properties of undefined (reading 'getDate')
     checkedToday: (lastChecked) => {
       const today = new Date()
-      return lastChecked.getDate() == today.getDate() &&
+      if (lastChecked) {
+        return lastChecked.getDate() == today.getDate() &&
         lastChecked.getMonth() == today.getMonth() &&
-        lastChecked.getFullYear() == today.getFullYear()
+        lastChecked.getFullYear() == today.getFullYear() 
+      }
     },
     checkSafety: (safetyConcern) => {
       return safetyConcern
