@@ -61,6 +61,10 @@ const ClientSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+  deleted: {
+    type: Boolean,
+    default: false
+  }
   // org: {
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: 'Org',

@@ -25,6 +25,6 @@ router.put('/close/:id', clientsController.closeMailbox)
 
 router.put('/reopen/:id', clientsController.reopenMailbox)
 
-router.delete('/:id', ensureAuth, clientsController.deleteClient)
+router.put('/delete/:id', ensureAuth, clientsController.deleteClient)
 
 module.exports = router

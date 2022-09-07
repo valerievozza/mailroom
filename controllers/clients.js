@@ -5,7 +5,7 @@ module.exports = {
     getOpenBoxes: async (req,res)=>{
         console.log(req.user)
         try{
-            const clients = await Client.find({user: req.user.id, status: 'Open'})
+            const clients = await Client.find({user: req.user.id, status: 'Open', deleted: false})
                 .populate('user')
                 .sort({box: 'asc'})
                 .lean() //! Change this to org ID
@@ -22,7 +22,7 @@ module.exports = {
     getAllBoxes: async (req,res)=>{
         console.log(req.user)
         try{
-            const clients = await Client.find({user: req.user.id})
+            const clients = await Client.find({user: req.user.id, deleted: false})
                 .populate('user')
                 .sort({box: 'asc'})
                 .lean() //! Change this to org ID
@@ -39,7 +39,7 @@ module.exports = {
     getClosedBoxes: async (req,res)=>{
         console.log(req.user)
         try{
-            const clients = await Client.find({user: req.user.id, status: 'Closed'})
+            const clients = await Client.find({user: req.user.id, status: 'Closed', deleted: false})
                 .populate('user')
                 .sort({box: 'asc'})
                 .lean() //! Change this to org ID
@@ -234,13 +234,25 @@ module.exports = {
         }
     },
     deleteClient: async (req, res)=>{
-        try{
-            await Client.remove({ _id: req.params.id })
-            console.log('Client deleted from database')
-            res.redirect('/clients')
+        try {
+            let client = await Client.findById(req.params.id).lean()
 
-        }catch(err){
-            console.log(err)
+            if (!client) {
+                return res.render('error/404')
+            }
+
+            if (client.user != req.user.id) {
+                res.redirect('/')
+            } else {
+                client = await Client.findOneAndUpdate({_id: req.params.id}, {deleted: true}, {
+                    new: true,
+                    runValidators: true
+                })
+            res.redirect('/clients')
+            }
+
+        } catch (err) {
+            console.error(err)
         }
     }
 }    

@@ -1,6 +1,8 @@
-<div class="container">
-  <a href="/clients" class="btn btn-link">Back</a>
+<div class="container-fluid flex-between">
   <h1>Client Page</h1>
+  <a href="/clients" class="btn btn-link right">Back</a>
+</div>
+<div class="container">
   <div class="card mb-3">
     <h3 class="card-header">{{client.firstName}} {{client.lastName}} <span class="showRight"> {{client.box}}</span></h3>
     <div class="card-body">
@@ -37,8 +39,8 @@
       <button class="btn btn-success btn-lg">Reopen Mailbox</button>
     </form>
     {{/if}}
-    <form action="/clients/{{client._id}}" method="POST">
-    <input type="hidden" name="_method" value="DELETE">
+    <form action="/clients/delete/{{client._id}}" method="POST">
+    <input type="hidden" name="_method" value="PUT">
       <button class="btn btn-danger btn-lg">Delete</button>
     </form>
   </div>
