@@ -32,6 +32,12 @@ const ClientSchema = new mongoose.Schema({
     type: String,
     //! letter hyphen number
   },
+  phone: {
+    type: String
+  },
+  email: {
+    type: String
+  },
   notes: {
     type: String,
   },

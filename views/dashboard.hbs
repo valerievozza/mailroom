@@ -1,11 +1,16 @@
 <div class="container">
   <div class="jumbotron">
-    <h1>{{user.org}} Dashboard</h1>
+    <h1 class="card-title">{{user.org}} Dashboard</h1>
     <div class="card-body">
+      <p>Welcome, {{user.username}}</p>
       <h4>Mailbox Stats:</h4>
       <p><strong>Open:</strong> {{open}}</p>
       <p><strong>Closed:</strong> {{closed}}</p>
       <p><strong>Total:</strong> {{total}}</p>
+      {{!-- <p><strong>Inactive Mailboxes:</strong></p> --}}
     </div>
+    {{!-- <div class="card-body">
+      <h4>Mail Checks Today:</h4>
+    </div> --}}
   </div>
 </div>

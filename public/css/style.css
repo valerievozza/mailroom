@@ -108,3 +108,9 @@ a.client-list-entry {
 .search {
   column-gap: 10px;
 }
+
+/* List of mail checks */
+.mailChecks li {
+  list-style-type: none;
+  margin-left: -30px;
+}

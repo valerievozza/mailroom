@@ -3,45 +3,58 @@
   <a href="/clients" class="btn btn-link right">Back</a>
 </div>
 <div class="container">
+  {{#with client}}
   <div class="card mb-3">
-    <h3 class="card-header">{{client.firstName}} {{client.lastName}} <span class="showRight"> {{client.box}}</span></h3>
+    <h3 class="card-header">{{firstName}} {{lastName}} <span class="showRight"> {{box}}</span></h3>
     <div class="card-body">
       <div>
-        {{#if (checkSafety client.safetyConcern)}}
+        {{#if (checkSafety safetyConcern)}}
         <span class="showRight"><i class="fa-solid fa-circle-exclamation safetyConcern fa-fw"></i> Safety Concern</span>
         {{/if}}
       </div>
       <h5 class="card-title">Other names client may receive mail addressed to</h5>
-      <h6 class="card-subtitle text-muted">{{client.otherNames}}</h6>
+      <h6 class="card-subtitle text-muted">{{otherNames}}</h6>
     </div>
     <div class="card-body">
+      <h4>Contact</h4>
+      <p class="card-text"><strong>Phone:</strong> {{phone}}</p>
+      <p class="card-text"><strong>Email:</strong> {{email}}</p>
       <h4>Notes</h4>
-      <p class="card-text">{{client.notes}}</p>
+      <p class="card-text">{{notes}}</p>
+      <h5>Mail Checks</h5>
+      <p class="card-text">
+        <ul class="mailChecks">
+          {{#each mailChecks}}
+            <li>{{formatDate this 'MMM Do, YYYY'}}</li>
+          {{/each}}
+        </ul>
+      </p>
     </div>
     <div class="card-footer text-muted">
-      <span>Mailbox last checked {{formatDate client.lastChecked 'MMM Do, YYYY'}}</span>
-      <span class="showRight">Status: {{client.status}}</span>
+      <span>Mailbox last checked {{formatDate lastChecked 'MMM Do, YYYY'}}</span>
+      <span class="showRight">Status: {{status}}</span>
     </div>
   </div>
-  <div>Client record created by {{client.user.username}}</div>
+  <div>Client record created by {{user.username}}</div>
   <div class="flex">
-    <form action="/clients/edit/{{client._id}}" method="GET">
+    <form action="/clients/edit/{{_id}}" method="GET">
       <button class="btn btn-primary btn-lg">Edit</button>
     </form>
-    {{#if (checkStatus client.status)}}
-    <form action="/clients/close/{{client._id}}" method="POST">
+    {{#if (checkStatus status)}}
+    <form action="/clients/close/{{_id}}" method="POST">
     <input type="hidden" name="_method" value="PUT">
       <button class="btn btn-secondary btn-lg">Close Mailbox</button>
     </form>
     {{else}}
-    <form action="/clients/reopen/{{client._id}}" method="POST">
+    <form action="/clients/reopen/{{_id}}" method="POST">
     <input type="hidden" name="_method" value="PUT">
       <button class="btn btn-success btn-lg">Reopen Mailbox</button>
     </form>
     {{/if}}
-    <form action="/clients/delete/{{client._id}}" method="POST">
+    <form action="/clients/delete/{{_id}}" method="POST">
     <input type="hidden" name="_method" value="PUT">
       <button class="btn btn-danger btn-lg">Delete</button>
     </form>
   </div>
+  {{/with}}
 </div>
