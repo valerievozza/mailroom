@@ -12,7 +12,6 @@ module.exports = {
             const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
             const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
             const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
-            console.log(clients)
             res.render('clients/clients', {
                 clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
             })
@@ -140,9 +139,14 @@ module.exports = {
     },
     search: async (req, res) => {
         try{
+            let filter = req.query.search
             const clients = await Client.find({
                 user: req.user.id,
-                lastName: req.query.search
+                $or: [
+                    { firstName: filter },
+                    { lastName: filter },
+                    { box: filter }
+                ]
                 })
                 .populate('user')
                 .sort({box: 'asc'})
