@@ -146,6 +146,7 @@ module.exports = {
                 $or: [
                     { firstName: {$regex: regex} },
                     { lastName: {$regex: regex} },
+                    { otherNames: {$regex: regex} },
                     { box: {$regex: regex} }
                 ]
                 })
