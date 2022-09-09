@@ -140,12 +140,13 @@ module.exports = {
     search: async (req, res) => {
         try{
             let filter = req.query.search
+            let regex = new RegExp(filter, 'i')
             const clients = await Client.find({
                 user: req.user.id,
                 $or: [
-                    { firstName: filter },
-                    { lastName: filter },
-                    { box: filter }
+                    { firstName: {$regex: regex} },
+                    { lastName: {$regex: regex} },
+                    { box: {$regex: regex} }
                 ]
                 })
                 .populate('user')
