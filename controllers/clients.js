@@ -140,9 +140,11 @@ module.exports = {
     search: async (req, res) => {
         try{
             let filter = req.query.search
+            filter = filter.trim()
             let regex = new RegExp(filter, 'i')
             const clients = await Client.find({
                 user: req.user.id,
+                deleted: false,
                 $or: [
                     { firstName: {$regex: regex} },
                     { lastName: {$regex: regex} },
