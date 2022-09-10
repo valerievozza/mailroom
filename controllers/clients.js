@@ -195,6 +195,7 @@ module.exports = {
     markUnchecked: async (req, res)=>{
         try{
             let client = await Client.findById(req.params.id).lean()
+            let mailChecks = client.mailChecks
 
             if (!client) {
                 res.render('error/404')
@@ -207,6 +208,12 @@ module.exports = {
                     new: true,
                     runValidators: true
                 })
+                // ! This is not working. Need to update lastChecked value based on new mailChecks array after update
+                client = await Client.findOneAndUpdate({ _id: req.params.id }, { $set: {lastChecked: mailChecks[mailChecks.length - 1]}}, {
+                    new: true,
+                    runValidators: true
+                })
+                
                 res.redirect('/clients')
             }
 
@@ -263,6 +270,14 @@ module.exports = {
 
         } catch (err) {
             console.error(err)
+        }
+    },
+    isInactive: async (req, res) => {
+        try {
+            
+        } catch (err) {
+            console.error(err)
+            res.render('error/500')
         }
     },
     deleteClient: async (req, res)=>{

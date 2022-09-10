@@ -62,8 +62,7 @@ const ClientSchema = new mongoose.Schema({
   }],
   lastChecked: {
     type: Date,
-    default: mailChecks[mailChecks.length - 1],
-    ref: 'Client'
+    default: Date.now
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
