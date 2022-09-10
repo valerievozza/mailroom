@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const { mailChecks } = require('../helpers/hbs')
+const uniqueValidator = require('mongoose-unique-validator')
 
 const ClientSchema = new mongoose.Schema({
   firstName: {
@@ -30,6 +31,8 @@ const ClientSchema = new mongoose.Schema({
   // },
   box: {
     type: String,
+    unique: true,
+    uniqueCaseInsensitive: true
     //! letter hyphen number
   },
   phone: {
@@ -43,7 +46,7 @@ const ClientSchema = new mongoose.Schema({
   },
   safetyConcern: {
     type: Boolean,
-    default: false
+    required: true
   },
   fwdAddress: {
     type: String
@@ -77,5 +80,7 @@ const ClientSchema = new mongoose.Schema({
   //   required: true
   // }
 })
+
+ClientSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Client', ClientSchema)

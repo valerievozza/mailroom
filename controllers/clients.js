@@ -76,6 +76,7 @@ module.exports = {
             // }
         } catch (err) {
             console.error(err)
+            res.render('error/404')
         }
     },
     addPage: (req,res)=>{
@@ -87,9 +88,12 @@ module.exports = {
             await Client.create(req.body)
             console.log('Client saved to database')
             res.redirect('/clients')
-        }catch(err){
-            console.log(err)
+        }catch(error){
+            console.log(error)
             //! render error page
+            if (error.name == 'ValidationError') {
+                res.render('error/400')
+            }
         }
     },
     editClient: async (req, res) => {
