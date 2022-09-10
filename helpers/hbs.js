@@ -22,7 +22,11 @@ module.exports = {
       }
     },
     checkSafety: (safetyConcern) => {
-      return safetyConcern
+      if (safetyConcern == true) {
+        return true
+      } else {
+        return false
+      }
     },
     checkStatus: (status) => {
       return status == 'Open'
