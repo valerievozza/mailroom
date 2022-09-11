@@ -204,15 +204,16 @@ module.exports = {
             if (client.user != req.user.id) {
                 res.redirect('/')
             } else {
-                client = await Client.findOneAndUpdate({ _id: req.params.id }, { $pop: {mailChecks: 1} }, {
+                await Client.findOneAndUpdate({ _id: req.params.id }, { $pop: {mailChecks: 1} }, {
                     new: true,
                     runValidators: true
                 })
-                // ! This is not working. Need to update lastChecked value based on new mailChecks array after update
-                client = await Client.findOneAndUpdate({ _id: req.params.id }, { $set: {lastChecked: mailChecks[mailChecks.length - 1]}}, {
-                    new: true,
-                    runValidators: true
-                })
+
+                // // ! This is not working. Need to update lastChecked value based on new mailChecks array after update
+                // await Client.findOneAndUpdate({ _id: req.params.id }, { $set: {lastChecked: mailChecks[mailChecks.length - 1]}}, {
+                //     new: true,
+                //     runValidators: true
+                // })
                 
                 res.redirect('/clients')
             }

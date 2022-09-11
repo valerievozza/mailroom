@@ -89,19 +89,29 @@ a.client-list-entry {
   justify-content: flex-end;
 }
 
+.features {
+  margin-top: 50px;
+}
+
 .features-list {
   margin-top: 30px;
 }
 
-.feature-item h3 {
-  text-align: center;
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .feature-circle {
-  height: 150px;
-  width: 150px;
+  height: 125px;
+  width: 125px;
   background-color: #00bc8c;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
 }
 
 /* Styles search bar & buttons */
@@ -113,4 +123,20 @@ a.client-list-entry {
 .mailChecks li {
   list-style-type: none;
   margin-left: -30px;
+}
+
+h1.title {
+  font-family: 'Montserrat' !important;
+  font-weight: 400;
+  color: #00bc8c;
+  letter-spacing: -2px;
+}
+
+.feature-item h4 {
+  margin-top: 20px;
+}
+
+.lead-buttons {
+  display: flex;
+  column-gap: 15px;
 }
