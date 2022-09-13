@@ -140,3 +140,8 @@ h1.title {
   display: flex;
   column-gap: 15px;
 }
+
+.fa-paper-plane {
+  font-size: 2rem;
+  margin-left: 10px
+}

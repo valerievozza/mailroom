@@ -60,10 +60,10 @@ const ClientSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }],
-  lastChecked: {
-    type: Date,
-    default: Date.now
-  },
+  // lastChecked: {
+  //   type: Date,
+  //   default: Date.now
+  // },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -72,13 +72,17 @@ const ClientSchema = new mongoose.Schema({
   deleted: {
     type: Boolean,
     default: false
-  }
+  },
   // org: {
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: 'Org',
   //   required: true
   // }
 })
+
+// ClientSchema.virtual('lastChecked').get(function() {
+//   return this.mailChecks[mailChecks.length - 1]
+// })
 
 ClientSchema.plugin(uniqueValidator)
 

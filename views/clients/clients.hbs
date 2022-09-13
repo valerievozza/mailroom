@@ -46,7 +46,7 @@
           </div>
         </a>
         <div class="checkbox">
-            {{#if (checkedToday lastChecked)}}
+            {{#if (checkedToday mailChecks)}}
               <div class="check-undo">
                 <form action="/clients/check/{{_id}}" method="POST">
                   <input type="hidden" name="_method" value="PUT">
@@ -69,7 +69,19 @@
                   <button type="submit" class="btn btn-link"><h3><i class="fas fa-undo undo"></i></h3></button>
                 </form>
               </div>
-              <span>Last checked {{formatDate lastChecked 'M/D/YY'}}</span>
+              <span>
+                Last checked:
+                {{#if mailChecks}}
+                  {{#each mailChecks}}
+                    {{#if @last}}
+                      {{formatDate this 'M/D/YY'}}
+                    {{/if}}
+                  {{/each}}
+                {{else}}
+                  {{formatDate createdAt 'M/D/YY'}}
+                {{/if}}
+              </span>
+
             {{/if}}
         </div>
       </div>

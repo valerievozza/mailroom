@@ -4,17 +4,11 @@ module.exports = {
     formatDate: function (date, format) {
         return moment(date).format(format)
     },
-    mailChecks: (mailChecks) => {
-      return mailChecks
-    },
-    lastChecked: (lastChecked) => {
-      lastChecked = mailChecks[mailChecks.length - 1]
-      return lastChecked
-    },
     //! Something about this isn't working -- without if statement getting error
     //! TypeError: Cannot read properties of undefined (reading 'getDate')
-    checkedToday: (lastChecked) => {
+    checkedToday: function (mailChecks) {
       const today = new Date()
+      const lastChecked = mailChecks[mailChecks.length - 1]
       if (lastChecked) {
         return lastChecked.getDate() == today.getDate() &&
         lastChecked.getMonth() == today.getMonth() &&
