@@ -30,10 +30,9 @@
         </ul>
       </p>
       <p>
-        {{!-- ! This isn't working --}}
-            {{#if (isInactive mailChecks)}}
-              <span>INACTIVE</span>
-            {{/if}}
+        {{#if (isInactive mailChecks)}}
+          <span class="badge rounded-pill bg-warning">Inactive</span>
+        {{/if}}
       </p>
     </div>
     <div class="card-footer text-muted">
@@ -41,8 +40,10 @@
       <span class="showRight">Status: {{status}}</span>
     </div>
   </div>
-  <div>Client record created by {{user.username}} on {{formatDate user.createdAt 'MMM Do, YYYY'}}</div>
-  <div class="flex">
+  <div>
+    <p>Client record created by {{user.username}} on {{formatDate user.createdAt 'MMM Do, YYYY'}}</p>
+  </div>
+  <div class="flex-start">
     <form action="/clients/edit/{{_id}}" method="GET">
       <button class="btn btn-primary btn-lg">Edit</button>
     </form>

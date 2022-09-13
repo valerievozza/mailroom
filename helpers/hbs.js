@@ -7,7 +7,6 @@ module.exports = {
     sixMonthsAgo: function () {
       const sixMonthsAgo = new Date()
       const today = new Date()
-      console.log(`Today is ${today}`)
       return sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
     },
     //! Something about this isn't working -- without if statement getting error
@@ -36,9 +35,7 @@ module.exports = {
     //! This is not working
     isInactive: function(mailChecks) {
       let lastChecked = mailChecks[mailChecks.length - 1]
-      console.log(`last element of mailChecks array is ${lastChecked}`)
       lastChecked = new Date(lastChecked)
-      console.log(`last checked ${lastChecked}`)
       const today = new Date()
 
       if (lastChecked) {
