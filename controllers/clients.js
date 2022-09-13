@@ -163,7 +163,7 @@ module.exports = {
             const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
             const totalBoxes = await Client.countDocuments({user: req.user.id}).lean()
             res.render('clients/clients', {
-                clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
+                clients, filter, open: openBoxes, closed: closedBoxes, total: totalBoxes
             })
         }catch(err){
             console.log(err)
