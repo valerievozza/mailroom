@@ -29,13 +29,19 @@
           {{/each}}
         </ul>
       </p>
+      <p>
+        {{!-- ! This isn't working --}}
+            {{#if (isInactive mailChecks)}}
+              <span>INACTIVE</span>
+            {{/if}}
+      </p>
     </div>
     <div class="card-footer text-muted">
       <span>Mailbox last checked {{formatDate lastChecked 'MMM Do, YYYY'}}</span>
       <span class="showRight">Status: {{status}}</span>
     </div>
   </div>
-  <div>Client record created by {{user.username}}</div>
+  <div>Client record created by {{user.username}} on {{formatDate user.createdAt 'MMM Do, YYYY'}}</div>
   <div class="flex">
     <form action="/clients/edit/{{_id}}" method="GET">
       <button class="btn btn-primary btn-lg">Edit</button>

@@ -43,6 +43,10 @@
             <h6 class="card-subtitle mb-2 text-muted">{{otherNames}}</h6>
             <p class="card-text">{{notes}}</p>
             <span>{{status}}</span>
+            {{!-- ! This isn't working --}}
+            {{#if (isInactive mailChecks)}}
+              <span>INACTIVE</span>
+            {{/if}}
           </div>
         </a>
         <div class="checkbox">

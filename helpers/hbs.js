@@ -4,15 +4,19 @@ module.exports = {
     formatDate: function (date, format) {
         return moment(date).format(format)
     },
+    sixMonthsAgo: function () {
+      const sixMonthsAgo = new Date()
+      const today = new Date()
+      console.log(`Today is ${today}`)
+      return sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
+    },
     //! Something about this isn't working -- without if statement getting error
     //! TypeError: Cannot read properties of undefined (reading 'getDate')
-    checkedToday: function (mailChecks) {
+    checkedToday: function (mailChecks, createdAt) {
       const today = new Date()
       const lastChecked = mailChecks[mailChecks.length - 1]
       if (lastChecked) {
-        return lastChecked.getDate() == today.getDate() &&
-        lastChecked.getMonth() == today.getMonth() &&
-        lastChecked.getFullYear() == today.getFullYear() 
+        return lastChecked.getDate() == today.getDate()
       }
     },
     checkSafety: (safetyConcern) => {
@@ -24,6 +28,18 @@ module.exports = {
     },
     checkStatus: (status) => {
       return status == 'Open'
+    },
+    //! This is not working
+    isInactive: function(mailChecks) {
+      const sixMonthsAgo = new Date()
+      sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
+      
+      let lastChecked = mailChecks[mailChecks.length - 1]
+      lastChecked = new Date(lastChecked)
+      console.log(lastChecked)
+      if (lastChecked.getMonth() < sixMonthsAgo) {
+        return true
+      }
     },
     truncate: function (str, len) {
         if (str.length > len && str.length > 0) {
