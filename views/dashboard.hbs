@@ -1,16 +1,50 @@
 <div class="container">
   <div class="jumbotron">
     <h1 class="card-title">{{user.org}} Dashboard</h1>
-    <div class="card-body">
-      <p>Welcome, {{user.username}}</p>
-      <h4>Mailbox Stats:</h4>
-      <p><strong>Open:</strong> {{open}}</p>
-      <p><strong>Closed:</strong> {{closed}}</p>
-      <p><strong>Total:</strong> {{total}}</p>
-      {{!-- <p><strong>Inactive Mailboxes:</strong></p> --}}
+    <p>Welcome, {{user.username}}</p>
+  </div>
+  <div class="card mb-3" style="max-width: 30rem">
+    <div class="card-header">
+      Mailbox Stats:
     </div>
-    {{!-- <div class="card-body">
-      <h4>Mail Checks Today:</h4>
-    </div> --}}
+    <div class="card-body">
+      <div class="card-text">
+        <p><strong>Open:</strong> {{open}}</p>
+        <p><strong>Closed:</strong> {{closed}}</p>
+        <p><strong>Total:</strong> {{total}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-3" style="max-width: 30rem">
+    <div class="card-header">
+      Inactive Mailboxes:
+    </div>
+    <div class="card-body">
+      {{#each clients}}
+        <ul class="mailChecks">
+          {{#if (isInactive mailChecks)}}
+            <li>
+              {{box}} {{firstName}} {{lastName}}
+            </li>
+          {{/if}}
+        </ul>
+      {{/each}}
+    </div>
+  </div>
+  <div class="card mb-3" style="max-width: 30rem">
+    <div class="card-header">
+      Mailboxes Checked Today:
+    </div>
+    <div class="card-body">
+      {{#each clients}}
+        <ul class="mailChecks">
+          {{#if (checkedToday mailChecks)}}
+            <li>
+              {{box}} {{firstName}} {{lastName}}
+            </li>
+          {{/if}}
+        </ul>
+      {{/each}}
+    </div>
   </div>
 </div>

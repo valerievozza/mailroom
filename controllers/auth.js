@@ -95,11 +95,18 @@ const Client = require('../models/Client')
   exports.getDashboard = async (req, res) => {
     try{
       const user = await User.findById(req.user.id).lean()
+      const clients = await Client.find({user: req.user.id})
+        .populate('user')
+        .lean()
       const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
       const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
       const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
       res.render('dashboard', {
-          user, open: openBoxes, closed: closedBoxes, total: totalBoxes
+          user,
+          clients,
+          open: openBoxes,
+          closed: closedBoxes,
+          total: totalBoxes
       })
     } catch(err) {
       console.error(err)
