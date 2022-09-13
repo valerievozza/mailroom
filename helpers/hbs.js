@@ -12,9 +12,13 @@ module.exports = {
     },
     //! Something about this isn't working -- without if statement getting error
     //! TypeError: Cannot read properties of undefined (reading 'getDate')
+
+    // should be able to check if createdAt date matches today too but not working so I deleted the code and left the variable
     checkedToday: function (mailChecks, createdAt) {
       const today = new Date()
-      const lastChecked = mailChecks[mailChecks.length - 1]
+      let lastChecked = mailChecks[mailChecks.length - 1]
+      lastChecked = new Date(lastChecked)
+      
       if (lastChecked) {
         return lastChecked.getDate() == today.getDate()
       }
@@ -31,15 +35,25 @@ module.exports = {
     },
     //! This is not working
     isInactive: function(mailChecks) {
-      const sixMonthsAgo = new Date()
-      sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
-      
       let lastChecked = mailChecks[mailChecks.length - 1]
+      console.log(`last element of mailChecks array is ${lastChecked}`)
       lastChecked = new Date(lastChecked)
-      console.log(lastChecked)
-      if (lastChecked.getMonth() < sixMonthsAgo) {
-        return true
+      console.log(`last checked ${lastChecked}`)
+      const today = new Date()
+
+      if (lastChecked) {
+        const sixMonthsInMs = 180 * 24 * 60 * 60 * 1000
+        const timeDiffInMs = today.getTime() - lastChecked.getTime()
+
+        if (timeDiffInMs >= sixMonthsInMs) {
+          console.log('Date is older than 180 days')
+          return true
+        } else {
+          console.log('Date is not older than 180 days')
+          return false
+        }
       }
+
     },
     truncate: function (str, len) {
         if (str.length > len && str.length > 0) {
