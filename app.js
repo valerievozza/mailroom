@@ -12,6 +12,7 @@ const connectDB = require('./config/db')
 
 const mainRoutes = require('./routes/main')
 const clientRoutes = require('./routes/clients')
+const demoRoutes = require('./routes/demo')
 
 // LOAD CONFIG
 dotenv.config({path: './config/.env'})
@@ -99,6 +100,7 @@ app.use(flash())
 //ROUTES
 app.use('/', mainRoutes)
 app.use('/clients', clientRoutes)
+app.use('/demo', demoRoutes)
 
 const PORT = process.env.PORT || 8888
 
