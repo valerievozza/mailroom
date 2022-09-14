@@ -117,14 +117,14 @@ a.client-list-entry {
 }
 
 .feature-circle {
-  height: 125px;
-  width: 125px;
+  height: 100px;
+  width: 100px;
   background-color: #00bc8c;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 /* Styles search bar & buttons */
@@ -161,4 +161,8 @@ h1.title {
 
 .custom {
   background: pink;
+}
+
+.row {
+  margin-top: 50px;
 }
