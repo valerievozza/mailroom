@@ -134,7 +134,7 @@ module.exports = {
                     new: true,
                     runValidators: true
                 })
-            res.redirect('/clients')
+            res.redirect('/clients/${req.params.id}')
             }
 
         } catch (err) {
