@@ -16,7 +16,8 @@ module.exports = {
                 clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
             })
         }catch(err){
-            console.log(err)
+            console.error(err)
+            res.render('error/500')
         }
     },
     getAllBoxes: async (req,res)=>{

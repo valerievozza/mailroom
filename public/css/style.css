@@ -102,7 +102,16 @@ a.client-list-entry {
   justify-content: flex-end;
 }
 
-.features {
+.step-img {
+  margin: 2.2rem;
+}
+
+.lead {
+  margin-bottom: 50px;
+}
+
+
+/* .features {
   margin-top: 50px;
 }
 
@@ -125,7 +134,8 @@ a.client-list-entry {
   justify-content: center;
   align-items: center;
   font-size: 2.5rem;
-}
+} */
+
 
 /* Styles search bar & buttons */
 .search {
@@ -177,7 +187,11 @@ h1.title {
   flex-direction: row;
 }
 
-@media screen and (max-width: 760px) {
+footer {
+  font-size: 1.1rem;
+}
+
+@media screen and (max-width: 992px) {
   .front-page {
     display: flex;
     flex-direction: column-reverse;
@@ -185,7 +199,21 @@ h1.title {
   .front-page-text {
     width: 80%
   }
+  .steps {
+    margin: 2rem;
+  }
+  .step-img {
+    margin-left: 0rem;
+  }
 }
+/* 
+@media scren and (max-width: 720px) {
+  .steps {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+} */
+
 /* 
 body {
   background-color: white;
