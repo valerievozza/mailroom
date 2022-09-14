@@ -140,9 +140,10 @@ a.client-list-entry {
 
 h1.title {
   font-family: 'Montserrat' !important;
-  font-weight: 400;
+  font-weight: 600;
   color: #00bc8c;
   letter-spacing: -2px;
+  margin-top: 20px;
 }
 
 .feature-item h4 {
@@ -170,3 +171,23 @@ h1.title {
 .social i {
   font-size: 1.5rem;
 }
+
+.front-page {
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (max-width: 760px) {
+  .front-page {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .front-page-text {
+    width: 80%
+  }
+}
+/* 
+body {
+  background-color: white;
+  color: #222222;
+} */
