@@ -8,6 +8,12 @@
     {{/each}}
 {{/if}}
 
+{{#if locals.messages.info}}
+    {{#each}}
+        <div class="alert alert-info">{{el.msg}}</div>
+    {{/each}}
+{{/if}}
+
 <div class="container">
     <form action="/signup" method="POST">
         <div class="form-group">
