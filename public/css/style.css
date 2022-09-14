@@ -166,3 +166,7 @@ h1.title {
 .row {
   margin-top: 50px;
 }
+
+.social i {
+  font-size: 1.5rem;
+}
