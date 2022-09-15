@@ -1,7 +1,4 @@
 <div class="container">
-  <div class="jumbotron">
-    <h1>Sign Up</h1>
-  </div>
 {{#if locals.messages.errors}}
     {{#each}}
         <div class="alert alert-danger">{{el.msg}}</div>
@@ -13,29 +10,34 @@
         <div class="alert alert-info">{{el.msg}}</div>
     {{/each}}
 {{/if}}
+</div>
 
-<div class="container">
-    <form action="/signup" method="POST">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" aria-describedby="username" placeholder="Enter username">
+<div class="container" align="center">
+    <div class="card mb-3" style="max-width: 20rem" align="left">
+        <h3 class="card-header">Sign Up</h3>
+        <div class="card-body">
+            <form action="/signup" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" aria-describedby="username" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" aria-describedby="email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="passwordConfirm">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm password">
+                </div>
+                <div class="form-group edit-options">
+                    <input type="submit" class="btn btn-primary">
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" aria-describedby="email" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <label for="passwordConfirm">Confirm Password</label>
-            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm password">
-        </div>
-        <div class="form-group">
-            <input type="submit" class="btn btn-primary">
-        </div>
-    </form>
-  </div>
+    </div>
 </div>
 
