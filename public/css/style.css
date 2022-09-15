@@ -77,8 +77,7 @@ a.client-list-entry {
 }
 
 .safetyConcern {
-  color: yellow;
-  font-size: 2rem;
+  color: #F9A826;
   display: inline-block;
 }
 
@@ -219,3 +218,15 @@ body {
   background-color: white;
   color: #222222;
 } */
+
+.title-in-nav {
+  font-size: 2rem;
+  vertical-align: top;
+  display: inline-block;
+  margin-top: -8px;
+  margin-left: 4px;
+}
+
+.bg-purple {
+  background-color: #6C63FF;
+}

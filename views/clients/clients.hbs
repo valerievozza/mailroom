@@ -40,17 +40,18 @@
         <a href="/clients/{{_id}}" class="client-list-entry">
           <div class="box">
             <h4>{{box}}</h4>
-            {{#if safetyConcern}}
-            <span><i class="fa-solid fa-circle-exclamation safetyConcern"></i></span>
-            {{/if}}
           </div>
         </a>
         <a href="/clients/{{_id}}" class="client-list-entry">
           <div class="clientDetails">
-            <h4 class="card-title">{{firstName}} {{lastName}}</h4>
+            <h4 class="card-title">{{firstName}} {{lastName}}
+              {{#if safetyConcern}}
+            <span><i class="fa-solid fa-circle-exclamation safetyConcern"></i></span>
+            {{/if}}
+            </h4>
             <h6 class="card-subtitle mb-2 text-muted">{{otherNames}}</h6>
             <p class="card-text">{{notes}}</p>
-            <span>{{status}}</span>
+            <span class="badge rounded-pill bg-secondary">{{status}}</span>
           </div>
         </a>
         <div class="checkbox">
@@ -92,7 +93,7 @@
 
             {{/if}}
             {{#if (isInactive mailChecks)}}
-              <p class="badge rounded-pill bg-warning">Inactive</p>
+              <p class="badge rounded-pill bg-purple">Inactive</p>
             {{/if}}
         </div>
       </div>
