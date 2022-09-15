@@ -1,52 +1,58 @@
 <div class="container">
-  <h3>Add a Client</h3>
-  <form action="/clients/createClient" method="POST">
-    <div class="client-form">
-      <div class="form-group">
-        <label class="col-form-label mt-4" for="firstName">First Name</label>
-        <input type="text" class="form-control" placeholder="First Name" id="firstName" name="firstName" required>
-      </div>
-      <div class="form-group">
-        <label class="col-form-label mt-4" for="lastName">Last Name</label>
-        <input type="text" class="form-control" placeholder="Last Name" id="lastName" name="lastName" required>
-      </div>
-      <div class="form-group">
-        <label class="col-form-label mt-4" for="otherNames">Other Names</label>
-        <input type="text" class="form-control" placeholder="Other names mail may be addressed to" id="otherNames" name="otherNames">
-      </div>
-      {{!-- ! Safety concern not working --}}
-       {{!-- <fieldset class="form-group">
-        <legend class="mt-4">Safety Concern?</legend>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="safetyConcern" id="safetyConcernYes" required value=true>
-          <label class="form-check-label" for="safetyConcernYes">
-            Yes, this client has additional safety/security concerns
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="safetyConcern" id="safetyConcernNo" required value=false>
-          <label class="form-check-label" for="safetyConcernNo">
-            No, this guest does not have any additional safety/security concerns
-          </label>
-        </div>
-      </fieldset> --}}
-      <div class="form-group">
-        <label for="phone" class="form-label mt-4">Phone Number</label>
-        <input type="tel" class="form-control" id="phone" name="phone" pattern="([0-9]{3}) [0-9]{3}-[0-9]{4}" placeholder="(000) 000-0000"></input>
-      </div>
-      <div class="form-group">
-        <label for="email" class="form-label mt-4">Email</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="name@email.com"></input>
-      </div>
-      <div class="form-group">
-        <label for="notes" class="form-label mt-4">Notes</label>
-        <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Add any additional notes about this client"></textarea>
-      </div>
-      <div class="form-group">
-        <label class="col-form-label mt-4" for="box">Mailbox</label>
-        <input type="text" class="form-control" placeholder="ex: Q-48" pattern="[A-Z]-[0-9]{1,4}" id="box" name="box" required>
-      </div>
-    <button type="submit" class="btn btn-primary">Add</button>
-    <a href="/clients" class="btn btn-link">Cancel</a>
-  </form>
+  <div class="card mb-3">
+    <h3 class="card-header">Add Client Details</h3>
+    <div class="card-body">
+      <form action="/clients/createClient" method="POST">
+        <div class="client-form">
+          <div class="form-group">
+            <label class="col-form-label mt-4" for="firstName">First Name</label>
+            <input type="text" class="form-control" placeholder="First Name" id="firstName" name="firstName" required>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label mt-4" for="lastName">Last Name</label>
+            <input type="text" class="form-control" placeholder="Last Name" id="lastName" name="lastName" required>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label mt-4" for="otherNames">Other Names</label>
+            <input type="text" class="form-control" placeholder="Other names mail may be addressed to" id="otherNames" name="otherNames">
+          </div>
+          {{!-- ! Safety concern not working --}}
+          {{!-- <fieldset class="form-group">
+            <legend class="mt-4">Safety Concern?</legend>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="safetyConcern" id="safetyConcernYes" required value=true>
+              <label class="form-check-label" for="safetyConcernYes">
+                Yes, this client has additional safety/security concerns
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="safetyConcern" id="safetyConcernNo" required value=false>
+              <label class="form-check-label" for="safetyConcernNo">
+                No, this guest does not have any additional safety/security concerns
+              </label>
+            </div>
+          </fieldset> --}}
+          <div class="form-group">
+            <label for="phone" class="form-label mt-4">Phone Number</label>
+            <input type="tel" class="form-control" id="phone" name="phone" pattern="([0-9]{3}) [0-9]{3}-[0-9]{4}" placeholder="(000) 000-0000"></input>
+          </div>
+          <div class="form-group">
+            <label for="email" class="form-label mt-4">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="name@email.com"></input>
+          </div>
+          <div class="form-group">
+            <label for="notes" class="form-label mt-4">Notes</label>
+            <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Add any additional notes about this client"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label mt-4" for="box">Mailbox</label>
+            <input type="text" class="form-control" placeholder="ex: Q-48" pattern="[A-Z]-[0-9]{1,4}" id="box" name="box" required>
+          </div>
+          <div class="edit-options">
+            <button type="submit" class="btn btn-primary">Add</button>
+            <a href="/clients" class="btn btn-link">Cancel</a>
+          </div>
+      </form>
+    </div>
+  </div>
 </div>

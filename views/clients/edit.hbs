@@ -1,9 +1,8 @@
-<div class="container-fluid">
-  <h3>Edit Client</h3>
-  <div class="card">
-    
-  </div>
-  <form action="/clients/{{client._id}}" method="POST">
+<div class="container">
+  <div class="card mb-3">
+    <h3 class="card-header">Edit Client</h3>
+    <div class="card-body">
+      <form action="/clients/{{client._id}}" method="POST">
     <input type="hidden" name="_method" value="PUT">
     <div class="client-form">
       <div class="form-group">
@@ -62,4 +61,6 @@
       <button type="submit" class="btn btn-danger">Delete</button>
     </div>
   </form>
+    </div>
+  </div>
 </div>

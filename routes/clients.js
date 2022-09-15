@@ -11,7 +11,7 @@ router.get('/all', ensureAuth, clientsController.getAllBoxes)
 
 router.get('/search', ensureAuth, clientsController.search)
 
-router.get('/add', clientsController.addPage)
+router.get('/add', ensureAuth, clientsController.addPage)
 
 router.post('/createClient', ensureAuth, clientsController.createClient)
 
@@ -25,9 +25,9 @@ router.put('/check/:id', ensureAuth, clientsController.markChecked)
 
 router.put('/uncheck/:id', ensureAuth, clientsController.markUnchecked)
 
-router.put('/close/:id', clientsController.closeMailbox)
+router.put('/close/:id', ensureAuth, clientsController.closeMailbox)
 
-router.put('/reopen/:id', clientsController.reopenMailbox)
+router.put('/reopen/:id', ensureAuth, clientsController.reopenMailbox)
 
 router.put('/delete/:id', ensureAuth, clientsController.deleteClient)
 
