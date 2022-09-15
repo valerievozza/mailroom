@@ -51,14 +51,14 @@
       </div>
     </div>
     <div class="showLeft edit-options">
-      <button type="submit" class="btn btn-primary">Update</button>
-      <a href="/clients" class="btn btn-link">Cancel</a>
+      <button type="submit" class="btn btn-lg btn-success">Update</button>
+      <a href="/clients" class="btn btn-link" style="color: lightgray">Cancel</a>
     </div>
   </form>
   <form action="/clients/{{client._id}}" method="POST" id="delete-form">
     <input type="hidden" name="_method" value="DELETE">
     <div class="showRight edit-options">
-      <button type="submit" class="btn btn-danger">Delete</button>
+      <button type="submit" class="btn btn-lg btn-danger">Delete</button>
     </div>
   </form>
     </div>

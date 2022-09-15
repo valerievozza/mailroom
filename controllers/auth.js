@@ -74,6 +74,7 @@ exports.getSignup = (req, res) => {
   });
 };
 
+//! This doesn't work
 exports.postSignup = (req, res, next) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))

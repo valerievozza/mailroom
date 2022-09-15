@@ -219,6 +219,7 @@ body {
   color: #222222;
 } */
 
+/* Style app name in nav bar */
 .title-in-nav {
   font-size: 2rem;
   vertical-align: top;
@@ -227,6 +228,14 @@ body {
   margin-left: 4px;
 }
 
+/* Inactive pill color */
 .bg-purple {
   background-color: #6C63FF;
+}
+
+.back-to-top {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  text-align: right;
 }
