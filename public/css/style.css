@@ -16,9 +16,9 @@
 } */
 
 /* aligns title of client mailbox page and 'add new client' button */
-.title-add {
+.title {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 /* mailbox list layout */

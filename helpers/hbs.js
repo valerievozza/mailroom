@@ -32,7 +32,6 @@ module.exports = {
     checkStatus: (status) => {
       return status == 'Open'
     },
-    //! This is not working
     isInactive: function(mailChecks) {
       let lastChecked = mailChecks[mailChecks.length - 1]
       lastChecked = new Date(lastChecked)

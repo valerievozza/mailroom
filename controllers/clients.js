@@ -54,6 +54,35 @@ module.exports = {
             console.log(err)
         }
     },
+    // ! This doesn't work
+    // getInactiveBoxes: async (req,res)=>{
+    //     console.log(req.user)
+    //     try{
+    //         const clients = await Client.find({user: req.user.id, status: 'Open', deleted: false})
+    //             .populate('user')
+    //             .sort({box: 'asc'})
+    //             .lean() //! Change this to org ID
+            
+            
+    //         const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
+    //         const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
+    //         const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
+    //         const inactiveBoxes = await Client.countDocuments({
+    //             user: req.user.id,
+    //             status: 'Open',
+    //             deleted: false,
+    //             mailChecks: {
+    //                 $slice: [$mailChecks, -1], $lte: {sixMonthsAgo}
+    //             } 
+    //         })
+    //         res.render('clients/clients', {
+    //             clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
+    //         })
+    //     }catch(err){
+    //         console.error(err)
+    //         res.render('error/500')
+    //     }
+    // },
     showClient: async (req, res) => {
         try {
             const client = await Client.findOne({

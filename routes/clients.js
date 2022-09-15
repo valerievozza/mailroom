@@ -6,6 +6,8 @@ const { ensureAuth } = require('../middleware/auth')
 router.get('/', ensureAuth, clientsController.getOpenBoxes)
 router.get('/closed', ensureAuth, clientsController.getClosedBoxes)
 router.get('/all', ensureAuth, clientsController.getAllBoxes)
+// ! Add inactive filter
+// router.get('/inactive', ensureAuth, clientsController.getInactiveBoxes)
 
 router.get('/search', ensureAuth, clientsController.search)
 
