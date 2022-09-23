@@ -8,7 +8,7 @@ module.exports = {
             const clients = await Client.find({user: req.user.id, status: 'Open', deleted: false})
                 .populate('user')
                 .sort({box: 'asc'})
-                .lean() //! Change this to org ID
+                .lean()
             const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
             const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
             const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
@@ -26,7 +26,7 @@ module.exports = {
             const clients = await Client.find({user: req.user.id, deleted: false})
                 .populate('user')
                 .sort({box: 'asc'})
-                .lean() //! Change this to org ID
+                .lean()
             const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
             const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
             const totalBoxes = await Client.countDocuments({user: req.user.id}).lean()
@@ -43,7 +43,7 @@ module.exports = {
             const clients = await Client.find({user: req.user.id, status: 'Closed', deleted: false})
                 .populate('user')
                 .sort({box: 'asc'})
-                .lean() //! Change this to org ID
+                .lean()
             const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
             const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
             const totalBoxes = await Client.countDocuments({user: req.user.id}).lean()

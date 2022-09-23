@@ -1,4 +1,4 @@
-<div class="container-fluid flex-between">
+<div class="container flex-between">
   <h1>Client Page</h1>
   <a href="/clients" class="btn btn-link right">Back</a>
 </div>
@@ -41,7 +41,7 @@
     </div>
   </div>
   <div>
-    <p>Client record created by {{user.username}} on {{formatDate user.createdAt 'MMM Do, YYYY'}}</p>
+    <p>Client record created by {{user.userName}} on {{formatDate user.createdAt 'MMM Do, YYYY'}}</p>
   </div>
   <div class="flex-start">
     <form action="/clients/edit/{{_id}}" method="GET">
