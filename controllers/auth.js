@@ -75,7 +75,7 @@ exports.getSignup = (req, res) => {
 };
 
 //! This doesn't work
-exports.postSignup = (req, res, next) => {
+exports.postSignup = async (req, res, next) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: "Please enter a valid email address." });
@@ -94,11 +94,15 @@ exports.postSignup = (req, res, next) => {
     gmail_remove_dots: false,
   });
 
-  const user = new User({
+  const user = await new User({
     userName: req.body.userName,
     email: req.body.email,
     password: req.body.password,
   });
+
+  console.log(user)
+
+
 
   User.findOne(
     { $or: [{ email: req.body.email }, { userName: req.body.userName }] },
