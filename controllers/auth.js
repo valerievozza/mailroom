@@ -74,7 +74,6 @@ exports.getSignup = (req, res) => {
   });
 };
 
-//! This doesn't work
 exports.postSignup = async (req, res, next) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
