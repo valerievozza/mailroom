@@ -7,9 +7,7 @@ exports.getLogin = (req, res) => {
   if (req.user) {
     return res.redirect("/clients");
   }
-  res.render("login", {
-    title: "Login",
-  });
+  res.render("login", { msg: req.flash('errors') });
 };
 
 exports.postLogin = (req, res, next) => {
@@ -69,9 +67,7 @@ exports.getSignup = (req, res) => {
   if (req.user) {
     return res.redirect("/clients");
   }
-  res.render("signup", {
-    title: "Create Account",
-  });
+  res.render("signup", { msg: req.flash('errors') })
 };
 
 exports.postSignup = async (req, res, next) => {
@@ -87,6 +83,7 @@ exports.postSignup = async (req, res, next) => {
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
+    console.log(validationErrors)
     return res.redirect("../signup");
   }
   req.body.email = validator.normalizeEmail(req.body.email, {

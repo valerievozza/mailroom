@@ -45,7 +45,7 @@ if(process.env.NODE_ENV === 'development') {
 }
 
 //HELPERS
-const { formatDate, checkedToday, checkSafety, checkStatus, isInactive, stripTags, truncate, editIcon, select } = require('./helpers/hbs')
+const { formatDate, checkedToday, checkSafety, checkStatus, isInactive, stripTags, truncate, editIcon, select, json } = require('./helpers/hbs')
 
 //Handlebars
 app.engine(
@@ -60,7 +60,8 @@ app.engine(
             stripTags,
             truncate,
             editIcon,
-            select
+            select,
+            json
         },
         defaultLayout: 'default',
         extname: '.hbs'
@@ -95,6 +96,8 @@ app.use(function(req, res, next){
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(flash())
+
+
 
 //ROUTES
 app.use('/', mainRoutes)

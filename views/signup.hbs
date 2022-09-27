@@ -1,21 +1,8 @@
-<div class="container">
-{{#if locals.messages.errors}}
-    {{#each}}
-        <div class="alert alert-danger">{{el.msg}}</div>
-    {{/each}}
-{{/if}}
-
-{{#if locals.messages.info}}
-    {{#each}}
-        <div class="alert alert-info">{{el.msg}}</div>
-    {{/each}}
-{{/if}}
-</div>
-
 <div class="container" align="center">
     <div class="card mb-3" style="max-width: 20rem" align="left">
         <h3 class="card-header">Sign Up</h3>
         <div class="card-body">
+            {{>_messages}}
             <form action="/signup" method="POST">
                 <div class="form-group">
                     <label for="email">Email</label>

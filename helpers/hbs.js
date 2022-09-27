@@ -75,7 +75,7 @@ module.exports = {
     //       return ''
     //     }
     // },
-      select: function (selected, options) {
+    select: function (selected, options) {
         return options
           .fn(this)
           .replace(
@@ -87,4 +87,7 @@ module.exports = {
             ' selected="selected"$&'
           )
     },
+    json: function (context) {
+      return JSON.stringify(context)
+    }
 }
