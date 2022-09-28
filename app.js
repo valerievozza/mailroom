@@ -45,7 +45,7 @@ if(process.env.NODE_ENV === 'development') {
 }
 
 //HELPERS
-const { formatDate, checkedToday, checkSafety, checkStatus, isInactive, stripTags, truncate, editIcon, select, json } = require('./helpers/hbs')
+const { formatDate, checkedToday, checkSafety, checkStatus, isInactive, stripTags, truncate, editIcon, select, json, box } = require('./helpers/hbs')
 
 //Handlebars
 app.engine(
@@ -61,7 +61,8 @@ app.engine(
             truncate,
             editIcon,
             select,
-            json
+            json,
+            box
         },
         defaultLayout: 'default',
         extname: '.hbs'

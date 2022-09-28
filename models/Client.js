@@ -29,6 +29,16 @@ const ClientSchema = new mongoose.Schema({
   //   type: Number,
   //   required: true
   // },
+  // box: {
+  //   letter: {
+  //     type: String
+  //   },
+  //   number: {
+  //     type: Number
+  //   },
+  //   unique: true,
+  //   uniqueCaseInsensitive: true
+  // },
   box: {
     type: String,
     unique: true,

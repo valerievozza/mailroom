@@ -89,5 +89,8 @@ module.exports = {
     },
     json: function (context) {
       return JSON.stringify(context)
-    }
+    },
+    // box: (letter, number) => {
+    //   return `${box.letter}-${box.number}`
+    // }
 }
