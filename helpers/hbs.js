@@ -23,10 +23,10 @@ module.exports = {
       }
     },
     checkSafety: (safetyConcern) => {
-      if (safetyConcern == true) {
-        return true
+      if (safetyConcern === 'on') {
+        return 'on'
       } else {
-        return false
+        return 'off'
       }
     },
     checkStatus: (status) => {
