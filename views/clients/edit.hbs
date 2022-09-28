@@ -1,66 +1,78 @@
-<div class="container">
-  <div class="card mb-3">
-    <h3 class="card-header">Edit Client</h3>
+<div class="container" align="center">
+  <div class="card mb-3" style="max-width: 40rem" align="left">
+    <h3 class="card-header">Add Client Details</h3>
     <div class="card-body">
       <form action="/clients/{{client._id}}" method="POST">
-    <input type="hidden" name="_method" value="PUT">
-    <div class="client-form">
-      <div class="form-group">
-        <label class="col-form-label mt-4" for="firstName">First Name</label>
-        <input type="text" class="form-control" value="{{client.firstName}}" id="firstName" name="firstName" required>
-      </div>
-      <div class="form-group">
-        <label class="col-form-label mt-4" for="title">Last Name</label>
-        <input type="text" class="form-control" value="{{client.lastName}}" id="lastName" name="lastName" required>
-      </div>
-      <div class="form-group">
-        <label class="col-form-label mt-4" for="otherNames">Other Names</label>
-        <input type="text" class="form-control" value="{{client.otherNames}}" id="otherNames" name="otherNames">
-      </div>
-      {{!-- ! Doesn't populate saved value & can't select yes for updates --}}
-       {{!-- <fieldset class="form-group">
-        <legend class="mt-4">Safety Concern?</legend>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="safetyConcern" id="safetyConcernYes" value= {{{checkSafety true safetyConcern }}} required>
-          <label class="form-check-label" for="safetyConcernYes">
-            Yes, this client has additional safety/security concerns
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="safetyConcern" id="safetyConcernNo" value= {{{checkSafety false safetyConcern}}} required>
-          <label class="form-check-label" for="safetyConcernNo">
-            No, this guest does not have any additional safety/security concerns
-          </label>
-        </div>
-      </fieldset> --}}
-      <div class="form-group">
-        <label for="phone" class="form-label mt-4">Phone Number</label>
-        <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{client.phone}}"></input>
-      </div>
-      <div class="form-group">
-        <label for="email" class="form-label mt-4">Email</label>
-        <input type="email" class="form-control" id="email" name="email" value="{{client.email}}"></input>
-      </div>
-      <div class="form-group">
-        <label for="notes" class="form-label mt-4">Notes</label>
-        <textarea class="form-control" id="notes" name="notes" rows="3">{{client.notes}}</textarea>
-      </div>
-      <div class="form-group">
-        <label class="col-form-label mt-4" for="box">Mailbox</label>
-        <input type="text" class="form-control" value="{{client.box}}" id="box" name="box" required>
-      </div>
-    </div>
-    <div class="showLeft edit-options">
-      <button type="submit" class="btn btn-lg btn-success">Update</button>
-      <a href="/clients" class="btn btn-link" style="color: lightgray">Cancel</a>
-    </div>
-  </form>
-  <form action="/clients/{{client._id}}" method="POST" id="delete-form">
-    <input type="hidden" name="_method" value="DELETE">
-    <div class="showRight edit-options">
-      <button type="submit" class="btn btn-lg btn-danger">Delete</button>
-    </div>
-  </form>
+      <input type="hidden" name="_method" value="PUT">
+        <div class="client-form">
+          <div class="form-half row gx-3 mt-0">
+            <div class="form-group w-25 col">
+              <label class="col-form-label" for="box">Mailbox*</label>
+              <input type="text" class="form-control" value="{{client.box}}" pattern="[A-Z]-[0-9]{1,4}" id="box" name="box" required>
+            </div>
+            <div class="w-50 col"></div>
+            {{!-- <fieldset class="form-group w-25 col mt-5" style="display: flex; justify-content: flex-end">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="safetyConcern" name="safetyConcern" value= {{{checkSafety false safetyConcern}}}>
+                <label class="form-check-label" for="safetyConcern">Safety Concern?</label>
+              </div>
+            </fieldset>  --}}
+          </div>
+          <div class="form-half row gx-3 mt-3">
+            <div class="form-group w-50 col">
+              <label class="col-form-label" for="firstName">First Name*</label>
+              <input type="text" class="form-control" id="firstName" name="firstName" value="{{client.firstName}}" required>
+            </div>
+            <div class="form-group w-50 col">
+              <label class="col-form-label" for="lastName">Last Name*</label>
+              <input type="text" class="form-control" id="lastName" name="lastName" value="{{client.lastName}}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label mt-3" for="otherNames">Other Names</label>
+            <input type="text" class="form-control" id="otherNames" name="otherNames" value="{{client.otherNames}}">
+          </div>
+          {{!-- ! Safety concern not working --}}
+          {{!-- <fieldset class="form-group">
+            <legend class="mt-4">Safety Concern?</legend>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="safetyConcern" id="safetyConcernYes" required value=true>
+              <label class="form-check-label" for="safetyConcernYes">
+                Yes, this client has additional safety/security concerns
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="safetyConcern" id="safetyConcernNo" required value=false>
+              <label class="form-check-label" for="safetyConcernNo">
+                No, this guest does not have any additional safety/security concerns
+              </label>
+            </div>
+          </fieldset> --}}
+          <div class="form-half row gx-3 mt-0">
+            <div class="form-group col">
+              <label for="phone" class="form-label mt-4">Phone Number</label>
+              <input type="tel" class="form-control" id="phone" name="phone" pattern="([0-9]{3}) [0-9]{3}-[0-9]{4}" value="{{client.phone}}"></input>
+            </div>
+            <div class="form-group col">
+              <label for="email" class="form-label mt-4">Email</label>
+              <input type="email" class="form-control" id="email" name="email" value="{{client.email}}"></input>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="notes" class="form-label mt-4">Notes</label>
+            <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Add any additional notes about this client">{{client.notes}}</textarea>
+          </div>
+          <div class="edit-options mt-3">
+            <button type="submit" class="btn btn-lg btn-success mt-2">Update</button>
+            <a href="/clients" class="btn btn-link" style="color: lightgray">Cancel</a>
+            <form action="/clients/{{client._id}}" method="POST" id="delete-form">
+              <input type="hidden" name="_method" value="DELETE">
+              <div class="showRight edit-options">
+                <button type="submit" class="btn btn-lg btn-danger">Delete Client</button>
+              </div>
+            </form>
+          </div>
+      </form>
     </div>
   </div>
 </div>
