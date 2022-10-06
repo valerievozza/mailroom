@@ -36,22 +36,6 @@
             <label class="col-form-label mt-3" for="otherNames">Other Names</label>
             <input type="text" class="form-control" id="otherNames" name="otherNames" value="{{client.otherNames}}">
           </div>
-          {{!-- ! Safety concern not working --}}
-          {{!-- <fieldset class="form-group">
-            <legend class="mt-4">Safety Concern?</legend>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="safetyConcern" id="safetyConcernYes" required value=true>
-              <label class="form-check-label" for="safetyConcernYes">
-                Yes, this client has additional safety/security concerns
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="safetyConcern" id="safetyConcernNo" required value=false>
-              <label class="form-check-label" for="safetyConcernNo">
-                No, this guest does not have any additional safety/security concerns
-              </label>
-            </div>
-          </fieldset> --}}
           <div class="form-half row gx-3 mt-0">
             <div class="form-group col">
               <label for="phone" class="form-label mt-4">Phone Number</label>
@@ -65,6 +49,10 @@
           <div class="form-group">
             <label for="notes" class="form-label mt-4">Notes</label>
             <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Add any additional notes about this client">{{client.notes}}</textarea>
+          </div>
+          <div class="form-group">
+            <label for="doc" class="form-label mt-4">Upload Mail Agreement</label>
+            <input class="form-control input" type="file" id="imageUpload" name="file" />
           </div>
           <div class="edit-options mt-3">
             <button type="submit" class="btn btn-lg btn-success mt-2">Update</button>
