@@ -73,11 +73,17 @@ const ClientSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  // org: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'Org',
-  //   required: true
-  // }
+  org: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Org',
+  },
+  doc: {
+    type: String
+  },
+  cloudinaryId: {
+    type: String,
+    require: true,
+  },
 })
 
 // ClientSchema.virtual('lastChecked').get(function() {

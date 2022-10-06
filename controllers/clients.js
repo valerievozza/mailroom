@@ -114,8 +114,25 @@ module.exports = {
     },
     createClient: async (req, res)=>{
         try{
-            req.body.user = req.user.id
-            await Client.create(req.body)
+            // Upload image to cloudinary
+            const result = await cloudinary.uploader.upload(req.file.path)
+
+            console.log(req.file.path)
+            
+            await Client.create({
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                otherNames: req.body.otherNames,
+                doc: result.secure_url,
+                cloudinaryId: result.public_id,
+                box: req.body.box,
+                phone: req.body.phone,
+                email: req.body.email,
+                notes: req.body.notes,
+                safetyConcern: req.body.safetyConcern,
+                fwdAddress: req.body.fwdAddress,
+                user: req.user.id
+            })
             console.log('Client saved to database')
             res.redirect('/clients')
         }catch(error){
