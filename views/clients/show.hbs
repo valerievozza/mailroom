@@ -43,6 +43,15 @@
         </div>
       </div>
 
+      <form action="/clients/upload/{{_id}}" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_method" value="PUT">
+        <div class="form-group">
+          <label for="doc" class="form-label mt-4">Upload Mail Agreement</label>
+          <input class="form-control input" type="file" id="docUpload" name="file" />
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Upload</button>
+      </form>
+
       <p>
         {{#if (isInactive mailChecks)}}
           <span class="badge rounded-pill bg-warning">Inactive</span>
