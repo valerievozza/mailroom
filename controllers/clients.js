@@ -1,4 +1,5 @@
 const { lastChecked } = require('../helpers/hbs')
+const cloudinary = require("../middleware/cloudinary")
 const Client = require('../models/Client')
 
 module.exports = {
