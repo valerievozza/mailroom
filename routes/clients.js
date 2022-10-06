@@ -14,7 +14,7 @@ router.get('/search', ensureAuth, clientsController.search)
 
 router.get('/add', ensureAuth, clientsController.addPage)
 
-router.post('/createClient', ensureAuth, clientsController.createClient)
+router.post('/createClient', upload.single("file"), ensureAuth, clientsController.createClient)
 
 router.get('/:id', ensureAuth, clientsController.showClient)
 
