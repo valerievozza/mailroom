@@ -14,11 +14,13 @@
             <div class="form-group col"></div>
             <div class="form-group col">
               <label for="safetyConcern" class="form-label">Safety Concern?</label>
-              <select class="form-select" id="safetyConcern" name="safetyConcern">
-                {{#select client.safetyConcern}}
-                <option value="no" selected>No</option>
-                <option value="yes">Yes</option>
-                {{/select}}
+              <select class="form-select" id="safetyConcern" name="safetyConcern" value="{{safetyConcern}}">
+                <option selected value="{{safetyConcern}}">{{safetyConcern}}</option>
+                {{#if (checkSafety safetyConcern)}}
+                <option value=false>false</option>
+                {{else}}
+                <option value=true>true</option>
+                {{/if}}
               </select>
             </div> 
           </div>
