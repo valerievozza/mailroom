@@ -1,3 +1,4 @@
+const cloudinary = require("../middleware/cloudinary");
 const { lastChecked, checkSafety } = require('../helpers/hbs')
 const Client = require('../models/Client')
 
@@ -131,11 +132,6 @@ module.exports = {
     },
     editClient: async (req, res) => {
         try {
-            // Upload image to cloudinary
-            if (req.file) {
-                const result = await cloudinary.uploader.upload(req.file.path)
-            }
-            
             const client = await Client.findOne({
                 _id: req.params.id
             }).lean()
@@ -174,6 +170,34 @@ module.exports = {
             res.redirect(`/clients/${req.params.id}`)
             }
 
+        } catch (err) {
+            console.error(err)
+        }
+    },
+    uploadDoc: async (req, res) => {
+        try {
+            let client = await Client.findById(req.params.id).lean()
+
+                // Upload image to cloudinary
+                const result = await cloudinary.uploader.upload(req.file.path)
+            
+                if (!client) {
+                    return res.render('error/404')
+                }
+
+                if (client.user != req.user.id) {
+                    res.redirect('/')
+                } else {
+                    client = await Client.findOneAndUpdate({ _id: req.params.id }, {
+                        doc: result.secure_url,
+                        cloudinaryId: result.public_id,
+                    }, {
+                        new: true,
+                        runValidators: true 
+                    })
+                    res.redirect(`/clients/${req.params.id}`)
+                }
+            
         } catch (err) {
             console.error(err)
         }
