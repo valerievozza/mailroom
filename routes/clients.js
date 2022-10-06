@@ -7,20 +7,23 @@ const { ensureAuth } = require('../middleware/auth')
 router.get('/', ensureAuth, clientsController.getOpenBoxes)
 router.get('/closed', ensureAuth, clientsController.getClosedBoxes)
 router.get('/all', ensureAuth, clientsController.getAllBoxes)
-// ! Add inactive filter
+
+// !todo: Add inactive filter
 // router.get('/inactive', ensureAuth, clientsController.getInactiveBoxes)
 
 router.get('/search', ensureAuth, clientsController.search)
 
 router.get('/add', ensureAuth, clientsController.addPage)
 
-router.post('/createClient', upload.single("file"), ensureAuth, clientsController.createClient)
+router.post('/createClient', ensureAuth, clientsController.createClient)
 
 router.get('/:id', ensureAuth, clientsController.showClient)
 
 router.get('/edit/:id', ensureAuth, clientsController.editClient)
 
-router.put('/:id', upload.single("file"), ensureAuth, clientsController.updateClient)
+router.put('/:id', ensureAuth, clientsController.updateClient)
+
+router.put('/upload/:id', ensureAuth, upload.single("file"), clientsController.uploadDoc)
 
 router.put('/check/:id', ensureAuth, clientsController.markChecked)
 
