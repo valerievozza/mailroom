@@ -124,6 +124,8 @@ module.exports = {
             //! render error page
             if (error.name == 'ValidationError') {
                 res.render('error/400')
+            } else {
+                res.render('error/500')
             }
         }
     },
