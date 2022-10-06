@@ -45,7 +45,7 @@
         <a href="/clients/{{_id}}" class="client-list-entry">
           <div class="clientDetails">
             <h4 class="card-title">{{firstName}} {{lastName}}
-              {{#if safetyConcern}}
+              {{#if (checkSafety safetyConcern)}}
             <span><i class="fa-solid fa-circle-exclamation safetyConcern"></i></span>
             {{/if}}
             </h4>
