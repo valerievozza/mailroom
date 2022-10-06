@@ -2,7 +2,7 @@
   <div class="card mb-3" style="max-width: 40rem" align="left">
     <h3 class="card-header">Add Client Details</h3>
     <div class="card-body">
-      <form action="/clients/createClient" method="POST" enctype="multipart/form-data">
+      <form action="/clients/createClient" method="POST">
         <div class="client-form">
           <div class="form-half row gx-3 mt-0">
             <div class="form-group col">
@@ -46,10 +46,6 @@
           <div class="form-group">
             <label for="notes" class="form-label mt-4">Notes</label>
             <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Add any additional notes about this client"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="doc" class="form-label mt-4">Upload Mail Agreement</label>
-            <input class="form-control input" type="file" id="imageUpload" name="file" />
           </div>
           <div class="edit-options mt-3">
             <button type="submit" class="btn btn-lg btn-success">Add</button>
