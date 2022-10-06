@@ -23,11 +23,9 @@ module.exports = {
       }
     },
     checkSafety: (safetyConcern) => {
-      if (safetyConcern === 'on') {
-        return 'on'
-      } else {
-        return 'off'
-      }
+      if (safetyConcern !== false) {
+        return true
+      } 
     },
     checkStatus: (status) => {
       return status == 'Open'

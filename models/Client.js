@@ -45,9 +45,8 @@ const ClientSchema = new mongoose.Schema({
     type: String,
   },
   safetyConcern: {
-    type: String,
-    default: 'no',
-    enum: ['no', 'yes']
+    type: Boolean,
+    default: false,
   },
   fwdAddress: {
     type: String

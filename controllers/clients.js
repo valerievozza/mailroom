@@ -1,5 +1,4 @@
-const { lastChecked } = require('../helpers/hbs')
-const cloudinary = require("../middleware/cloudinary")
+const { lastChecked, checkSafety } = require('../helpers/hbs')
 const Client = require('../models/Client')
 
 module.exports = {
@@ -162,7 +161,6 @@ module.exports = {
                 })
                 console.log(client)
             }
-
         } catch (err) {
             console.error(err)
         }
