@@ -120,7 +120,6 @@ module.exports = {
 
             console.log(req.file.path)
             
-            req.body.user = req.user.id
             await Client.create({
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
@@ -133,6 +132,7 @@ module.exports = {
                 notes: req.body.notes,
                 safetyConcern: req.body.safetyConcern,
                 fwdAddress: req.body.fwdAddress,
+                user: req.user.id
             })
             console.log('Client saved to database')
             res.redirect('/clients')
