@@ -115,10 +115,13 @@ module.exports = {
     createClient: async (req, res)=>{
         try{
             // Upload image to cloudinary
-            const result = await cloudinary.uploader.upload(req.file.path)
+            if (req.file) {
+                const result = await cloudinary.uploader.upload(req.file.path)
+            }
 
             console.log(req.file.path)
             
+            req.body.user = req.user.id
             await Client.create({
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
@@ -145,6 +148,11 @@ module.exports = {
     },
     editClient: async (req, res) => {
         try {
+            // Upload image to cloudinary
+            if (req.file) {
+                const result = await cloudinary.uploader.upload(req.file.path)
+            }
+            
             const client = await Client.findOne({
                 _id: req.params.id
             }).lean()

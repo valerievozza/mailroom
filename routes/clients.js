@@ -20,7 +20,7 @@ router.get('/:id', ensureAuth, clientsController.showClient)
 
 router.get('/edit/:id', ensureAuth, clientsController.editClient)
 
-router.put('/:id', ensureAuth, clientsController.updateClient)
+router.put('/:id', upload.single("file"), ensureAuth, clientsController.updateClient)
 
 router.put('/check/:id', ensureAuth, clientsController.markChecked)
 

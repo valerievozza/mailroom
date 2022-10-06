@@ -21,14 +21,28 @@
       <p class="card-text"><strong>Email:</strong> {{email}}</p>
       <h4>Notes</h4>
       <p class="card-text">{{notes}}</p>
-      <h5>Mail Checks</h5>
-      <p class="card-text">
-        <ul class="mailChecks">
-          {{#each mailChecks}}
-            <li>{{formatDate this 'MMM Do, YYYY'}}</li>
-          {{/each}}
-        </ul>
-      </p>
+
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item" style="border: none; background: none; width: 10rem">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" style="background: none; padding-left: 0; color: white; border: none" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+              Mail Checks
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+            <div class="accordion-body">
+              <p class="card-text">
+                <ul class="mailChecks">
+                  {{#each mailChecks}}
+                    <li>{{formatDate this 'MMM Do, YYYY'}}</li>
+                  {{/each}}
+                </ul>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <p>
         {{#if (isInactive mailChecks)}}
           <span class="badge rounded-pill bg-warning">Inactive</span>
