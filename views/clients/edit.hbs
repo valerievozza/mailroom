@@ -2,7 +2,7 @@
   <div class="card mb-3" style="max-width: 40rem" align="left">
     <h3 class="card-header">Edit Client Details</h3>
     <div class="card-body">
-      <form action="/clients/{{client._id}}" method="POST">
+      <form action="/clients/{{client._id}}" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="_method" value="PUT">
         <div class="client-form">
           <div class="form-half row gx-3 mt-0">
