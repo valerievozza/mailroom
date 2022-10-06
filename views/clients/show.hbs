@@ -1,12 +1,18 @@
-<div class="container flex-between">
-  <h1>Client Page</h1>
+<div class="container" align="center">
   <a href="/clients" class="btn btn-link right">Back</a>
 </div>
-<div class="container">
+<div class="container" align="center">
   {{#with client}}
-  <div class="card mb-3">
+  <div class="card mb-3" style="max-width: 40rem" align="left">
     <h3 class="card-header">{{firstName}} {{lastName}} <span class="showRight"> {{box}}</span></h3>
     <div class="card-body">
+      {{#if doc}}
+      {{else}}
+          <div class="alert alert-dismissible alert-warning">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <p class="mb-0">Please upload Mail Agreement</p>
+          </div>
+      {{/if}}
       <div>
         {{#if (checkSafety safetyConcern)}}
         <span class="showRight"><i class="fa-solid fa-circle-exclamation safetyConcern fa-fw"></i> Safety Concern</span>
@@ -22,39 +28,51 @@
       <h4>Notes</h4>
       <p class="card-text">{{notes}}</p>
 
-      <div class="accordion" id="accordionExample">
-        <div class="accordion-item" style="border: none; background: none; width: 10rem">
-          <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button collapsed" type="button" style="background: none; padding-left: 0; color: white; border: none" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-              Mail Checks
-            </button>
-          </h2>
-          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
-            <div class="accordion-body">
-              <p class="card-text">
-                <ul class="mailChecks">
-                  {{#each mailChecks}}
-                    <li>{{formatDate this 'MMM Do, YYYY'}}</li>
-                  {{/each}}
-                </ul>
-              </p>
+      <div class="flex-between">
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item" style="border: none; background: none; width: 10rem">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button collapsed" type="button" style="background: none; padding-left: 0; color: white; border: none" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Mail Checks
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+              <div class="accordion-body">
+                <p class="card-text">
+                  <ul class="mailChecks">
+                    {{#each mailChecks}}
+                      <li>{{formatDate this 'MMM Do, YYYY'}}</li>
+                    {{/each}}
+                  </ul>
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
+        <div>
+          {{#if doc}}
+          <a class="btn btn-link" href="{{doc}}">View Mail Agreement</a>
+          {{/if}}
+        </div>
+      </div>
       <form
           action="/clients/upload/{{_id}}?_method=PUT"
           method="POST"
           enctype="multipart/form-data"
         >
-        <div class="form-group">
-          <label for="doc" class="form-label mt-4">Upload Mail Agreement</label>
-          <input class="form-control input" type="file" id="docUpload" name="file" />
+        <div class="flex-between">
+          <div class="form-group w-100">
+            <label for="doc" class="form-label mt-4">Upload Mail Agreement</label>
+            <div class="flex-start">
+            <input class="form-control input" type="file" id="docUpload" name="file" />
+            </div>
+          </div>
+          <div class="mt-2">
+            <button type="submit" class="btn btn-success mt-5" style="margin-top: 250px">Upload</button>
+          </div>  
         </div>
-        <button type="submit" class="btn btn-success mt-2">Upload</button>
       </form>
-
       <p>
         {{#if (isInactive mailChecks)}}
           <span class="badge rounded-pill bg-warning">Inactive</span>
@@ -71,22 +89,22 @@
   </div>
   <div class="flex-start">
     <form action="/clients/edit/{{_id}}" method="GET">
-      <button class="btn btn-success btn-lg">Edit</button>
+      <button class="btn btn-success">Edit</button>
     </form>
     {{#if (checkStatus status)}}
     <form action="/clients/close/{{_id}}" method="POST">
     <input type="hidden" name="_method" value="PUT">
-      <button class="btn btn-secondary btn-lg">Close Mailbox</button>
+      <button class="btn btn-secondary">Close Mailbox</button>
     </form>
     {{else}}
     <form action="/clients/reopen/{{_id}}" method="POST">
     <input type="hidden" name="_method" value="PUT">
-      <button class="btn btn-success btn-lg">Reopen Mailbox</button>
+      <button class="btn btn-success">Reopen Mailbox</button>
     </form>
     {{/if}}
     <form action="/clients/delete/{{_id}}" method="POST">
     <input type="hidden" name="_method" value="PUT">
-      <button class="btn btn-danger btn-lg">Delete</button>
+      <button class="btn btn-danger">Delete</button>
     </form>
   </div>
   {{/with}}
