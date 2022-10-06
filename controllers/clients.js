@@ -1,4 +1,4 @@
-const { lastChecked } = require('../helpers/hbs')
+const { lastChecked, checkSafety } = require('../helpers/hbs')
 const Client = require('../models/Client')
 
 module.exports = {
@@ -144,7 +144,6 @@ module.exports = {
                 })
                 console.log(client)
             }
-
         } catch (err) {
             console.error(err)
         }
