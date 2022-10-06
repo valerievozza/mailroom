@@ -82,7 +82,6 @@ const ClientSchema = new mongoose.Schema({
   },
   cloudinaryId: {
     type: String,
-    require: true,
   },
 })
 
