@@ -1,7 +1,7 @@
 <div class="container" align="center">
   <a href="/clients" class="btn btn-link right">Back</a>
 </div>
-<div class="container" align="center">
+<div class="container">
   {{#with client}}
   <div class="card mb-3" style="max-width: 40rem" align="left">
     <h3 class="card-header">{{firstName}} {{lastName}} <span class="showRight"> {{box}}</span></h3>
@@ -50,28 +50,16 @@
           </div>
         </div>
 
-        <div>
-          {{#if doc}}
-          <a class="btn btn-link" href="{{doc}}">View Mail Agreement</a>
-          {{/if}}
-        </div>
-      </div>
       <form
           action="/clients/upload/{{_id}}?_method=PUT"
           method="POST"
           enctype="multipart/form-data"
         >
-        <div class="flex-between">
-          <div class="form-group w-100">
-            <label for="doc" class="form-label mt-4">Upload Mail Agreement</label>
-            <div class="flex-start">
-            <input class="form-control input" type="file" id="docUpload" name="file" />
-            </div>
-          </div>
-          <div class="mt-2">
-            <button type="submit" class="btn btn-success mt-5" style="margin-top: 250px">Upload</button>
-          </div>  
+        <div class="form-group">
+          <label for="doc" class="form-label mt-4">Upload Mail Agreement</label>
+          <input class="form-control input" type="file" id="docUpload" name="file" />
         </div>
+        <button type="submit" class="btn btn-success mt-2">Upload</button>
       </form>
       <p>
         {{#if (isInactive mailChecks)}}
@@ -102,10 +90,39 @@
       <button class="btn btn-success">Reopen Mailbox</button>
     </form>
     {{/if}}
-    <form action="/clients/delete/{{_id}}" method="POST">
-    <input type="hidden" name="_method" value="PUT">
-      <button class="btn btn-danger">Delete</button>
-    </form>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      Delete
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Delete Client?</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete this client? Mailboxes can be closed & re-opened at a later date.
+          </div>
+          <div class="modal-footer">
+            <form
+              id="modal-details"
+              action="/clients/delete/{{_id}}?_method=PUT"
+              method="POST"
+            >
+              <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            </form>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No, Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    
   </div>
   {{/with}}
 </div>
