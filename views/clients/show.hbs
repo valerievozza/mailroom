@@ -49,7 +49,12 @@
             </div>
           </div>
         </div>
-
+      <div>
+          {{#if doc}}
+          <a class="btn btn-link" href="{{doc}}">View Mail Agreement</a>
+          {{/if}}
+        </div>
+      </div>
       <form
           action="/clients/upload/{{_id}}?_method=PUT"
           method="POST"
