@@ -60,11 +60,17 @@
           method="POST"
           enctype="multipart/form-data"
         >
-        <div class="form-group">
-          <label for="doc" class="form-label mt-4">Upload Mail Agreement</label>
-          <input class="form-control input" type="file" id="docUpload" name="file" />
+        <div class="flex-between">
+          <div class="form-group w-100">
+            <label for="doc" class="form-label mt-4">Upload Mail Agreement</label>
+            <div class="flex-start">
+            <input class="form-control input" type="file" id="docUpload" name="file" />
+            </div>
+          </div>
+          <div class="mt-2">
+            <button type="submit" class="btn btn-success mt-5" style="margin-top: 250px">Upload</button>
+          </div>  
         </div>
-        <button type="submit" class="btn btn-success mt-2">Upload</button>
       </form>
       <p>
         {{#if (isInactive mailChecks)}}
