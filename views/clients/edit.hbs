@@ -3,8 +3,10 @@
   <div class="card mb-3" style="max-width: 40rem" align="left">
     <h3 class="card-header">Edit Client Details</h3>
     <div class="card-body">
-      <form action="/clients/{{_id}}" method="POST">
-      <input type="hidden" name="_method" value="PUT">
+      <form
+        action="/clients//{{_id}}?_method=PUT"
+        method="POST"
+      >
         <div class="client-form">
           <div class="form-half row gx-3 mt-0">
             <div class="form-group col">
