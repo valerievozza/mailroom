@@ -16,26 +16,27 @@ const clientRoutes = require('./routes/clients')
 // LOAD CONFIG
 dotenv.config({path: './config/.env'})
 
-//LOAD PASSPORT
+// LOAD PASSPORT
 require('./config/passport.js')(passport)
 
+// Connect Database
 connectDB()
 
 const app = express()
 
-//BODY PARSER
+// BODY PARSER
 app.use(express.urlencoded({ extended: false}))
 app.use(express.json())
 
 // Method override
 app.use(methodOverride("_method"));
 
-//DETERMINE LEVEL OF LOGGING
+// DETERMINE LEVEL OF LOGGING
 if(process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
 }
 
-//HELPERS
+// HELPERS
 const { formatDate, checkedToday, checkSafety, checkStatus, isInactive, stripTags, truncate, editIcon, select, json } = require('./helpers/hbs')
 
 //Handlebars
