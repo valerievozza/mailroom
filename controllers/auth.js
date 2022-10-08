@@ -99,33 +99,16 @@ exports.postSignup = async (req, res, next) => {
   console.log(user)
 
 
+  // Get Google login
+  exports.getGoogleLogin = passport.authenticate('google', { scope: ['profile', 'email'] })
 
-  User.findOne(
-    { $or: [{ email: req.body.email }, { userName: req.body.userName }] },
-    (err, existingUser) => {
-      if (err) {
-        return next(err);
-      }
-      if (existingUser) {
-        req.flash("errors", {
-          msg: "Account with that email address or username already exists.",
-        });
-        return res.redirect("../signup");
-      }
-      user.save((err) => {
-        if (err) {
-          return next(err);
-        }
-        req.logIn(user, (err) => {
-          if (err) {
-            return next(err);
-          }
-          res.redirect("/clients");
-        });
-      });
-    }
-  );
-};
+  // Google auth callback
+  exports.googleCallback = passport.authenticate("google", {
+    failureRedirect: "/login",
+    successRedirect: "/clients",
+    failureFlash: true,
+    successFlash: "Successfully logged in!",
+  })
 
   exports.getDashboard = async (req, res) => {
     try{
