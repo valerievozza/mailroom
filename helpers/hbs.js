@@ -15,10 +15,9 @@ module.exports = {
     // should be able to check if createdAt date matches today too but not working so I deleted the code and left the variable
     checkedToday: function (mailChecks, createdAt) {
       const today = new Date()
+      if (mailChecks) {
       let lastChecked = mailChecks[mailChecks.length - 1]
       lastChecked = new Date(lastChecked)
-      
-      if (lastChecked) {
         return lastChecked.getDate() == today.getDate()
       }
     },
