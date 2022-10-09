@@ -30,11 +30,11 @@ module.exports = {
       return status == 'Open'
     },
     isInactive: function(mailChecks) {
+      if (mailChecks) {
       let lastChecked = mailChecks[mailChecks.length - 1]
       lastChecked = new Date(lastChecked)
       const today = new Date()
 
-      if (lastChecked) {
         const sixMonthsInMs = 180 * 24 * 60 * 60 * 1000
         const timeDiffInMs = today.getTime() - lastChecked.getTime()
 
@@ -46,7 +46,6 @@ module.exports = {
           return false
         }
       }
-
     },
     truncate: function (str, len) {
         if (str.length > len && str.length > 0) {
