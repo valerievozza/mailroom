@@ -16,8 +16,8 @@ module.exports = {
     checkedToday: function (mailChecks, createdAt) {
       const today = new Date()
       if (mailChecks) {
-      let lastChecked = mailChecks[mailChecks.length - 1]
-      lastChecked = new Date(lastChecked)
+        let lastChecked = mailChecks[mailChecks.length - 1]
+        lastChecked = new Date(lastChecked)
         return lastChecked.getDate() == today.getDate()
       }
     },
@@ -31,9 +31,9 @@ module.exports = {
     },
     isInactive: function(mailChecks) {
       if (mailChecks) {
-      let lastChecked = mailChecks[mailChecks.length - 1]
-      lastChecked = new Date(lastChecked)
-      const today = new Date()
+        let lastChecked = mailChecks[mailChecks.length - 1]
+        lastChecked = new Date(lastChecked)
+        const today = new Date()
 
         const sixMonthsInMs = 180 * 24 * 60 * 60 * 1000
         const timeDiffInMs = today.getTime() - lastChecked.getTime()
