@@ -22,7 +22,7 @@ module.exports = {
       }
     },
     checkSafety: (safetyConcern) => {
-      if (safetyConcern !== false) {
+      if (safetyConcern === true || safetyConcern == 'TRUE') {
         return true
       } 
     },
