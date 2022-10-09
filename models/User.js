@@ -15,6 +15,10 @@ const UserSchema = new mongoose.Schema({
   org: {
     type: String
   },
+  spreadsheet: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Spreadsheet',
+  },
   // googleId: {
   //   type: String
   // },
