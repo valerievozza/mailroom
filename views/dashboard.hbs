@@ -47,4 +47,16 @@
       {{/each}}
     </div>
   </div>
+  <div>
+    {{#if spreadsheet}}
+      <p><strong>
+         Spreadsheet connected
+      </strong></p>
+    {{/if}}
+    <form action="/clients/connectSheets/{{user._id}}" method="POST">
+      <label for="spreadsheet">Connect Google Sheets document</label>
+      <input type="text" name="spreadsheet" id="spreadsheet" placeholder="Enter ID from Spreadsheet URL">
+      <button type="Submit">Connect</button>
+    </form>
+  </div>
 </div>
