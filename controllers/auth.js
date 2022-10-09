@@ -142,6 +142,9 @@ exports.postSignup = async (req, res, next) => {
   exports.getDashboard = async (req, res) => {
     try{
       const user = await User.findById(req.user.id).lean()
+      const spreadsheet = await Spreadsheet.findOne({
+        user: req.user.id
+      }).lean()
       const clients = await Client.find({user: req.user.id})
         .populate('user')
         .lean()
@@ -150,6 +153,7 @@ exports.postSignup = async (req, res, next) => {
       const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
       res.render('dashboard', {
           user,
+          spreadsheet,
           clients,
           open: openBoxes,
           closed: closedBoxes,
