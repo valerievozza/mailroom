@@ -6,6 +6,29 @@ const Spreadsheet = require('../models/Spreadsheet')
 const User = require('../models/User')
 
 module.exports = {
+    connectSheets: async (req, res) => {
+
+        try{           
+            const spreadsheet = new GoogleSpreadsheet(req.body.spreadsheet)
+
+            await spreadsheet.useServiceAccountAuth({
+                client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+                private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n")
+            })
+            console.log(`Spreadsheet ${spreadsheet} connected`)
+
+            req.body.user = req.user.id
+            await Spreadsheet.create(req.body)
+
+            console.log(`Spreadsheet ID saved to database\n${spreadsheet}`)
+            
+            res.redirect('/dashboard')
+
+        }catch(error){
+            console.log(error)
+            res.render('error/500')
+        }
+    },
     getOpenBoxes: async (req,res)=>{
         console.log(req.user)
         try{
