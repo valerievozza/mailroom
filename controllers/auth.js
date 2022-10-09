@@ -1,7 +1,8 @@
 const passport = require('passport')
 const validator = require('validator')
 const User = require('../models/User')
-const Client = require('../models/Client')
+const Client = require('../models/Client');
+const Spreadsheet = require('../models/Spreadsheet');
 
 exports.getLogin = (req, res) => {
   if (req.user) {
