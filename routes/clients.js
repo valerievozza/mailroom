@@ -4,6 +4,8 @@ const upload = require("../middleware/multer")
 const clientsController = require('../controllers/clients') 
 const { ensureAuth } = require('../middleware/auth')
 
+router.post('/connectSheets/:id', ensureAuth, clientsController.connectSheets)
+
 router.get('/', ensureAuth, clientsController.getOpenBoxes)
 router.get('/closed', ensureAuth, clientsController.getClosedBoxes)
 router.get('/all', ensureAuth, clientsController.getAllBoxes)
