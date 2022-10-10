@@ -88,15 +88,18 @@
               </div>
               <p>
                 Last checked:
-                {{#if mailChecks}}
-                  {{#each mailChecks}}
-                    {{#if @last}}
-                      {{formatDate this 'M/D/YY'}}
-                    {{/if}}
-                  {{/each}}
+                {{#if lastChecked}}
+                  {{lastChecked}}
+                  {{else if mailChecks}}
+                    {{#each mailChecks}}
+                      {{#if @last}}
+                        {{formatDate this 'M/D/YY'}}
+                      {{/if}}
+                    {{/each}}
                 {{else}}
-                  {{formatDate createdAt 'M/D/YY'}}
+                    {{formatDate createdAt 'M/D/YY'}}
                 {{/if}}
+                
               </p>
 
             {{/if}}
