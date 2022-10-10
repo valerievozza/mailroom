@@ -38,10 +38,10 @@ module.exports = {
           const timeDiffInMs = today.getTime() - lastChecked.getTime()
   
           if (timeDiffInMs >= sixMonthsInMs) {
-            console.log('Date is older than 180 days')
+            // console.log('Date is older than 180 days')
             return true
           } else {
-            console.log('Date is not older than 180 days')
+            // console.log('Date is not older than 180 days')
             return false
           }
         } else if (mailChecks) {
