@@ -32,16 +32,44 @@ module.exports = {
     getOpenBoxes: async (req,res)=>{
         console.log(req.user)
         try{
-            const clients = await Client.find({user: req.user.id, status: 'Open', deleted: false})
+            let spreadsheet = await Spreadsheet.findOne({
+                user: req.user.id
+            }).select('spreadsheet')
+            spreadsheet = spreadsheet.spreadsheet
+            console.log(`Spreadsheet ID is ${spreadsheet}`)
+
+            if (spreadsheet) {
+                spreadsheet = await new GoogleSpreadsheet(spreadsheet)
+
+                await spreadsheet.useServiceAccountAuth({
+                    client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+                    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n")
+                })
+                await spreadsheet.loadInfo()
+                console.log(spreadsheet.title)
+                let clients = spreadsheet.sheetsByTitle['Open']
+                clients = await clients.getRows()
+                console.log(clients.length)
+                let boxes = []
+                for (let i = 0; i < clients.length; i++) {
+                    boxes.push(clients[i].box)
+                }
+                console.log(boxes.sort())
+                res.render('clients/clients', {
+                    clients
+                })
+            } else {
+                clients = await Client.find({user: req.user.id, status: 'Open', deleted: false})
                 .populate('user')
                 .sort({box: 'asc'})
                 .lean()
-            const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
-            const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
-            const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
-            res.render('clients/clients', {
-                clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
-            })
+                const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
+                const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
+                const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
+                res.render('clients/clients', {
+                    clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
+                })   
+            }
         }catch(err){
             console.error(err)
             res.render('error/500')
