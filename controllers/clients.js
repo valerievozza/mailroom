@@ -50,11 +50,7 @@ module.exports = {
                 let clients = spreadsheet.sheetsByTitle['Open']
                 clients = await clients.getRows()
                 console.log(clients.length)
-                let boxes = []
-                for (let i = 0; i < clients.length; i++) {
-                    boxes.push(clients[i].box)
-                }
-                console.log(boxes.sort())
+                
                 res.render('clients/clients', {
                     clients
                 })
