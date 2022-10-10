@@ -2,7 +2,7 @@
   <a href="/clients" class="btn btn-link right">Back</a>
 </div>
 <div class="container">
-  {{#with client}}
+  {{#each client}}
   <div class="card mb-3" style="max-width: 40rem" align="left">
     <h3 class="card-header">{{firstName}} {{lastName}} <span class="showRight"> {{box}}</span></h3>
     <div class="card-body">
@@ -135,5 +135,5 @@
 
     
   </div>
-  {{/with}}
+  {{/each}}
 </div>
