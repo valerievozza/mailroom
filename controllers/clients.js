@@ -33,6 +33,7 @@ module.exports = {
     getOpenBoxes: async (req,res)=>{
         console.log(req.user)
         try{
+            // Find spreadsheet ID in database
             let spreadsheet = await Spreadsheet.findOne({
                 user: req.user.id
             }).select('spreadsheet')
