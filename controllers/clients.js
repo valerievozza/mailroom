@@ -272,17 +272,46 @@ module.exports = {
     //         res.render('error/500')
     //     }
     // },
+
     showClient: async (req, res) => {
         try {
+            // Find spreadsheet ID in database
+            let spreadsheet = await Spreadsheet.findOne({
+                user: req.user.id
+            }).select('spreadsheet')
+
+            // If spreadsheet is found, instantiate spreadsheet with ID
+            if (spreadsheet) {
+                spreadsheet = spreadsheet.spreadsheet
+                console.log(`Spreadsheet ID is ${spreadsheet}`)
+                spreadsheet = new GoogleSpreadsheet(spreadsheet)
+
+                // auth access to spreadsheet
+                await spreadsheet.useServiceAccountAuth({
+                    client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+                    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n")
+                })
+
+                // get data from spreadsheet
+                await spreadsheet.loadInfo()
+                
+                const open = await spreadsheet.sheetsByTitle['Open'].getRows()
+                const closed = await spreadsheet.sheetsByTitle['Closed'].getRows()
+
+                // TODO: find client by ID
+                const client = open.filter(row => row._id === req.params.id) || closed.filter(row => row._id === req.params.id)
+
+                res.render('clients/show', {
+                    client
+                })
+                console.log(client)
+
+            } else {
             const client = await Client.findOne({
                 _id: req.params.id
             })
             .populate('user')
             .lean()
-
-            if (!client) {
-                res.render('error/404')
-            }
 
             // ! Won't show client view with this code (needed for security) but I checked the database and the user id and the user id attached to the client matches
             // if (client.user != req.user.id) {
@@ -293,6 +322,12 @@ module.exports = {
                 })
                 console.log(client)
             // }
+            }
+            
+            // if (!client) {
+            //     res.render('error/404')
+            // }
+
         } catch (err) {
             console.error(err)
             res.render('error/404')
