@@ -29,8 +29,22 @@ module.exports = {
     checkStatus: (status) => {
       return status == 'Open'
     },
-    isInactive: function(mailChecks) {
-      if (mailChecks) {
+    isInactive: function(mailChecks, lastChecked) {
+      if (lastChecked) {
+          lastChecked = new Date(lastChecked)
+          const today = new Date()
+  
+          const sixMonthsInMs = 180 * 24 * 60 * 60 * 1000
+          const timeDiffInMs = today.getTime() - lastChecked.getTime()
+  
+          if (timeDiffInMs >= sixMonthsInMs) {
+            console.log('Date is older than 180 days')
+            return true
+          } else {
+            console.log('Date is not older than 180 days')
+            return false
+          }
+        } else if (mailChecks) {
         let lastChecked = mailChecks[mailChecks.length - 1]
         lastChecked = new Date(lastChecked)
         const today = new Date()
