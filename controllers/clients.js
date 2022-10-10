@@ -176,16 +176,69 @@ module.exports = {
     getClosedBoxes: async (req,res)=>{
         console.log(req.user)
         try{
-            const clients = await Client.find({user: req.user.id, status: 'Closed', deleted: false})
+            // Find spreadsheet ID in database
+            let spreadsheet = await Spreadsheet.findOne({
+                user: req.user.id
+            }).select('spreadsheet')
+            
+            // If spreadsheet is found, instantiate spreadsheet with ID
+            if (spreadsheet) {
+                spreadsheet = spreadsheet.spreadsheet
+                console.log(`Spreadsheet ID is ${spreadsheet}`)
+                spreadsheet = new GoogleSpreadsheet(spreadsheet)
+
+                // auth access to spreadsheet
+                await spreadsheet.useServiceAccountAuth({
+                    client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+                    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n")
+                })
+
+                // get data from spreadsheet
+                await spreadsheet.loadInfo()
+                
+                // get open box count
+                let openBoxes = spreadsheet.sheetsByTitle['Open']
+                    openBoxes = await openBoxes.getRows()
+                    openBoxes = openBoxes.filter(row => row.lastName).length
+                console.log(`${openBoxes} open boxes`)
+
+                // get open box count
+                let closedBoxes = spreadsheet.sheetsByTitle['Closed']
+                    closedBoxes = await closedBoxes.getRows()
+                    closedBoxes = closedBoxes.filter(row => row.lastName).length
+                console.log(`${closedBoxes} closed boxes`)
+
+                // get total box count
+                let totalBoxes = openBoxes + closedBoxes
+                console.log(`${totalBoxes} total boxes`)
+
+                // get closed boxes
+                let clients = await spreadsheet.sheetsByTitle['Closed'].getRows()
+                
+                res.render('clients/clients', {
+                    clients,
+                    open: openBoxes,
+                    closed: closedBoxes,
+                    total: totalBoxes
+                })
+                // If no spreadsheet, check DB for clients
+            } else {
+                // Find clients
+                let clients = await Client.find({user: req.user.id, status: 'Closed', deleted: false})
                 .populate('user')
                 .sort({box: 'asc'})
                 .lean()
-            const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
-            const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
-            const totalBoxes = await Client.countDocuments({user: req.user.id}).lean()
+
+                // get open box count
+                const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
+                // get closed box count
+                const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
+                // get total box count
+                const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
             res.render('clients/clients', {
                 clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
             })
+            }
         }catch(err){
             console.log(err)
         }
