@@ -41,8 +41,8 @@ module.exports = {
 
             // If spreadsheet is found, instantiate spreadsheet with ID
             if (spreadsheet) {
-            spreadsheet = spreadsheet.spreadsheet
-            console.log(`Spreadsheet ID is ${spreadsheet}`)
+                spreadsheet = spreadsheet.spreadsheet
+                console.log(`Spreadsheet ID is ${spreadsheet}`)
                 spreadsheet = new GoogleSpreadsheet(spreadsheet)
 
                 // auth access to spreadsheet
@@ -157,16 +157,16 @@ module.exports = {
                 })
                 
             } else {
-            const clients = await Client.find({user: req.user.id, deleted: false})
+                const clients = await Client.find({user: req.user.id, deleted: false})
                 .populate('user')
                 .sort({box: 'asc'})
                 .lean()
-            const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
-            const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
-            const totalBoxes = await Client.countDocuments({user: req.user.id}).lean()
-            res.render('clients/clients', {
-                clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
-            })
+                const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
+                const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
+                const totalBoxes = await Client.countDocuments({user: req.user.id}).lean()
+                res.render('clients/clients', {
+                    clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
+                })                
             }
 
         }catch(err){
@@ -235,9 +235,9 @@ module.exports = {
                 const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
                 // get total box count
                 const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
-            res.render('clients/clients', {
-                clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
-            })
+                res.render('clients/clients', {
+                    clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
+                })   
             }
         }catch(err){
             console.log(err)
@@ -250,7 +250,7 @@ module.exports = {
     //         const clients = await Client.find({user: req.user.id, status: 'Open', deleted: false})
     //             .populate('user')
     //             .sort({box: 'asc'})
-    //             .lean() //! Change this to org ID
+    //             .lean()
             
             
     //         const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
@@ -307,21 +307,21 @@ module.exports = {
                 console.log(client)
 
             } else {
-            const client = await Client.findOne({
-                _id: req.params.id
-            })
-            .populate('user')
-            .lean()
-
-            // ! Won't show client view with this code (needed for security) but I checked the database and the user id and the user id attached to the client matches
-            // if (client.user != req.user.id) {
-            //     res.redirect('/')
-            // } else {
-                res.render('clients/show', {
-                    client
+                const client = await Client.findOne({
+                    _id: req.params.id
                 })
-                console.log(client)
-            // }
+                .populate('user')
+                .lean()   
+    
+                // ! Won't show client view with this code (needed for security) but I checked the database and the user id and the user id attached to the client matches
+                // if (client.user != req.user.id) {
+                //     res.redirect('/')
+                // } else {
+                    res.render('clients/show', {
+                        client
+                    })
+                    console.log(client)
+                // }
             }
             
             // if (!client) {
@@ -336,17 +336,73 @@ module.exports = {
     addPage: (req,res)=>{
         res.render('clients/add')
     },
+
+    // TODO: Add write to spreadsheet
     createClient: async (req, res)=>{
         try{
-            req.body.user = req.user.id
-            await Client.create(req.body)
+            // Find spreadsheet ID in database
+            let spreadsheet = await Spreadsheet.findOne({
+                user: req.user.id
+            }).select('spreadsheet')
 
-            console.log('Client saved to database')
-            res.redirect('/clients')
+            // If spreadsheet is found, instantiate spreadsheet with ID
+            if (spreadsheet) {
+                spreadsheet = spreadsheet.spreadsheet
+                console.log(`Spreadsheet ID is ${spreadsheet}`)
+                spreadsheet = new GoogleSpreadsheet(spreadsheet)
+
+                // auth access to spreadsheet
+                await spreadsheet.useServiceAccountAuth({
+                    client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+                    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n")
+                })
+
+                // get data from spreadsheet
+                await spreadsheet.loadInfo()
+
+                // get open sheet
+                let open = spreadsheet.sheetsByTitle['Open']
+
+                // get closed sheet
+                let closed = spreadsheet.sheetsByTitle['Closed']
+
+                // Get data from sheets
+                open = await open.getRows()
+                closed = await closed.getRows()
+
+                console.log(req.body.box)
+
+                // todo: FIX WHATEVER RACE CONDITION IS HAPPENING HERE THAT IT'S ADDING THE ROW BEFORE CHECKING THAT THE CONDITIONAL IS TRUE
+
+                if (open.includes(req.body.box) && closed.includes(req.body.box)) {
+                    console.log(`Mailbox ${req.body.box} is already in use`)
+                    res.render('error/400')
+                } else {
+                    // create new client
+                    await spreadsheet.sheetsByTitle['Open'].addRow({
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName,
+                        box: req.body.box,
+                        user: req.user.id,
+                        _id: Math.floor(Math.random() * 100000)
+                    })
+                    console.log(`Client ${req.body.firstName} ${req.body.lastName} saved to database`)
+                    res.redirect('/clients')
+                }
+
+            } else {
+                req.body.user = req.user.id
+                await Client.create(req.body)
+
+                console.log(`Client ${firstName} ${lastName} saved to database`)
+                res.redirect('/clients')                
+            }
+
         }catch(error){
             console.log(error)
             //! render error page
             if (error.name == 'ValidationError') {
+                console.log(`Box number already in use`)
                 res.render('error/400')
             } else {
                 res.render('error/500')
