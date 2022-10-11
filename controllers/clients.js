@@ -43,7 +43,11 @@ module.exports = {
     getClosedBoxes: async (req,res)=>{
         console.log(req.user)
         try{
-            const clients = await Client.find({user: req.user.id, status: 'Closed', deleted: false})
+            const clients = await Client.find({
+                user: req.user.id,
+                status: 'Closed',
+                deleted: false
+            })
                 .populate('user')
                 .sort({box: 'asc'})
                 .lean()
