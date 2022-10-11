@@ -68,15 +68,15 @@
             </div>
           </div>
           <div class="mt-2">
-            <button type="submit" class="btn btn-success mt-5" style="margin-top: 250px">Upload</button>
+            <button type="submit" class="btn btn-success mt-5 mb-4" style="margin-top: 250px">Upload</button>
           </div>  
         </div>
       </form>
-      <p>
-        {{#if (isInactive mailChecks)}}
-          <span class="badge rounded-pill bg-warning">Inactive</span>
-        {{/if}}
+      {{#if (isInactive mailChecks)}}
+      <p class="mb-2">
+        <span class="badge rounded-pill bg-warning">Inactive</span>
       </p>
+      {{/if}}
     </div>
     <div class="card-footer text-muted">
       <span>Mailbox last checked {{formatDate lastChecked 'MMM Do, YYYY'}}</span>
