@@ -1,6 +1,7 @@
 const cloudinary = require("../middleware/cloudinary");
 const { lastChecked, checkSafety } = require('../helpers/hbs')
 const Client = require('../models/Client')
+const User = require('../models/User')
 
 module.exports = {
     getOpenBoxes: async (req,res)=>{
