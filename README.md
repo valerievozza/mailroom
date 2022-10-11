@@ -59,14 +59,17 @@ To run this project, you will need to add the following environment variables to
 
 ## Other Examples of My Work
 
-### Pocket: https://pocket.cyclic.app
+### Pocket:
+https://pocket.cyclic.app
 
 ![pocket](https://user-images.githubusercontent.com/101529105/195203986-95c3d4ef-54b7-40cf-bde7-a8708bb7f53a.png)
 
-### Pictogram: https://pictogram.cyclic.app
+### Pictogram
+https://pictogram.cyclic.app
 
 ![pictogram](https://user-images.githubusercontent.com/101529105/195203985-938d761f-2c6a-4bc7-9b08-1b32cc28b610.png)
 
-### myPetPal: https://mypetpal.onrender.com
+### myPetPal
+https://mypetpal.onrender.com
 
 ![myPetPal](https://user-images.githubusercontent.com/101529105/195203978-398ed8da-ccda-4c21-81c0-5975f135af93.png)
