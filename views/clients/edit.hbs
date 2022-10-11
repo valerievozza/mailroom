@@ -12,7 +12,11 @@
             <p align="center"><h3>{{firstName}} {{lastName}}</h3></p>
             <div class="form-group col">
               <label class="col-form-label" for="box">Mailbox*</label>
-              <input type="text" class="form-control" value="{{box}}" pattern="[A-Z]-[0-9]{1,4}" id="box" name="box" required>
+              <div class="flex">
+                <input type="text" class="form-control" value="{{boxLetter}}" pattern="[a-zA-Z]{1}" id="boxLetter" name="boxLetter" required>
+                <span><i class="fa-solid fa-minus fa-fw"></i></span>
+                <input type="text" class="form-control" value="{{boxNumber}}" pattern="[0-9]{1,4}" id="boxNumber" name="boxNumber" required>
+              </div>
             </div>
             <div class="form-group col"></div>
             <div class="form-group col"></div>
