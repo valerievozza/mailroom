@@ -5,7 +5,7 @@
       <form action="/clients/createClient" method="POST">
         <div class="client-form">
           <div class="form-half row gx-3 mt-0">
-            <div class="form-group col">
+            {{!-- <div class="form-group col">
               <label class="col-form-label" for="box">Mailbox*</label>
               <input type="text" class="form-control" placeholder="ex: Q-48" pattern="[A-Z]-[0-9]{1,4}" id="box" name="box" required>
             </div>
@@ -18,7 +18,7 @@
                 <option value=true>true</option>
               </select>
             </div> 
-          </div>
+          </div> --}}
           <div class="form-half row gx-3 mt-3">
             <div class="form-group w-50 col">
               <label class="col-form-label" for="firstName">First Name*</label>
@@ -29,7 +29,7 @@
               <input type="text" class="form-control" placeholder="Last Name" id="lastName" name="lastName" required>
             </div>
           </div>
-          <div class="form-group">
+          {{!-- <div class="form-group">
             <label class="col-form-label mt-3" for="otherNames">Other Names</label>
             <input type="text" class="form-control" placeholder="Other names mail may be addressed to" id="otherNames" name="otherNames">
           </div>
@@ -46,7 +46,7 @@
           <div class="form-group">
             <label for="notes" class="form-label mt-4">Notes</label>
             <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Add any additional notes about this client"></textarea>
-          </div>
+          </div> --}}
           <div class="edit-options mt-3">
             <button type="submit" class="btn btn-success">Add</button>
             <a href="/clients" class="btn btn-link" style="color: lightgray">Cancel</a>
