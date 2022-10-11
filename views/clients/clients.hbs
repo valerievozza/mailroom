@@ -1,4 +1,7 @@
 <div class="container client-list">
+  <div class="right mb-3">
+    <h3>{{user.org}}</h3>
+  </div>
   <div class="right search">
     <form action="/clients/search" method="GET" class="flex search">
       <input type="text" name="search" id="search" class="form-control" placeholder="Search by name or box number" style="width: 300px" value="{{filter}}">
@@ -39,7 +42,7 @@
       <div class="card-body clientMailbox">
         <a href="/clients/{{_id}}" class="client-list-entry">
           <div class="box">
-            <h4>{{box}}</h4>
+            <h4>{{boxLetter}}-{{boxNumber}}</h4>
           </div>
         </a>
         <a href="/clients/{{_id}}" class="client-list-entry">
