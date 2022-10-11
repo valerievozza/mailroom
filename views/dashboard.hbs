@@ -8,10 +8,10 @@
       Mailbox Stats:
     </div>
     <div class="card-body">
-      <div class="card-text">
-        <p><strong>Open:</strong> {{open}}</p>
-        <p><strong>Closed:</strong> {{closed}}</p>
-        <p><strong>Total:</strong> {{total}}</p>
+      <div class="card-text flex flex-evenly">
+        <a class="btn" href="/clients"><strong>Open:</strong> {{open}}</a>
+        <a class="btn" href="/clients/getClosedBoxes"><strong>Closed:</strong> {{closed}}</a>
+        <a class="btn" href="/clients/getAllBoxes"><strong>Total:</strong> {{total}}</a>
       </div>
     </div>
   </div>
@@ -24,7 +24,9 @@
         <ul class="mailChecks">
           {{#if (isInactive mailChecks)}}
             <li>
-              {{box}} {{firstName}} {{lastName}}
+              <a href="/clients/{{_id}}" class="btn">
+                <strong>{{box}}</strong> {{firstName}} {{lastName}}
+              </a>
             </li>
           {{/if}}
         </ul>
@@ -40,7 +42,9 @@
         <ul class="mailChecks">
           {{#if (checkedToday mailChecks)}}
             <li>
-              {{box}} {{firstName}} {{lastName}}
+              <a href="/clients/{{_id}}" class="btn">
+                <strong>{{box}}</strong> {{firstName}} {{lastName}}
+              </a>
             </li>
           {{/if}}
         </ul>

@@ -12,7 +12,11 @@
             <p align="center"><h3>{{firstName}} {{lastName}}</h3></p>
             <div class="form-group col">
               <label class="col-form-label" for="box">Mailbox*</label>
-              <input type="text" class="form-control" value="{{box}}" pattern="[A-Z]-[0-9]{1,4}" id="box" name="box" required>
+              <div class="flex">
+                <input type="text" class="form-control" value="{{boxLetter}}" pattern="[a-zA-Z]{1}" id="boxLetter" name="boxLetter" required>
+                <span><i class="fa-solid fa-minus fa-fw"></i></span>
+                <input type="text" class="form-control" value="{{boxNumber}}" pattern="[0-9]{1,4}" id="boxNumber" name="boxNumber" required>
+              </div>
             </div>
             <div class="form-group col"></div>
             <div class="form-group col"></div>
@@ -40,16 +44,16 @@
           </div>
           <div class="form-group">
             <label class="col-form-label mt-3" for="otherNames">Other Names</label>
-            <input type="text" class="form-control" id="otherNames" name="otherNames" value="{{otherNames}}">
+            <input type="text" class="form-control" id="otherNames" name="otherNames" placeholder="Any other names client may received mail addressed to" value="{{otherNames}}">
           </div>
           <div class="form-half row gx-3 mt-0">
             <div class="form-group col">
               <label for="phone" class="form-label mt-4">Phone Number</label>
-              <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{phone}}"></input>
+              <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="000-000-0000" value="{{phone}}">
             </div>
             <div class="form-group col">
               <label for="email" class="form-label mt-4">Email</label>
-              <input type="email" class="form-control" id="email" name="email" value="{{email}}"></input>
+              <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" value="{{email}}">
             </div>
           </div>
           <div class="form-group">
