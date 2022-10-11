@@ -121,11 +121,32 @@ module.exports = {
     },
     createClient: async (req, res)=>{
         try{
-            req.body.user = req.user.id
-            await Client.create(req.body)
+            
+            // find last box number
+            let alphaClients = await Client.find({
+                user: req.user.id,
+                deleted: false,
+                boxLetter: req.body.lastName[0]
+            }).sort({boxNumber: 'asc'})
+            let lastClient = alphaClients[alphaClients.length - 1]
+            let lastNumber = lastClient.boxNumber
+            
+            // assign box letter
+            req.body.boxLetter = req.body.lastName[0].toUpperCase()
 
-            console.log('Client saved to database')
-            res.redirect('/clients')
+            // assign box number
+            req.body.boxNumber = Number(lastNumber) + 1
+
+            // assign user
+            req.body.user = req.user.id
+
+            // create client
+            let client = await Client.create(req.body)
+            console.log(client)
+
+
+            console.log(`Client ${client.firstName} ${client.lastName} saved to database`)
+            res.redirect(`/clients/${client.id}`)
         }catch(error){
             console.log(error)
             //! render error page
