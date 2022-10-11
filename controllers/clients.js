@@ -190,11 +190,26 @@ module.exports = {
             if (client.user != req.user.id) {
                 res.redirect('/')
             } else {
-                client = await Client.findOneAndUpdate({_id: req.params.id}, req.body, {
-                    new: true,
-                    runValidators: true
-                })
-            res.redirect(`/clients/${req.params.id}`)
+                // find last box number
+                let boxMatches = await Client.find({
+                    user: req.user.id,
+                    deleted: false,
+                    boxLetter: req.body.boxLetter.toUpperCase(),
+                    boxNumber: req.body.boxNumber,
+                    _id: { $not: {$eq: req.params.id} }
+                }).sort({boxNumber: 'asc'})
+                console.log(boxMatches)
+                if (boxMatches.length > 0) {
+                   console.log(`Box number ${client.boxLetter}-${client.boxNumber} is already in use`) 
+                   res.render('error/400')
+                } else {
+                    client = await Client.findOneAndUpdate({_id: req.params.id}, req.body, {
+                        new: true,
+                        runValidators: true
+                    })
+                    res.redirect(`/clients/${req.params.id}`)
+                }
+
             }
 
         } catch (err) {
