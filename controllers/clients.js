@@ -9,7 +9,7 @@ module.exports = {
         try{
             const clients = await Client.find({user: req.user.id, status: 'Open', deleted: false})
                 .populate('user')
-                .sort({box: 'asc'})
+                .sort({boxLetter: 'asc', boxNumber: 'asc'})
                 .lean()
             const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
             const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
