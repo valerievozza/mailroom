@@ -102,7 +102,7 @@ exports.postSignup = async (req, res, next) => {
 
 
   User.findOne(
-    { $or: [{ email: req.body.email }, { userName: req.body.userName }] },
+    { $or: [{ email: req.body.email }, { username: req.body.username }] },
     (err, existingUser) => {
       if (err) {
         return next(err);
