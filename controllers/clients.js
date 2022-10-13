@@ -8,16 +8,19 @@ module.exports = {
     getOpenBoxes: async (req,res)=>{
         console.log(req.user)
         try{
-            const clients = await Client.find({user: req.user.id, status: 'Open', deleted: false})
+            // Get user and org
+            const user = await User.findById(req.user.id).populate('org')
+            const clients = await Client.find({org: user.org, status: 'Open', deleted: false})
                 .populate('user')
                 .sort({boxLetter: 'asc', boxNumber: 'asc'})
                 .lean()
-            const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
-            const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
-            const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
-            const user = await User.findById(req.user.id).lean()
+            let org = await Org.findById(user.org)
+            org = org.org
+            const openBoxes = await Client.countDocuments({org: user.org, status: 'Open', deleted: false}).lean()
+            const closedBoxes = await Client.countDocuments({org: user.org, status: 'Closed', deleted: false}).lean()
+            const totalBoxes = await Client.countDocuments({org: user.org, deleted: false}).lean()
             res.render('clients/clients', {
-                clients, user, open: openBoxes, closed: closedBoxes, total: totalBoxes,
+                clients, user, org, open: openBoxes, closed: closedBoxes, total: totalBoxes,
             })
         }catch(err){
             console.error(err)
@@ -27,15 +30,18 @@ module.exports = {
     getAllBoxes: async (req,res)=>{
         console.log(req.user)
         try{
-            const clients = await Client.find({user: req.user.id, deleted: false})
+            const user = await User.findById(req.user.id).populate('org')
+            const clients = await Client.find({org: user.org, deleted: false, org: user.org})
                 .populate('user')
                 .sort({box: 'asc'})
                 .lean()
-            const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
-            const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
-            const totalBoxes = await Client.countDocuments({user: req.user.id}).lean()
+            let org = await Org.findById(user.org)
+            org = org.org
+            const openBoxes = await Client.countDocuments({org: user.org, status: 'Open'}).lean()
+            const closedBoxes = await Client.countDocuments({org: user.org, status: 'Closed'}).lean()
+            const totalBoxes = await Client.countDocuments({org: user.org}).lean()
             res.render('clients/clients', {
-                clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
+                clients, user, org, open: openBoxes, closed: closedBoxes, total: totalBoxes
             })
         }catch(err){
             console.log(err)
@@ -45,18 +51,20 @@ module.exports = {
         console.log(req.user)
         try{
             const clients = await Client.find({
-                user: req.user.id,
+                org: user.org,
                 status: 'Closed',
                 deleted: false
             })
                 .populate('user')
                 .sort({box: 'asc'})
                 .lean()
+            let org = await Org.findById(user.org)
+            org = org.org
             const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
             const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
             const totalBoxes = await Client.countDocuments({user: req.user.id}).lean()
             res.render('clients/clients', {
-                clients, open: openBoxes, closed: closedBoxes, total: totalBoxes
+                clients, user, org, open: openBoxes, closed: closedBoxes, total: totalBoxes
             })
         }catch(err){
             console.log(err)
@@ -93,10 +101,13 @@ module.exports = {
     // },
     showClient: async (req, res) => {
         try {
+            let user = await User.findById(req.user.id).lean()
+            user = user.username
+            console.log(user)
             const client = await Client.findOne({
                 _id: req.params.id
             })
-            .populate('user')
+            .populate('user org')
             .lean()
 
             if (!client) {
@@ -108,7 +119,7 @@ module.exports = {
             //     res.redirect('/')
             // } else {
                 res.render('clients/show', {
-                    client
+                    client, user
                 })
                 console.log(client)
             // }
@@ -122,32 +133,57 @@ module.exports = {
     },
     createClient: async (req, res)=>{
         try{
-            
+            const user = await User.findById(req.user.id).populate('org').lean()
             // find last box number
             let alphaClients = await Client.find({
                 user: req.user.id,
+                org: user.org,
                 deleted: false,
                 boxLetter: req.body.lastName[0]
             }).sort({boxNumber: 'asc'})
-            let lastClient = alphaClients[alphaClients.length - 1]
-            let lastNumber = lastClient.boxNumber
+
+            if (alphaClients.length !== 0) {
+                let lastClient = alphaClients[alphaClients.length - 1]
+                let lastNumber = lastClient.boxNumber  
+                
+                // assign box letter
+                req.body.boxLetter = req.body.lastName[0].toUpperCase()
+
+                // assign box number
+                req.body.boxNumber = Number(lastNumber) + 1
+
+                // assign user
+                req.body.user = req.user.id
+
+                // create client
+                let client = await Client.create(req.body)
+                console.log(client)
+
+
+                console.log(`Client ${client.firstName} ${client.lastName} saved to database`)
+                res.redirect(`/clients/${client.id}`)
+            } else {
+                lastNumber = 0
+
+                // assign box letter
+                req.body.boxLetter = req.body.lastName[0].toUpperCase()
+
+                // assign box number
+                req.body.boxNumber = Number(lastNumber) + 1
+
+                // assign user
+                req.body.user = req.user.id
+
+                // create client
+                let client = await Client.create(req.body)
+                console.log(client)
+
+
+                console.log(`Client ${client.firstName} ${client.lastName} saved to database`)
+                res.redirect(`/clients/${client.id}`)
+            }
             
-            // assign box letter
-            req.body.boxLetter = req.body.lastName[0].toUpperCase()
-
-            // assign box number
-            req.body.boxNumber = Number(lastNumber) + 1
-
-            // assign user
-            req.body.user = req.user.id
-
-            // create client
-            let client = await Client.create(req.body)
-            console.log(client)
-
-
-            console.log(`Client ${client.firstName} ${client.lastName} saved to database`)
-            res.redirect(`/clients/${client.id}`)
+            
         }catch(error){
             console.log(error)
             //! render error page
