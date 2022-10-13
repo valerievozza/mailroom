@@ -195,7 +195,10 @@ exports.postNewOrg = async (req, res) => {
 
   exports.getDashboard = async (req, res) => {
     try{
-      const user = await User.findById(req.user.id).lean()
+      const user = await User.findById(req.user.id).populate('org').lean()
+      let org = await Org.findById(user.org)
+      org = org.org
+      console.log(org)
       const clients = await Client.find({user: req.user.id})
         .populate('user')
         .lean()
