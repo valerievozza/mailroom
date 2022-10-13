@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
 const OrgSchema = new mongoose.Schema({
-  orgName: {
+  org: {
     type: String,
     required: true,
   },
-  password: {
+  codeword: {
     type: String
   },
   users: [{
