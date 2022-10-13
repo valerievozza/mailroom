@@ -1,9 +1,21 @@
-<div class="container">
-  <div class="jumbotron">
-    <h1 class="card-title">{{user.org}} Dashboard</h1>
-    <p>Welcome, {{user.username}}</p>
+<div class="container" align="center">
+  <div class="card mb-3" style="max-width: 40rem" align="left">
+    <div class="card-header">
+      <h2>Dashboard</h2>
+    </div>
+    <div class="card-body">
+      <p>User: {{user.username}} {{user.userName}}</p>  
+      {{#if user.org}}
+      <p>Organization: {{org}}</p>
+      {{else}}
+      <p>
+        <a href="/join" class="btn btn-success">Join an organization</a>
+        <a href="/new" class="btn btn-success">Add your organization</a>
+      </p>
+      {{/if}}
+    </div>
   </div>
-  <div class="card mb-3" style="max-width: 30rem">
+  <div class="card mb-3" style="max-width: 40rem" align="left">
     <div class="card-header">
       Mailbox Stats:
     </div>
@@ -15,7 +27,7 @@
       </div>
     </div>
   </div>
-  <div class="card mb-3" style="max-width: 30rem">
+  <div class="card mb-3" style="max-width: 40rem" align="left">
     <div class="card-header">
       Inactive Mailboxes:
     </div>
@@ -33,7 +45,7 @@
       {{/each}}
     </div>
   </div>
-  <div class="card mb-3" style="max-width: 30rem">
+  <div class="card mb-3" style="max-width: 40rem" align="left">
     <div class="card-header">
       Mailboxes Checked Today:
     </div>

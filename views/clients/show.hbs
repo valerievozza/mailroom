@@ -1,7 +1,7 @@
 <div class="container" align="center">
   <a href="/clients" class="btn btn-link right">Back</a>
 </div>
-<div class="container">
+<div class="container" align="center">
   {{#with client}}
   <div class="card mb-3" style="max-width: 40rem" align="left">
     <h3 class="card-header">{{firstName}} {{lastName}} <span class="showRight"> {{boxLetter}}-{{boxNumber}}</span></h3>
@@ -83,10 +83,11 @@
       <span class="showRight">Status: {{status}}</span>
     </div>
   </div>
-  <div>
-    <p>Client record created by {{user.username}} on {{formatDate user.createdAt 'MMM Do, YYYY'}}</p>
+  <div style="max-width: 40rem">
+    <p align="left">Client record created by {{user.username}} {{user.userName}} on {{formatDate user.createdAt 'MMM Do, YYYY'}}</p>
   </div>
-  <div class="flex-start">
+  
+  <div class="flex-start" style="max-width: 40rem" align="left">
     <form action="/clients/edit/{{_id}}" method="GET">
       <button class="btn btn-success">Edit</button>
     </form>

@@ -1,6 +1,7 @@
 const passport = require('passport')
 const validator = require('validator')
 const User = require('../models/User')
+const Org = require('../models/Org')
 const Client = require('../models/Client')
 
 exports.getLogin = (req, res) => {
@@ -101,7 +102,7 @@ exports.postSignup = async (req, res, next) => {
 
 
   User.findOne(
-    { $or: [{ email: req.body.email }, { userName: req.body.userName }] },
+    { $or: [{ email: req.body.email }, { username: req.body.username }] },
     (err, existingUser) => {
       if (err) {
         return next(err);
@@ -127,6 +128,61 @@ exports.postSignup = async (req, res, next) => {
   );
 };
 
+// // Join org
+// router.get('/joinOrg', authController.getJoinOrg)
+// router.post('/joinOrg', authController.postJoinOrg)
+
+exports.getJoinOrg = (req, res) => {
+  if (req.user) {
+    res.render("org/join", { msg: req.flash('errors') });
+  }
+}
+
+exports.putJoinOrg = async (req, res) => {
+  try {
+    const org = await Org.findOne({org: req.body.org}).lean()
+
+    if (req.body.codeword === org.codeword) {
+      await User.findOneAndUpdate({_id: req.user.id}, {org: org._id})
+    }
+
+    res.redirect('/dashboard')
+  } catch (err) {
+    console.error(err)
+    res.render('error/500')
+  }
+}
+
+// // Add org
+// router.get('/addOrg', authController.getAddOrg)
+// router.post('/addOrg', authController.postAddOrg)
+
+exports.getNewOrg = (req, res) => {
+  if (req.user) {
+    res.render("org/new", { msg: req.flash('errors'), user: req.user.id });
+  }
+}
+
+exports.postNewOrg = async (req, res) => {
+  try{
+    // TODO: Need to first verify that org doesn't already exist
+    // TODO: Make creator of org the org admin (add to admin name to org or give admin/user properties on user docs?)
+  
+    const org = await Org.create(req.body)
+    console.log(org)
+
+    res.redirect('/join')
+    }catch(err){
+        console.error(err)
+        // //! render error page
+        // if (error.name == 'ValidationError') {
+        //     res.render('error/400')
+        // } else {
+        //     res.render('error/500')
+        // }
+    }
+}
+
 //   // Get Google login
 //   exports.getGoogleLogin = passport.authenticate('google', { scope: ['profile', 'email'] })
 
@@ -140,7 +196,10 @@ exports.postSignup = async (req, res, next) => {
 
   exports.getDashboard = async (req, res) => {
     try{
-      const user = await User.findById(req.user.id).lean()
+      const user = await User.findById(req.user.id).populate('org').lean()
+      let org = await Org.findById(user.org)
+      org = org.org
+      console.log(org)
       const clients = await Client.find({user: req.user.id})
         .populate('user')
         .lean()
@@ -149,6 +208,7 @@ exports.postSignup = async (req, res, next) => {
       const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
       res.render('dashboard', {
           user,
+          org,
           clients,
           open: openBoxes,
           closed: closedBoxes,
