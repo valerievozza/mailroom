@@ -128,6 +128,60 @@ exports.postSignup = async (req, res, next) => {
   );
 };
 
+// // Join org
+// router.get('/joinOrg', authController.getJoinOrg)
+// router.post('/joinOrg', authController.postJoinOrg)
+
+exports.getJoinOrg = (req, res) => {
+  if (req.user) {
+    res.render("org/join", { msg: req.flash('errors') });
+  }
+}
+
+exports.putJoinOrg = async (req, res) => {
+  try {
+    const org = await Org.findOne({org: req.body.org}).lean()
+
+    if (req.body.codeword === org.codeword) {
+      await User.findOneAndUpdate({_id: req.user.id}, {org: org._id})
+    }
+
+    res.redirect('/dashboard')
+  } catch (err) {
+    console.error(err)
+    res.render('error/500')
+  }
+}
+
+// // Add org
+// router.get('/addOrg', authController.getAddOrg)
+// router.post('/addOrg', authController.postAddOrg)
+
+exports.getNewOrg = (req, res) => {
+  if (req.user) {
+    res.render("org/new", { msg: req.flash('errors'), user: req.user.id });
+  }
+}
+
+exports.postNewOrg = async (req, res) => {
+  try{
+    // TODO: Need to first verify that org doesn't already exist
+    // create org (needs name and codeword)
+    const org = await Org.create(req.body)
+    console.log(org)
+
+    res.redirect('/join')
+    }catch(err){
+        console.error(err)
+        // //! render error page
+        // if (error.name == 'ValidationError') {
+        //     res.render('error/400')
+        // } else {
+        //     res.render('error/500')
+        // }
+    }
+}
+
 //   // Get Google login
 //   exports.getGoogleLogin = passport.authenticate('google', { scope: ['profile', 'email'] })
 
