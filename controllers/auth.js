@@ -166,7 +166,8 @@ exports.getNewOrg = (req, res) => {
 exports.postNewOrg = async (req, res) => {
   try{
     // TODO: Need to first verify that org doesn't already exist
-    // create org (needs name and codeword)
+    // TODO: Make creator of org the org admin (add to admin name to org or give admin/user properties on user docs?)
+  
     const org = await Org.create(req.body)
     console.log(org)
 
