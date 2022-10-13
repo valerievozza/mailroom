@@ -207,6 +207,7 @@ exports.postNewOrg = async (req, res) => {
       const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
       res.render('dashboard', {
           user,
+          org,
           clients,
           open: openBoxes,
           closed: closedBoxes,
