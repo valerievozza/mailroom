@@ -84,7 +84,7 @@
     </div>
   </div>
   <div>
-    <p>Client record created by {{user.username}} on {{formatDate user.createdAt 'MMM Do, YYYY'}}</p>
+    <p align="left">Client record created by {{user.username}} {{user.userName}} on {{formatDate user.createdAt 'MMM Do, YYYY'}}</p>
   </div>
   <div class="flex-start">
     <form action="/clients/edit/{{_id}}" method="GET">
