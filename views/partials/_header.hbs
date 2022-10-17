@@ -50,10 +50,17 @@
         </li>
         {{/if}}
       </ul>
-      {{!-- <form class="d-flex">
-        <input class="form-control me-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form> --}}
+      
+      <form action="/clients/search" method="GET" class="d-flex">
+        <input class="form-control me-2" type="search" id="search" name="search" placeholder="Search" aria-label="Search" value="{{filter}}">
+        <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <a href="/clients" class="btn"><i class="fa-solid fa-x"></i></a>
+      </form>
     </div>
   </div>
 </nav>
+{{/if}}
+
+
+
+
