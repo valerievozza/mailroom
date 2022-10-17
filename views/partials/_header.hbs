@@ -25,25 +25,28 @@
             <li><a class="dropdown-item" href="/logout">Logout</a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/clients/add"> <strong>Open New Mailbox</strong></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout">Log Out</a>
-        </li>
-        {{else}}
-        {{!-- <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li> --}}
-        {{!-- ! Demo Link --}}
-        {{!-- <li class="nav-item">
-          <a class="nav-link" href="#">Demo</a>
-        </li> --}}
-        <li class="nav-item">
-          <a class="nav-link" href="/signup">Sign Up</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Log In</a>
+      </ul>
+      <ul class="nav nav-pills">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-filter"></i></a>
+          <div class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 42px);" data-popper-placement="bottom-start">
+            <a class="dropdown-item" href="/clients">
+              Open 
+              <span class="text-success"><strong>{{open}}</strong></span>
+              <span class="visually-hidden">(current)</span>
+            </a>
+            <a class="dropdown-item" href="/clients/closed">
+              Closed 
+              <span class="text-danger"><strong>{{closed}}</strong></span>
+            </a>
+            <a class="dropdown-item" href="/clients/all">
+              All <span class="text-info"><strong>{{total}}</strong></span>
+            </a>
+            {{!-- ! Add inactive filter --}}
+            {{!-- <a class="dropdown-item" href="/clients/inactive">
+              Inactive <span class="text-info"><strong>{{inactive}}</strong></span>
+            </a> --}}
+          </div>
         </li>
         {{/if}}
       </ul>
