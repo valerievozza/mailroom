@@ -1,46 +1,62 @@
-<nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
+{{#if user}}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">
-      <i class="fa-regular fa-paper-plane fa-fw"></i> <span class="title-in-nav">Mailroom</span>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="/">Mailroom</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav me-auto">
-        {{#if user}}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="/dashboard">Dashboard</a>
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/clients">Mailboxes</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Menu
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+            <li><a class="dropdown-item" href="/clients">Mailboxes</a></li>
+            <li><a class="dropdown-item" href="/clients/add">Open new mailbox</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/clients/add"> <strong>Open New Mailbox</strong></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout">Log Out</a>
-        </li>
-        {{else}}
-        {{!-- <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li> --}}
-        {{!-- ! Demo Link --}}
-        {{!-- <li class="nav-item">
-          <a class="nav-link" href="#">Demo</a>
-        </li> --}}
-        <li class="nav-item">
-          <a class="nav-link" href="/signup">Sign Up</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Log In</a>
-        </li>
-        {{/if}}
       </ul>
-      {{!-- <form class="d-flex">
-        <input class="form-control me-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form> --}}
+      <ul class="nav nav-pills">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-filter"></i></a>
+          <div class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 42px);" data-popper-placement="bottom-start">
+            <a class="dropdown-item" href="/clients">
+              Open 
+              <span class="text-success"><strong>{{open}}</strong></span>
+              <span class="visually-hidden">(current)</span>
+            </a>
+            <a class="dropdown-item" href="/clients/closed">
+              Closed 
+              <span class="text-danger"><strong>{{closed}}</strong></span>
+            </a>
+            <a class="dropdown-item" href="/clients/all">
+              All <span class="text-info"><strong>{{total}}</strong></span>
+            </a>
+            {{!-- ! Add inactive filter --}}
+            {{!-- <a class="dropdown-item" href="/clients/inactive">
+              Inactive <span class="text-info"><strong>{{inactive}}</strong></span>
+            </a> --}}
+          </div>
+        </li>
+      </ul>
+      
+      <form action="/clients/search" method="GET" class="d-flex">
+        <input class="form-control me-2" type="search" id="search" name="search" placeholder="Search" aria-label="Search" value="{{filter}}">
+        <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <a href="/clients" class="btn"><i class="fa-solid fa-x"></i></a>
+      </form>
     </div>
   </div>
 </nav>
+{{/if}}
+
+
+
+

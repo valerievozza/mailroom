@@ -14,13 +14,13 @@ module.exports = {
                 .populate('user')
                 .sort({boxLetter: 'asc', boxNumber: 'asc'})
                 .lean()
-            let org = await Org.findById(user.org)
-            org = org.org
+            // let org = await Org.findById(user.org)
+            // org = org.org
             const openBoxes = await Client.countDocuments({org: user.org, status: 'Open', deleted: false}).lean()
             const closedBoxes = await Client.countDocuments({org: user.org, status: 'Closed', deleted: false}).lean()
             const totalBoxes = await Client.countDocuments({org: user.org, deleted: false}).lean()
             res.render('clients/clients', {
-                clients, user, org, open: openBoxes, closed: closedBoxes, total: totalBoxes,
+                clients, user, open: openBoxes, closed: closedBoxes, total: totalBoxes,
             })
         }catch(err){
             console.error(err)
@@ -101,8 +101,7 @@ module.exports = {
     // },
     showClient: async (req, res) => {
         try {
-            let user = await User.findById(req.user.id).lean()
-            user = user.username
+            const user = await User.findById(req.user.id).lean()
             console.log(user)
             const client = await Client.findOne({
                 _id: req.params.id
@@ -285,19 +284,26 @@ module.exports = {
         try{
             let filter = req.query.search
             filter = filter.trim()
+            // TODO: fix this logic
+            let number = filter.split('-')
+            number = number[number.length - 1]
             let regex = new RegExp(filter, 'i')
             const clients = await Client.find({
-                user: req.user.id,
+                org: req.user.org,
                 deleted: false,
                 $or: [
                     { firstName: {$regex: regex} },
                     { lastName: {$regex: regex} },
                     { otherNames: {$regex: regex} },
-                    { box: {$regex: regex} }
+                    // TODO: fix search by box
+                    { box: {
+                        letter: {$regex: filter[0]},
+                        number: {$regex: number}
+                    } }
                 ]
                 })
                 .populate('user')
-                .sort({box: 'asc'})
+                .sort({boxLetter: 'asc', boxNumber: 'asc'})
                 .lean()
             const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
             const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
@@ -429,7 +435,7 @@ module.exports = {
                 return res.render('error/404')
             }
 
-            if (client.user != req.user.id) {
+            if (client.org != req.user.org) {
                 res.redirect('/')
             } else {
                 client = await Client.findOneAndUpdate({_id: req.params.id}, {deleted: true}, {

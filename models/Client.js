@@ -19,15 +19,15 @@ const ClientSchema = new mongoose.Schema({
     default: 'Open',
     enum: ['Open', 'Closed']
   },
-  //! add function to autogenerate box letter from first letter of last name
-  boxLetter: {
-    type: String,
-    set: v => v.toUpperCase()
-  },
-  //! add function to autogenerate box number from next available whole number for that letter
-  boxNumber: {
-    type: Number,
-    default: 0
+  box: {
+    letter: {
+      type: String,
+      set: v => v.toUpperCase()
+    },
+    number: {
+      type: Number,
+      default: 0
+    }
   },
   phone: {
     type: String
@@ -78,11 +78,6 @@ const ClientSchema = new mongoose.Schema({
     type: String,
   },
 })
-
-
-// ClientSchema.virtual('lastChecked').get(function() {
-//   return this.mailChecks[mailChecks.length - 1]
-// })
 
 ClientSchema.plugin(uniqueValidator)
 
