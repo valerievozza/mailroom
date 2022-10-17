@@ -284,6 +284,9 @@ module.exports = {
         try{
             let filter = req.query.search
             filter = filter.trim()
+            // TODO: fix this logic
+            let number = filter.split('-')
+            number = number[number.length - 1]
             let regex = new RegExp(filter, 'i')
             const clients = await Client.find({
                 org: req.user.org,
