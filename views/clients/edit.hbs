@@ -13,9 +13,9 @@
             <div class="form-group col">
               <label class="col-form-label" for="box">Mailbox*</label>
               <div class="flex">
-                <input type="text" class="form-control" value="{{boxLetter}}" pattern="[a-zA-Z]{1}" id="boxLetter" name="boxLetter" required>
+                <input type="text" class="form-control" value="{{box.letter}}" pattern="[a-zA-Z]{1}" id="letter" name="letter" required>
                 <span><i class="fa-solid fa-minus fa-fw"></i></span>
-                <input type="text" class="form-control" value="{{boxNumber}}" pattern="[0-9]{1,4}" id="boxNumber" name="boxNumber" required>
+                <input type="text" class="form-control" value="{{box.number}}" pattern="[0-9]{1,4}" id="number" name="number" required>
               </div>
             </div>
             <div class="form-group col"></div>
