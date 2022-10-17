@@ -51,19 +51,19 @@ module.exports = {
     getClosedBoxes: async (req,res)=>{
         console.log(req.user)
         try{
+            const user = await User.findById(req.user.id).populate('org').lean()
+            const org = req.user.org
             const clients = await Client.find({
-                org: user.org,
+                org: org,
                 status: 'Closed',
                 deleted: false
             })
-                .populate('user')
-                .sort({box: 'asc'})
+                .populate('user org')
+                .sort({'box.letter': 'asc', 'box.number': 'asc'})
                 .lean()
-            let org = await Org.findById(user.org)
-            org = org.org
-            const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
-            const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
-            const totalBoxes = await Client.countDocuments({user: req.user.id}).lean()
+            const openBoxes = await Client.countDocuments({org: org, status: 'Open'}).lean()
+            const closedBoxes = await Client.countDocuments({org: org, status: 'Closed'}).lean()
+            const totalBoxes = await Client.countDocuments({org: org}).lean()
             res.render('clients/clients', {
                 clients, user, org, open: openBoxes, closed: closedBoxes, total: totalBoxes
             })
@@ -102,7 +102,8 @@ module.exports = {
     // },
     showClient: async (req, res) => {
         try {
-            const user = await User.findById(req.user.id).lean()
+            const user = await User.findById(req.user.id).populate('org').lean()
+            let org = await Org.findById(user.org)
             console.log(user)
             const client = await Client.findOne({
                 _id: req.params.id
@@ -110,12 +111,15 @@ module.exports = {
             .populate('user org')
             .lean()
 
+            console.log(`Client org is ${client.org._id}`) // ID
+            console.log(`User org is ${user.org._id}`) // ID
+            
             if (!client) {
                 res.render('error/404')
             }
 
             // ! Won't show client view with this code (needed for security) but I checked the database and the user id and the user id attached to the client matches
-            // if (client.user != req.user.id) {
+            // if (client.org._id != user.org._id) {
             //     res.redirect('/')
             // } else {
                 res.render('clients/show', {
