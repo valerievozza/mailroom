@@ -23,21 +23,67 @@
       {{>_support}}
     </div>
   </div>
-  <div class="row align-items-end steps">
-    <div class="col-md step-img">
-      {{>_login}}
-      <h3 class="my-3">1. Sign Up</h3>
+</div>
+
+<div class="container-fluid">
+  <div class="bg-dark row mt-5 mb-5 pt-5 pb-5" width="100%">
+    <div class="row my-2">
+      <div class="col-1" align="center">
+        <h5 class="text-info">
+          <i class="fa-solid fa-users"></i>
+        </h5>
+      </div>
+      <div class="col-11" align="left">
+        <p>
+          Create multiple user accounts so your whole staff can access your client database
+        </p>
+      </div>
     </div>
-    <div class="col-md step-img">
-      {{>_add_client}}
-      <h3 class="my-3">2. Add Client Data</h3>
+    <div class="row my-2">
+      <div class="col-1" align="center">
+        <h5 class="text-info">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </h5>
+      </div>
+      <div class="col-11" align="left">
+        <p>
+          Automatically generate a unique mailbox number when adding a new client
+        </p>
+      </div>
+    </div><div class="row my-2">
+      <div class="col-sm-1" align="center">
+        <h5 class="text-info">
+          <i class="fa-regular fa-file"></i>
+        </h5>
+      </div>
+      <div class="col-sm-11" align="left">
+        <p>
+          Reduce clutter by uploading relevant documents to client files 
+        </p>
+      </div>
     </div>
-    <div class="col-md step-img">
-      {{>_check}}
-      <h3 class="my-3">3. Ready to Go!</h3>
-    </div>
+    
   </div>
 
+</div>
+<div class="center" style="width: 60%; margin: auto">
+  <div align="center">
+    <h3 class="pt-5">Easy to get started</h3>
+  </div>
+  <div class="row align-items-end steps">
+  <div class="col-sm step-img">
+    {{>_login}}
+    <h5 class="my-3">1. Sign Up</h5>
+  </div>
+  <div class="col-sm step-img">
+    {{>_add_client}}
+    <h5 class="my-3">2. Add Client Data</h5>
+  </div>
+  <div class="col-sm step-img">
+    {{>_check}}
+    <h5 class="my-3">3. Ready to Go!</h5>
+  </div>
+</div>
 </div>
 <footer>
   <hr>
