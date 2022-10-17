@@ -4,7 +4,7 @@
 <div class="container" align="center">
   {{#with client}}
   <div class="card mb-3" style="max-width: 40rem" align="left">
-    <h3 class="card-header">{{firstName}} {{lastName}} <span class="showRight"> {{boxLetter}}-{{boxNumber}}</span></h3>
+    <h3 class="card-header">{{firstName}} {{lastName}} <span class="showRight"> {{box.letter}}-{{box.number}}</span></h3>
     <div class="card-body">
       {{#if doc}}
       {{else}}
