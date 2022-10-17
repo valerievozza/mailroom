@@ -435,7 +435,7 @@ module.exports = {
                 return res.render('error/404')
             }
 
-            if (client.user != req.user.id) {
+            if (client.org != req.user.org) {
                 res.redirect('/')
             } else {
                 client = await Client.findOneAndUpdate({_id: req.params.id}, {deleted: true}, {
