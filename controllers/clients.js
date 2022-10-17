@@ -9,19 +9,21 @@ module.exports = {
         console.log(req.user)
         try{
             // Get user and org
-            const user = await User.findById(req.user.id).populate('org')
-            const clients = await Client.find({org: user.org, status: 'Open', deleted: false})
-                .populate('user')
-                .sort({boxLetter: 'asc', boxNumber: 'asc'})
+            const user = await User.findById(req.user.id).populate('org').lean()
+            const org = req.user.org
+            const clients = await Client.find({org: org, status: 'Open', deleted: false})
+                .populate('user org')
+                .sort({'box.letter': 'asc', 'box.number': 'asc'})
                 .lean()
             // let org = await Org.findById(user.org)
             // org = org.org
-            const openBoxes = await Client.countDocuments({org: user.org, status: 'Open', deleted: false}).lean()
-            const closedBoxes = await Client.countDocuments({org: user.org, status: 'Closed', deleted: false}).lean()
-            const totalBoxes = await Client.countDocuments({org: user.org, deleted: false}).lean()
+            const openBoxes = await Client.countDocuments({org: org, status: 'Open', deleted: false}).lean()
+            const closedBoxes = await Client.countDocuments({org: org, status: 'Closed', deleted: false}).lean()
+            const totalBoxes = await Client.countDocuments({org: org, deleted: false}).lean()
             res.render('clients/clients', {
-                clients, user, open: openBoxes, closed: closedBoxes, total: totalBoxes,
+                clients, user, org, open: openBoxes, closed: closedBoxes, total: totalBoxes,
             })
+            
         }catch(err){
             console.error(err)
             res.render('error/500')
@@ -30,16 +32,15 @@ module.exports = {
     getAllBoxes: async (req,res)=>{
         console.log(req.user)
         try{
-            const user = await User.findById(req.user.id).populate('org')
-            const clients = await Client.find({org: user.org, deleted: false, org: user.org})
-                .populate('user')
-                .sort({box: 'asc'})
+            const user = await User.findById(req.user.id).populate('org').lean()
+            const org = req.user.org
+            const clients = await Client.find({org: org, deleted: false})
+                .populate('user org')
+                .sort({'box.letter': 'asc', 'box.number': 'asc'})
                 .lean()
-            let org = await Org.findById(user.org)
-            org = org.org
-            const openBoxes = await Client.countDocuments({org: user.org, status: 'Open'}).lean()
-            const closedBoxes = await Client.countDocuments({org: user.org, status: 'Closed'}).lean()
-            const totalBoxes = await Client.countDocuments({org: user.org}).lean()
+            const openBoxes = await Client.countDocuments({org: org, status: 'Open'}).lean()
+            const closedBoxes = await Client.countDocuments({org: org, status: 'Closed'}).lean()
+            const totalBoxes = await Client.countDocuments({org: org}).lean()
             res.render('clients/clients', {
                 clients, user, org, open: openBoxes, closed: closedBoxes, total: totalBoxes
             })
