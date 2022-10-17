@@ -140,28 +140,35 @@ module.exports = {
             const user = await User.findById(req.user.id).populate('org').lean()
             // find last box number
             let alphaClients = await Client.find({
-                user: req.user.id,
                 org: user.org,
                 deleted: false,
-                boxLetter: req.body.lastName[0]
-            }).sort({boxNumber: 'asc'})
+                'box.letter': req.body.lastName[0]
+            }).sort({'box.number': 'asc'})
 
             if (alphaClients.length !== 0) {
                 let lastClient = alphaClients[alphaClients.length - 1]
-                let lastNumber = lastClient.boxNumber  
+                let lastNumber = lastClient.box.number  
                 
                 // assign box letter
-                req.body.boxLetter = req.body.lastName[0].toUpperCase()
+                req.body.letter = req.body.lastName[0].toUpperCase()
 
                 // assign box number
-                req.body.boxNumber = Number(lastNumber) + 1
-
-                // assign user
-                req.body.user = req.user.id
+                req.body.number = Number(lastNumber) + 1
 
                 // create client
-                let client = await Client.create(req.body)
+                let client = await Client.create({
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    box: {
+                        letter: req.body.letter,
+                        number: req.body.number,
+                    },
+                    user: user,
+                    org: user.org
+
+                })
                 console.log(client)
+                console.log(req.user.org)
 
 
                 console.log(`Client ${client.firstName} ${client.lastName} saved to database`)
@@ -170,16 +177,26 @@ module.exports = {
                 lastNumber = 0
 
                 // assign box letter
-                req.body.boxLetter = req.body.lastName[0].toUpperCase()
+                req.body.letter = req.body.lastName[0].toUpperCase()
 
                 // assign box number
-                req.body.boxNumber = Number(lastNumber) + 1
+                req.body.number = Number(lastNumber) + 1
 
                 // assign user
                 req.body.user = req.user.id
 
                 // create client
-                let client = await Client.create(req.body)
+                let client = await Client.create({
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    box: {
+                        letter: req.body.letter,
+                        number: req.body.number,
+                    },
+                    user: req.user.id,
+                    org: req.user.org
+
+                })
                 console.log(client)
 
 
