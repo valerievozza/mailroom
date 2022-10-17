@@ -14,13 +14,13 @@ module.exports = {
                 .populate('user')
                 .sort({boxLetter: 'asc', boxNumber: 'asc'})
                 .lean()
-            let org = await Org.findById(user.org)
-            org = org.org
+            // let org = await Org.findById(user.org)
+            // org = org.org
             const openBoxes = await Client.countDocuments({org: user.org, status: 'Open', deleted: false}).lean()
             const closedBoxes = await Client.countDocuments({org: user.org, status: 'Closed', deleted: false}).lean()
             const totalBoxes = await Client.countDocuments({org: user.org, deleted: false}).lean()
             res.render('clients/clients', {
-                clients, user, org, open: openBoxes, closed: closedBoxes, total: totalBoxes,
+                clients, user, open: openBoxes, closed: closedBoxes, total: totalBoxes,
             })
         }catch(err){
             console.error(err)
