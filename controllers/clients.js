@@ -286,7 +286,7 @@ module.exports = {
             filter = filter.trim()
             let regex = new RegExp(filter, 'i')
             const clients = await Client.find({
-                user: req.user.id,
+                org: req.user.org,
                 deleted: false,
                 $or: [
                     { firstName: {$regex: regex} },
