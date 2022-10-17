@@ -239,36 +239,58 @@ module.exports = {
     },
     updateClient: async (req, res) => {
         try {
-            let client = await Client.findById(req.params.id).lean()
+
+            const user = await User.findById(req.user.id).populate('org').lean()
+            const org = req.user.org
+            let client = await Client.findById(req.params.id).populate('user org').lean()
 
             if (!client) {
                 return res.render('error/404')
             }
 
-            if (client.user != req.user.id) {
-                res.redirect('/')
-            } else {
-                // find last box number
+
+
+            // if (client.org != org) {
+            //     res.redirect('/')
+            // } else {
+                // Check if box number exists
                 let boxMatches = await Client.find({
-                    user: req.user.id,
+                    org: org,
                     deleted: false,
-                    boxLetter: req.body.boxLetter.toUpperCase(),
-                    boxNumber: req.body.boxNumber,
+                    'box.letter': req.body.letter.toUpperCase(),
+                    'box.number': req.body.number,
                     _id: { $not: {$eq: req.params.id} }
-                }).sort({boxNumber: 'asc'})
-                console.log(boxMatches)
+                })
+                .sort({'box.number': 'asc'})
+                .populate('user org')
+                .lean()
+
+                console.log(`BOX MATCHES: ${boxMatches}`)
+                
                 if (boxMatches.length > 0) {
-                   console.log(`Box number ${client.boxLetter}-${client.boxNumber} is already in use`) 
+                   console.log(`Box number ${client.box.letter}-${client.box.number} is already in use`) 
                    res.render('error/400')
                 } else {
-                    client = await Client.findOneAndUpdate({_id: req.params.id}, req.body, {
+                    client = await Client.findOneAndUpdate({_id: req.params.id}, {
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName,
+                        otherNames: req.body.otherNames,
+                        safetyConcern: req.body.safetyConcern,
+                        phone: req.body.phone,
+                        email: req.body.email,
+                        notes: req.body.notes,
+                        box: {
+                            letter: req.body.letter,
+                            number: req.body.number
+                        }
+                    }, {
                         new: true,
                         runValidators: true
                     })
                     res.redirect(`/clients/${req.params.id}`)
                 }
 
-            }
+          //  }
 
         } catch (err) {
             console.error(err)
