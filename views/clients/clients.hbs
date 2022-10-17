@@ -2,40 +2,6 @@
   <div class="right mb-3">
     <h3>{{org}}</h3>
   </div>
-  <div class="right search">
-    <form action="/clients/search" method="GET" class="flex search">
-      <input type="text" name="search" id="search" class="form-control" placeholder="Search by name or box number" style="width: 300px" value="{{filter}}">
-      <button class="btn btn-success" type="submit"><i class="fa-solid fa-magnifying-glass fa-fw"></i> Search</button>
-    </form>
-  </div>
-  <div class="flex-between">
-    <div class="right">
-    <ul class="nav nav-pills">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Filter by Status</a>
-        <div class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 42px);" data-popper-placement="bottom-start">
-          <a class="dropdown-item" href="/clients">
-            Open 
-            <span class="text-success"><strong>{{open}}</strong></span>
-            <span class="visually-hidden">(current)</span>
-          </a>
-          <a class="dropdown-item" href="/clients/closed">
-            Closed 
-            <span class="text-danger"><strong>{{closed}}</strong></span>
-          </a>
-          <a class="dropdown-item" href="/clients/all">
-            All <span class="text-info"><strong>{{total}}</strong></span>
-          </a>
-          {{!-- ! Add inactive filter --}}
-          {{!-- <a class="dropdown-item" href="/clients/inactive">
-            Inactive <span class="text-info"><strong>{{inactive}}</strong></span>
-          </a> --}}
-        </div>
-      </li>
-    </ul>
-  </div>
-    <a href="/clients" class="btn btn-link" style="text-decoration: none">Clear search field</a>
-  </div>
   
   {{#each clients}}
     <div class="card">
