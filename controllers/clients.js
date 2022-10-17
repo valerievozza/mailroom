@@ -292,11 +292,15 @@ module.exports = {
                     { firstName: {$regex: regex} },
                     { lastName: {$regex: regex} },
                     { otherNames: {$regex: regex} },
-                    { box: {$regex: regex} }
+                    // TODO: fix search by box
+                    { box: {
+                        letter: {$regex: filter[0]},
+                        number: {$regex: number}
+                    } }
                 ]
                 })
                 .populate('user')
-                .sort({box: 'asc'})
+                .sort({boxLetter: 'asc', boxNumber: 'asc'})
                 .lean()
             const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
             const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
