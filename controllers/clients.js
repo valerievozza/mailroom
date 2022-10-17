@@ -243,11 +243,11 @@ module.exports = {
             const user = await User.findById(req.user.id).populate('org').lean()
             const org = req.user.org
             let client = await Client.findById(req.params.id).populate('user org').lean()
-
+            
             if (!client) {
                 return res.render('error/404')
             }
-
+            
 
 
             // if (client.org != org) {
@@ -347,7 +347,7 @@ module.exports = {
                 ]
                 })
                 .populate('user')
-                .sort({boxLetter: 'asc', boxNumber: 'asc'})
+                .sort({'box.letter': 'asc', 'box.number': 'asc'})
                 .lean()
             const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open'}).lean()
             const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed'}).lean()
