@@ -101,8 +101,7 @@ module.exports = {
     // },
     showClient: async (req, res) => {
         try {
-            let user = await User.findById(req.user.id).lean()
-            user = user.username
+            const user = await User.findById(req.user.id).lean()
             console.log(user)
             const client = await Client.findOne({
                 _id: req.params.id
