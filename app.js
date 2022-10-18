@@ -10,6 +10,12 @@ const MongoStore = require('connect-mongo')
 const flash = require('express-flash') // lets us render messages without refreshing page
 const connectDB = require('./config/db')
 
+// Nodemailer
+const nodemailer = require("nodemailer");
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
+const sendEmail = require('./config/nodemailer')
+
 const mainRoutes = require('./routes/main')
 const clientRoutes = require('./routes/clients')
 
@@ -89,6 +95,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(flash())
 
+
+//Nodemailer
+sendEmail();
 
 
 //ROUTES
