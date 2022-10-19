@@ -14,7 +14,7 @@ const connectDB = require('./config/db')
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
-const sendEmail = require('./config/nodemailer')
+const sendReminder = require('./config/nodemailer')
 
 const mainRoutes = require('./routes/main')
 const clientRoutes = require('./routes/clients')
@@ -95,10 +95,6 @@ app.use(function(req, res, next){
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(flash())
-
-
-//Nodemailer
-sendEmail();
 
 
 //ROUTES
