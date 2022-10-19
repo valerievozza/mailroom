@@ -18,6 +18,7 @@ const sendEmail = require('./config/nodemailer')
 
 const mainRoutes = require('./routes/main')
 const clientRoutes = require('./routes/clients')
+const reminderRoutes = require('./routes/reminders')
 
 // LOAD CONFIG
 dotenv.config({path: './config/.env'})
