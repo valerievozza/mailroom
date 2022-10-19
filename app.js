@@ -104,6 +104,7 @@ sendEmail();
 //ROUTES
 app.use('/', mainRoutes)
 app.use('/clients', clientRoutes)
+app.use('/reminders', reminderRoutes)
 
 const PORT = process.env.PORT || 8888
 
