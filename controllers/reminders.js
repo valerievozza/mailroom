@@ -29,7 +29,7 @@ module.exports = {
         message: req.body.message,
         subject: req.body.subject,
         label: req.body.label,
-        from: user,
+        user: user,
         org: user.org
       })
 
