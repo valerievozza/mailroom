@@ -92,7 +92,7 @@ exports.postSignup = async (req, res, next) => {
   });
 
   const user = await new User({
-    userName: req.body.userName,
+    username: req.body.username,
     email: req.body.email,
     password: req.body.password,
   });
@@ -197,23 +197,47 @@ exports.postNewOrg = async (req, res) => {
   exports.getDashboard = async (req, res) => {
     try{
       const user = await User.findById(req.user.id).populate('org').lean()
-      let org = await Org.findById(user.org)
-      org = org.org
-      console.log(org)
-      const clients = await Client.find({user: req.user.id})
-        .populate('user')
-        .lean()
-      const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
-      const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
-      const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
-      res.render('dashboard', {
-          user,
-          org,
-          clients,
-          open: openBoxes,
-          closed: closedBoxes,
-          total: totalBoxes
-      })
+      console.log(`User: ${req.user}, Org: ${user.org}`)
+
+      // if org, get clients by org
+      if (user.org != null) {
+        let org = await Org.findById(user.org)
+        console.log(org)
+        const clients = await Client.find({org: org})
+          .populate('user')
+          .lean()
+        const openBoxes = await Client.countDocuments({org: org._id, status: 'Open', deleted: false}).lean()
+        const closedBoxes = await Client.countDocuments({org: org._id, status: 'Closed', deleted: false}).lean()
+        const totalBoxes = await Client.countDocuments({org: org._id, deleted: false}).lean()
+
+        org = org.org
+        res.render('dashboard', {
+            user,
+            org,
+            clients,
+            open: openBoxes,
+            closed: closedBoxes,
+            total: totalBoxes
+        })
+
+      // if no org, get clients by user id
+      } else {
+        const clients = await Client.findById(req.user.id)
+          .populate('user')
+          .lean()
+        const openBoxes = await Client.countDocuments({status: 'Open', deleted: false}).lean()
+        const closedBoxes = await Client.countDocuments({status: 'Closed', deleted: false}).lean()
+        const totalBoxes = await Client.countDocuments({deleted: false}).lean()
+
+        res.render('dashboard', {
+            user,
+            clients,
+            open: openBoxes,
+            closed: closedBoxes,
+            total: totalBoxes
+        })
+      }
+      
     } catch(err) {
       console.error(err)
       res.render('error/500')

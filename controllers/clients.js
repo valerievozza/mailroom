@@ -4,25 +4,57 @@ const Client = require('../models/Client')
 const Org = require('../models/Org')
 const User = require('../models/User')
 
+
+            // TODO: FIX FILTER BY ORG LOGIC IN CASE USER ORG AND CLIENT ORG ARE BOTH NULL FOR ALL CONTROLLERS
+
+
 module.exports = {
     getOpenBoxes: async (req,res)=>{
         console.log(req.user)
         try{
+
             // Get user and org
             const user = await User.findById(req.user.id).populate('org').lean()
-            const org = req.user.org
-            const clients = await Client.find({org: org, status: 'Open', deleted: false})
-                .populate('user org')
-                .sort({'box.letter': 'asc', 'box.number': 'asc'})
-                .lean()
-            // let org = await Org.findById(user.org)
-            // org = org.org
-            const openBoxes = await Client.countDocuments({org: org, status: 'Open', deleted: false}).lean()
-            const closedBoxes = await Client.countDocuments({org: org, status: 'Closed', deleted: false}).lean()
-            const totalBoxes = await Client.countDocuments({org: org, deleted: false}).lean()
-            res.render('clients/clients', {
-                clients, user, org, open: openBoxes, closed: closedBoxes, total: totalBoxes,
-            })
+            if (user.org != null) {
+                const org = await Org.findById(user.org)
+            
+                const clients = await Client.find({
+                    org: org,
+                    status: 'Open',
+                    deleted: false
+                })
+                    .populate('user org')
+                    .sort({'box.letter': 'asc', 'box.number': 'asc'})
+                    .lean()
+                
+
+                
+                const openBoxes = await Client.countDocuments({org: org, status: 'Open', deleted: false}).lean()
+                const closedBoxes = await Client.countDocuments({org: org, status: 'Closed', deleted: false}).lean()
+                const totalBoxes = await Client.countDocuments({org: org, deleted: false}).lean()
+                res.render('clients/clients', {
+                    clients, user, org, open: openBoxes, closed: closedBoxes, total: totalBoxes,
+                })
+            } else {
+                const clients = await Client.find({
+                    user: req.user.id,
+                    status: 'Open',
+                    deleted: false
+                })
+                    .populate('user org')
+                    .sort({'box.letter': 'asc', 'box.number': 'asc'})
+                    .lean()
+                
+
+                
+                const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
+                const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
+                const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
+                res.render('clients/clients', {
+                    clients, user, open: openBoxes, closed: closedBoxes, total: totalBoxes,
+                })
+            }
+            
             
         }catch(err){
             console.error(err)
@@ -32,43 +64,103 @@ module.exports = {
     getAllBoxes: async (req,res)=>{
         console.log(req.user)
         try{
+
+            // Get user and org
             const user = await User.findById(req.user.id).populate('org').lean()
-            const org = req.user.org
-            const clients = await Client.find({org: org, deleted: false})
-                .populate('user org')
-                .sort({'box.letter': 'asc', 'box.number': 'asc'})
-                .lean()
-            const openBoxes = await Client.countDocuments({org: org, status: 'Open'}).lean()
-            const closedBoxes = await Client.countDocuments({org: org, status: 'Closed'}).lean()
-            const totalBoxes = await Client.countDocuments({org: org}).lean()
-            res.render('clients/clients', {
-                clients, user, org, open: openBoxes, closed: closedBoxes, total: totalBoxes
-            })
+            if (user.org != null) {
+                const org = await Org.findById(user.org)
+            
+                const clients = await Client.find({
+                    org: org,
+                    deleted: false
+                })
+                    .populate('user org')
+                    .sort({'box.letter': 'asc', 'box.number': 'asc'})
+                    .lean()
+                
+
+                
+                const openBoxes = await Client.countDocuments({org: org, status: 'Open', deleted: false}).lean()
+                const closedBoxes = await Client.countDocuments({org: org, status: 'Closed', deleted: false}).lean()
+                const totalBoxes = await Client.countDocuments({org: org, deleted: false}).lean()
+                res.render('clients/clients', {
+                    clients, user, org, open: openBoxes, closed: closedBoxes, total: totalBoxes,
+                })
+            } else {
+                const clients = await Client.find({
+                    user: req.user.id,
+                    deleted: false
+                })
+                    .populate('user org')
+                    .sort({'box.letter': 'asc', 'box.number': 'asc'})
+                    .lean()
+                
+
+                
+                const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
+                const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
+                const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
+                res.render('clients/clients', {
+                    clients, user, open: openBoxes, closed: closedBoxes, total: totalBoxes,
+                })
+            }
+            
+            
         }catch(err){
-            console.log(err)
+            console.error(err)
+            res.render('error/500')
         }
     },
     getClosedBoxes: async (req,res)=>{
         console.log(req.user)
         try{
+
+            // Get user and org
             const user = await User.findById(req.user.id).populate('org').lean()
-            const org = req.user.org
-            const clients = await Client.find({
-                org: org,
-                status: 'Closed',
-                deleted: false
-            })
-                .populate('user org')
-                .sort({'box.letter': 'asc', 'box.number': 'asc'})
-                .lean()
-            const openBoxes = await Client.countDocuments({org: org, status: 'Open'}).lean()
-            const closedBoxes = await Client.countDocuments({org: org, status: 'Closed'}).lean()
-            const totalBoxes = await Client.countDocuments({org: org}).lean()
-            res.render('clients/clients', {
-                clients, user, org, open: openBoxes, closed: closedBoxes, total: totalBoxes
-            })
+            if (user.org != null) {
+                const org = await Org.findById(user.org)
+            
+                const clients = await Client.find({
+                    org: org,
+                    status: 'Closed',
+                    deleted: false
+                })
+                    .populate('user org')
+                    .sort({'box.letter': 'asc', 'box.number': 'asc'})
+                    .lean()
+                
+
+                
+                const openBoxes = await Client.countDocuments({org: org, status: 'Open', deleted: false}).lean()
+                const closedBoxes = await Client.countDocuments({org: org, status: 'Closed', deleted: false}).lean()
+                const totalBoxes = await Client.countDocuments({org: org, deleted: false}).lean()
+                res.render('clients/clients', {
+                    clients, user, org, open: openBoxes, closed: closedBoxes, total: totalBoxes,
+                })
+            } else {
+                const clients = await Client.find({
+                    user: req.user.id,
+                    status: 'Closed',
+                    deleted: false
+                })
+                    .populate('user org')
+                    .sort({'box.letter': 'asc', 'box.number': 'asc'})
+                    .lean()
+                
+
+                
+                const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
+                const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
+                const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
+                res.render('clients/clients', {
+                    clients, user, open: openBoxes, closed: closedBoxes, total: totalBoxes,
+                })
+            }
+            
+            
         }catch(err){
-            console.log(err)
+            console.error(err)
+            res.render('error/500')
         }
     },
     // ! This doesn't work
@@ -225,7 +317,7 @@ module.exports = {
                 return res.render('error/404')
             }
 
-            if (client.user != req.user.id) {
+            if (client.org != req.user.org) {
                 res.redirect('/')
             } else {
                 res.render('clients/edit', {
@@ -367,15 +459,15 @@ module.exports = {
                 res.render('error/404')
             }
 
-            if (client.user != req.user.id) {
-                res.redirect('/')
-            } else {
+            // if (client.user != req.user.id) {
+            //     res.redirect('/')
+            // } else {
                 client = await Client.findOneAndUpdate({ _id: req.params.id }, { $push: {mailChecks: new Date()} }, {
                     new: true,
                     runValidators: true
                 })
                 res.redirect('/clients')
-            }
+            // }
         
             console.log('Mailbox Checked!')
         } catch(err){
@@ -391,9 +483,9 @@ module.exports = {
                 res.render('error/404')
             }
 
-            if (client.user != req.user.id) {
-                res.redirect('/')
-            } else {
+            // if (client.user != req.user.id) {
+            //     res.redirect('/')
+            // } else {
                 await Client.findOneAndUpdate({ _id: req.params.id }, { $pop: {mailChecks: 1} }, {
                     new: true,
                     runValidators: true
@@ -406,7 +498,7 @@ module.exports = {
                 // })
                 
                 res.redirect('/clients')
-            }
+            // }
 
             console.log('Last mailbox check deleted!')
         } catch(err){

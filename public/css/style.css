@@ -1,3 +1,7 @@
+.hidden {
+  display: none;
+}
+
 /* hero */
 .jumbotron {
   margin-top: 2rem;

@@ -13,6 +13,9 @@
         <a href="/new" class="btn btn-success">Add your organization</a>
       </p>
       {{/if}}
+      <p>
+        <a href="/reminders/edit" class="btn btn-primary">Customize Reminder Message</a>
+      </p>
     </div>
   </div>
   <div class="card mb-3" style="max-width: 40rem" align="left">
@@ -35,14 +38,27 @@
       {{#each clients}}
         <ul class="mailChecks">
           {{#if (isInactive mailChecks)}}
-            <li>
-              <a href="/clients/{{_id}}" class="btn">
-                <strong>{{box}}</strong> {{firstName}} {{lastName}}
-              </a>
-            </li>
+            <form action="/reminders/send/{{_id}}" method="POST">
+              <li class="d-flex justify-content-between">
+                <a href="/clients/{{_id}}" class="btn">
+                  <strong>{{box.letter}}-{{box.number}}</strong> {{firstName}} {{lastName}}
+                </a>
+                <button class="btn btn-primary" type="submit">Send Reminder</button>
+              </li>
+            </form>
           {{/if}}
         </ul>
       {{/each}}
+      <form class="d-flex justify-content-center" action="/reminders/send" method="POST">
+        <button class="btn btn-success btn-lg mb-2" id="remindAll" type="submit">Remind All</button>
+      </form>
+      <div id="confirmation" class="hidden" align="center">
+        <span>
+          <strong>
+            Reminders sent
+          </strong>
+        </span>
+      </div>
     </div>
   </div>
   <div class="card mb-3" style="max-width: 40rem" align="left">
@@ -55,7 +71,7 @@
           {{#if (checkedToday mailChecks)}}
             <li>
               <a href="/clients/{{_id}}" class="btn">
-                <strong>{{box}}</strong> {{firstName}} {{lastName}}
+                <strong>{{box.letter}}-{{box.number}}</strong> {{firstName}} {{lastName}}
               </a>
             </li>
           {{/if}}

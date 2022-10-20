@@ -77,6 +77,9 @@ const ClientSchema = new mongoose.Schema({
   cloudinaryId: {
     type: String,
   },
+  reminders: [{
+    type: Date
+  }]
 })
 
 ClientSchema.plugin(uniqueValidator)

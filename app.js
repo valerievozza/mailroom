@@ -10,8 +10,15 @@ const MongoStore = require('connect-mongo')
 const flash = require('express-flash') // lets us render messages without refreshing page
 const connectDB = require('./config/db')
 
+// Nodemailer
+const nodemailer = require("nodemailer");
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
+const sendReminder = require('./config/nodemailer')
+
 const mainRoutes = require('./routes/main')
 const clientRoutes = require('./routes/clients')
+const reminderRoutes = require('./routes/reminders')
 
 // LOAD CONFIG
 dotenv.config({path: './config/.env'})
@@ -90,10 +97,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(flash())
 
 
-
 //ROUTES
 app.use('/', mainRoutes)
 app.use('/clients', clientRoutes)
+app.use('/reminders', reminderRoutes)
 
 const PORT = process.env.PORT || 8888
 
