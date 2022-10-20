@@ -99,7 +99,9 @@ module.exports = {
         subject: reminder.subject,
         text: `Hello ${client.firstName},\n\n${reminder.message}\n\nSincerely,\n${user.username}\n${org.org}`,
         to: client.email,
-        from: user.email
+        from: `${org.org} <${process.env.EMAIL}>`,
+        replyTo: `${org.org} <${user.email}>`
+
       }
       //if (isInactive(mailChecks)) {
         
