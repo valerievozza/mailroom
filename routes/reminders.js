@@ -16,11 +16,11 @@ router.get('/add', ensureAuth, reminderController.getAddReminder)
 // Save reminder
 router.post('/add', ensureAuth, reminderController.createReminder)
 
-// // Get edit reminder page
-// router.get('/edit/:id', ensureAuth, reminderController.getEditReminder)
+// Get edit reminder page
+router.get('/edit', ensureAuth, reminderController.getEditReminder)
 
-// // Update reminder
-// router.put('/edit/:id', ensureAuth, reminderController.updateReminder)
+// Update reminder
+router.put('/edit/:id', ensureAuth, reminderController.updateReminder)
 
 // Send reminder to client (by ID)
 // TODO: add option to select reminder by ID
