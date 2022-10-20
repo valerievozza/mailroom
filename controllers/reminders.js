@@ -106,7 +106,7 @@ module.exports = {
       //if (isInactive(mailChecks)) {
         
         let emailTransporter = await createTransporter();
-        await emailTransporter.sendMail(reminder);
+        await emailTransporter.sendMail(email);
         
       //}
       // for (client of clients) {
@@ -123,7 +123,7 @@ module.exports = {
           
       //   }
       // }
-      console.log(`Reminder sent to ${client.firstName} ${client.lastName}: ${reminder.subject}`)
+      console.log(email)
       res.redirect('/dashboard')
     } catch (error) {
       console.log(error)
@@ -132,6 +132,7 @@ module.exports = {
   },
 
   // TODO: Check for safety concern before sending (confirmation modal?)
+
   sendRemindersToAll: async (req, res) => {
     try {
       
@@ -153,7 +154,7 @@ module.exports = {
       console.log(clients)
        
       for (client of clients) {
-        reminder = {
+        const email = {
           subject: reminder.subject,
           text: `Hello ${client.firstName},\n\n${reminder.message}\n\nSincerely,\n${user.username}\n${org.org}`,
           to: client.email,
