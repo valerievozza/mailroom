@@ -162,12 +162,14 @@ module.exports = {
           replyTo: `${org.org} <${user.email}>`
         }
           
+      console.log(email)
+          
       let emailTransporter = await createTransporter();
-      await emailTransporter.sendMail(reminder);
+      await emailTransporter.sendMail(email);
           
        
       }
-      console.log(`Reminder sent to ${clients}`)
+      console.log(`Subject: ${reminder.subject}, Message ${reminder.message} sent to ${JSON.stringify(clients)}`)
       res.redirect('/dashboard')
     } catch (error) {
       console.log(error)
