@@ -1,0 +1,28 @@
+<div class="container" align="center">
+  <div class="card mb-3" style="max-width: 40rem" align="left">
+    <h3 class="card-header">Create Reminder Template</h3>
+    <div class="card-body">
+      <form action="/reminders/add" method="POST">
+        
+          <div class="form-half row gx-3 mt-3">
+            <div class="form-group w-50 col">
+              <label class="col-form-label" for="subject">Subject*</label>
+              <input type="text" class="form-control" placeholder="Subject" id="subject" name="subject" required>
+            </div>
+            <div class="form-group w-50 col">
+              <label class="col-form-label" for="label">Label*</label>
+              <input type="text" class="form-control" placeholder="Label" id="label" name="label" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message" class="form-label mt-4">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="3" placeholder="Message"></textarea>
+          </div>
+          <div class="edit-options mt-3">
+            <button type="submit" class="btn btn-success">Save</button>
+            <a href="/dashboard" class="btn btn-link" style="color: lightgray">Cancel</a>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
