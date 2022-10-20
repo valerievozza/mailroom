@@ -4,6 +4,7 @@
 Mailroom is an application to manage mail service for hundreds of clients by securely storing client data and accurately tracking mailbox activity. Mailroom was developed for shelters or other non-profit organizations providing a mailing address for people who are unhoused or otherwise do not have access to a safe place to consistently receive mail
 
 **Link to project:** https://mailroom.cyclic.app
+
 ## Screenshots
 
 ![Mailroom screenshot](https://user-images.githubusercontent.com/101529105/190074645-af766088-cf3d-4498-a887-2f661b650239.png)
@@ -17,7 +18,8 @@ Mailroom is an application to manage mail service for hundreds of clients by sec
 
 **Server:** JavaScript, Node, Express, MongoDB
 
-**Dependencies:** bcrypt, bootstrap-icons, connect-mongo, dotenv, express, express-flash, express-handlebars, express-session, method-override, moment, mongoose, mongoose-unique-validator, morgan, nodemon, passport, passport-local, validator
+**Dependencies:** bcrypt, bootstrap-icons, cloudinary, connect-mongo, cross-env, dotenv, express, express-flash, express-handlebars, express-session, googleapis method-override, moment, mongoose, mongoose-unique-validator, morgan, multer, nodemailer, nodemon, passport, passport-local, validator
+
 ## Features
 
 - Secure login with Passport Auth
@@ -25,12 +27,13 @@ Mailroom is an application to manage mail service for hundreds of clients by sec
 - Upload relevant documents to client records
 - Open & close mailboxes
 - Log mailbox checks
+
 ## Installation
 
 Install with npm
 
 ```bash
-  npm install bcrypt bootstrap-icons connect-mongo dotenv express express-flash express-handlebars express-session method-override moment mongoose mongoose-unique-validator morgan nodemon passport passport-local validator
+  npm install bcrypt bootstrap-icons cloudinary connect-mongo cross-env dotenv express express-flash express-handlebars express-session googleapis method-override moment mongoose mongoose-unique-validator morgan multer nodemailer nodemon passport passport-local validator
 ```
 ## Environment Variables
 
@@ -47,15 +50,25 @@ To run this project, you will need to add the following environment variables to
 `CLOUD_NAME = <your cloud name>`
 `API_KEY = <your Cloudinary API key>`
 `API_SECRET = <your Cloudinary secret>`
+
+### Nodemailer & Google OAuth2
+
+`CLIENT_ID = <your Google client ID>`
+`CLIENT_SECRET = <your Google client secret>`
+`REFRESH_TOKEN = <your Google auth refresh token>`
+`EMAIL = <GMail address>`
+
 ## Optimizations
 
 - Added functionality to upload & store relevant documents in client file
 - Added custom logic to automatically generate & validate a mailbox when adding a client record based on the last name of the client
+- Organizations can have multiple user logins so multiple staff members can access client database
+- Users can send customizable reminder emails to clients with inactive mailboxes with one click
 
 **Planned Features & Improvements:**
 
 - Integrate with Google Sheets for read/write capability
-- Add functionality to enable automated email reminders to be sent to clients with inactive mailboxes
+- Add chronjob for automated email reminders
 
 ## Other Examples of My Work
 
