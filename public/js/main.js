@@ -1,3 +1,10 @@
+const remindAll = document.getElementById('remindAll')
+remindAll.addEventListener('click', confirmSent)
+
+function confirmSent() {
+  document.getElementById('confirmation').classList.toggle('hidden')
+}
+
 // // const checkedBox = document.querySelectorAll('.checkBox')
 // const clientMailbox = document.querySelectorAll('.clientMailbox')
 
