@@ -48,14 +48,19 @@ To run this project, you will need to add the following environment variables to
 ### Cloudinary
 
 `CLOUD_NAME = <your cloud name>`
+
 `API_KEY = <your Cloudinary API key>`
+
 `API_SECRET = <your Cloudinary secret>`
 
 ### Nodemailer & Google OAuth2
 
 `CLIENT_ID = <your Google client ID>`
+
 `CLIENT_SECRET = <your Google client secret>`
+
 `REFRESH_TOKEN = <your Google auth refresh token>`
+
 `EMAIL = <GMail address>`
 
 ## Optimizations
