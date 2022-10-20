@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const ReminderSchema = new mongoose.Schema({
   message: {
     type: String,
-    default: 'Your mailbox is inactive',
     required: true,
   },
   subject: {
