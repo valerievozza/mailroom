@@ -203,7 +203,7 @@ exports.postNewOrg = async (req, res) => {
       if (user.org != null) {
         let org = await Org.findById(user.org)
         console.log(org)
-        const clients = await Client.find({org: org})
+        const clients = await Client.find({org: org, deleted: false})
           .populate('user')
           .lean()
         const openBoxes = await Client.countDocuments({org: org._id, status: 'Open', deleted: false}).lean()
