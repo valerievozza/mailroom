@@ -37,7 +37,7 @@
           {{#if (isInactive mailChecks)}}
             <li>
               <a href="/clients/{{_id}}" class="btn">
-                <strong>{{box}}</strong> {{firstName}} {{lastName}}
+                  <strong>{{box.letter}}-{{box.number}}</strong> {{firstName}} {{lastName}}
               </a>
             </li>
           {{/if}}
@@ -55,7 +55,7 @@
           {{#if (checkedToday mailChecks)}}
             <li>
               <a href="/clients/{{_id}}" class="btn">
-                <strong>{{box}}</strong> {{firstName}} {{lastName}}
+                <strong>{{box.letter}}-{{box.number}}</strong> {{firstName}} {{lastName}}
               </a>
             </li>
           {{/if}}
