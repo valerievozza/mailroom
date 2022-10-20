@@ -92,8 +92,8 @@ module.exports = {
       let reminder = await Reminder.findOne({
         org: org
       })
-      .populate('user org')
-      .lean()
+        .populate('user org')
+        .lean()
 
        const email = {
         subject: reminder.subject,
@@ -161,7 +161,7 @@ module.exports = {
           from: `${org.org} <${process.env.EMAIL}>`,
           replyTo: `${org.org} <${user.email}>`
         }
-          
+
       console.log(email)
           
       let emailTransporter = await createTransporter();
