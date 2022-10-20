@@ -459,15 +459,15 @@ module.exports = {
                 res.render('error/404')
             }
 
-            if (client.user != req.user.id) {
-                res.redirect('/')
-            } else {
+            // if (client.user != req.user.id) {
+            //     res.redirect('/')
+            // } else {
                 client = await Client.findOneAndUpdate({ _id: req.params.id }, { $push: {mailChecks: new Date()} }, {
                     new: true,
                     runValidators: true
                 })
                 res.redirect('/clients')
-            }
+            // }
         
             console.log('Mailbox Checked!')
         } catch(err){
@@ -483,9 +483,9 @@ module.exports = {
                 res.render('error/404')
             }
 
-            if (client.user != req.user.id) {
-                res.redirect('/')
-            } else {
+            // if (client.user != req.user.id) {
+            //     res.redirect('/')
+            // } else {
                 await Client.findOneAndUpdate({ _id: req.params.id }, { $pop: {mailChecks: 1} }, {
                     new: true,
                     runValidators: true
@@ -498,7 +498,7 @@ module.exports = {
                 // })
                 
                 res.redirect('/clients')
-            }
+            // }
 
             console.log('Last mailbox check deleted!')
         } catch(err){
