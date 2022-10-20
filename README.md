@@ -8,9 +8,10 @@ Mailroom is an application to manage mail service for hundreds of clients by sec
 ## Screenshots
 
 ![Mailroom screenshot](https://user-images.githubusercontent.com/101529105/190074645-af766088-cf3d-4498-a887-2f661b650239.png)
-||||||
-|:---:|:---:|:---:|:---:|:---:|
-| ![Screenshot_20221011-144621](https://user-images.githubusercontent.com/101529105/195205549-a96f6ce2-8e3b-4b2f-98a7-3d464a6b17eb.png) | ![Screenshot_20221011-144943](https://user-images.githubusercontent.com/101529105/195205553-1d942ec0-d279-451a-a097-ce53c591e74b.png) | ![Screenshot_20221011-145013](https://user-images.githubusercontent.com/101529105/195205555-c3291027-d111-45fd-aff5-eb47925fe6b4.png) | ![Screenshot_20221011-145034](https://user-images.githubusercontent.com/101529105/195205556-4d9b98c1-4857-4fa7-99f9-f0a897e41f13.png) | ![Screenshot_20221011-145115](https://user-images.githubusercontent.com/101529105/195205559-53a0792a-c7a5-46f3-b723-539103c7b62a.png) |
+||||
+|:---:|:---:|:---:|
+| ![Screenshot_20221011-144943](https://user-images.githubusercontent.com/101529105/195205553-1d942ec0-d279-451a-a097-ce53c591e74b.png) | ![Screenshot_20221011-145013](https://user-images.githubusercontent.com/101529105/195205555-c3291027-d111-45fd-aff5-eb47925fe6b4.png) | ![Screenshot_20221011-145034](https://user-images.githubusercontent.com/101529105/195205556-4d9b98c1-4857-4fa7-99f9-f0a897e41f13.png) |
+| ![Screenshot_20221020-162748](https://user-images.githubusercontent.com/101529105/197078397-faed9037-5442-46b3-8bab-59392c75e1d8.png) | ![Screenshot_20221020-162741](https://user-images.githubusercontent.com/101529105/197078400-9a4e8884-1705-4b53-97d4-3886226104cf.png) | ![Screenshot_20221020-162759](https://user-images.githubusercontent.com/101529105/197078402-29f9bea9-7200-4e9b-a0ce-c8c7fcb0fd20.png) |
 
 ## Tech Stack
 
