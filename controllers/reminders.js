@@ -95,7 +95,7 @@ module.exports = {
       .populate('user org')
       .lean()
 
-      reminder = {
+       const email = {
         subject: reminder.subject,
         text: `Hello ${client.firstName},\n\n${reminder.message}\n\nSincerely,\n${user.username}\n${org.org}`,
         to: client.email,
