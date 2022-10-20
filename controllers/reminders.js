@@ -157,9 +157,9 @@ module.exports = {
         const email = {
           subject: reminder.subject,
           text: `Hello ${client.firstName},\n\n${reminder.message}\n\nSincerely,\n${user.username}\n${org.org}`,
-          to: client.email,
-          from: user.email,
-          replyTo: user.email
+          to: `${client.firstName} ${client.lastName} <${client.email}>`,
+          from: `${org.org} <${process.env.EMAIL}>`,
+          replyTo: `${org.org} <${user.email}>`
         }
           
       let emailTransporter = await createTransporter();
