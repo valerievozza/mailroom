@@ -42,41 +42,42 @@ const createTransporter = async () => {
   return transporter;
 };
 
-const sendEmail = async (reminder) => {
-  reminder = {
-    subject: "Your mailbox is inactive",
-    text: `Hello ${client.firstName}\n\nThis is a reminder that you must check your mail every two months, otherwise your mailbox will be closed.\n\nTo keep your mailbox open, please respond to this message. You may also check your mail by phone or in person.\n\nThank you`,
-    to: "valerievozza@gmail.com",
-    from: process.env.EMAIL
-  }
-  try {
-    
-    const user = await User.findById(req.user.id).populate('org').lean()
-    const org = req.user.org
-    const clients = await Client.find({
-      org: org,
-      status: 'Open',
-      deleted: false
-    })
-      .populate('user org')
-      .sort({'box.letter': 'asc', 'box.number': 'asc'})
-      .lean()
-    
-    for (client of clients) {
-      
-      if (isInactive(mailChecks)) {
-        
-        let emailTransporter = await createTransporter();
-        await emailTransporter.sendMail(reminder);
-        
-      }
-    }
-    
-    
-  } catch (error) {
-    console.log(error)
-  }
-  
-};
+module.exports = createTransporter
 
-module.exports = sendEmail
+// const sendReminder = async (reminder) => {
+//   try {
+    
+//     const user = await User.findById(req.user.id).populate('org').lean()
+//     const org = req.user.org
+//     const clients = await Client.find({
+//       org: org,
+//       status: 'Open',
+//       deleted: false
+//     })
+//       .populate('user org')
+//       .sort({'box.letter': 'asc', 'box.number': 'asc'})
+//       .lean()
+    
+//     for (client of clients) {
+//       reminder = {
+//         subject: "Your mailbox is inactive",
+//         text: `Hello ${client.firstName}\n\nThis is a reminder that you must check your mail every two months, otherwise your mailbox will be closed.\n\nTo keep your mailbox open, please respond to this message. You may also check your mail by phone or in person.\n\nThank you`,
+//         to: "valerievozza@gmail.com",
+//         from: process.env.EMAIL
+//       }
+//       if (isInactive(mailChecks)) {
+        
+//         let emailTransporter = await createTransporter();
+//         await emailTransporter.sendMail(reminder);
+        
+//       }
+//     }
+    
+    
+//   } catch (error) {
+//     console.log(error)
+//   }
+  
+// };
+
+// module.exports = sendReminder
