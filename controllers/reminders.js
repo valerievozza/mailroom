@@ -39,6 +39,44 @@ module.exports = {
     }
   },
 
+  getEditReminder: async (req, res) => {
+    try {
+      const reminder = await Reminder.findOne({
+          org: req.user.org
+        }).lean()
+
+        if (!reminder) {
+            return res.render('error/404')
+        }
+
+        if (reminder.org != req.user.org) {
+            res.redirect('/dashboard')
+        } else {
+            res.render('reminders/edit', {
+                reminder
+            })
+            console.log(reminder)
+        }
+        } catch (err) {
+          console.error(err)
+      }
+  },
+
+  // TODO: FIX not saving update
+  updateReminder: async (req, res) => {
+    try {
+      let reminder = await Reminder.findOneAndUpdate({org: req.user.org}, req.body, {
+          new: true,
+          runValidators: true
+      })
+      res.redirect('/dashboard')
+  //  }
+
+    } catch (err) {
+        console.error(err)
+    }
+  },
+
   // TODO: Check for safety concern before sending (confirmation modal?)
 
   // TODO: Add confirmation that reminder is sent (and maybe track date(s) sent)
