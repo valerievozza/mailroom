@@ -34,7 +34,7 @@ Mailroom is an application to manage mail service for hundreds of clients by sec
 Install with npm
 
 ```bash
-  npm install bcrypt bootstrap-icons cloudinary connect-mongo cross-env dotenv express express-flash express-handlebars express-session googleapis method-override moment mongoose mongoose-unique-validator morgan multer nodemailer nodemon passport passport-local validator
+  npm install
 ```
 ## Environment Variables
 
