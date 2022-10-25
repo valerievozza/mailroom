@@ -203,9 +203,7 @@ module.exports = {
             .populate('user org')
             .lean()
 
-            console.log(`Client org is ${client.org._id}`) // ID
-            console.log(`User org is ${user.org._id}`) // ID
-            
+
             if (!client) {
                 res.render('error/404')
             }
