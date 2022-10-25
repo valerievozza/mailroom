@@ -49,6 +49,7 @@
           {{/if}}
         </ul>
       {{/each}}
+      {{#if clients}}
       <form class="d-flex justify-content-center" action="/reminders/send" method="POST">
         <button class="btn btn-success btn-lg mb-2" id="remindAll" type="submit">Remind All</button>
       </form>
@@ -59,6 +60,7 @@
           </strong>
         </span>
       </div>
+      {{/if}}
     </div>
   </div>
   <div class="card mb-3" style="max-width: 40rem" align="left">
