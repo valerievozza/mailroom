@@ -225,9 +225,9 @@ exports.postNewOrg = async (req, res) => {
         const clients = await Client.findById(req.user.id)
           .populate('user')
           .lean()
-        const openBoxes = await Client.countDocuments({status: 'Open', deleted: false}).lean()
-        const closedBoxes = await Client.countDocuments({status: 'Closed', deleted: false}).lean()
-        const totalBoxes = await Client.countDocuments({deleted: false}).lean()
+        const openBoxes = await Client.countDocuments({user: req.user.id, status: 'Open', deleted: false}).lean()
+        const closedBoxes = await Client.countDocuments({user: req.user.id, status: 'Closed', deleted: false}).lean()
+        const totalBoxes = await Client.countDocuments({user: req.user.id, deleted: false}).lean()
 
         res.render('dashboard', {
             user,
