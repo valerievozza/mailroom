@@ -3,8 +3,6 @@
 
 Mailroom is an application to manage mail service for hundreds of clients by securely storing client data and accurately tracking mailbox activity. Mailroom was developed for shelters and other non-profit organizations providing a mailing address for people who are unhoused or otherwise do not have access to a safe place to consistently receive mail
 
-**Link to project:** https://mailroom.cyclic.app
-
 ## Screenshots
 
 ![Mailroom screenshot](https://user-images.githubusercontent.com/101529105/190074645-af766088-cf3d-4498-a887-2f661b650239.png)
@@ -79,16 +77,17 @@ To run this project, you will need to add the following environment variables to
 ## Other Examples of My Work
 
 ### Pocket:
-https://pocket.cyclic.app
 
 ![pocket](https://user-images.githubusercontent.com/101529105/195203986-95c3d4ef-54b7-40cf-bde7-a8708bb7f53a.png)
+https://github.com/valerievozza/pocket
 
 ### Pictogram
-https://pictogram.cyclic.app
 
 ![pictogram](https://user-images.githubusercontent.com/101529105/195203985-938d761f-2c6a-4bc7-9b08-1b32cc28b610.png)
+https://github.com/valerievozza/pictogram
 
 ### myPetPal
-https://mypetpal.onrender.com
 
 ![myPetPal](https://user-images.githubusercontent.com/101529105/195203978-398ed8da-ccda-4c21-81c0-5975f135af93.png)
+https://github.com/valerievozza/mypetpal
+
