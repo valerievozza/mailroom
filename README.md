@@ -3,7 +3,7 @@
 
 Mailroom is an application to manage mail service for hundreds of clients by securely storing client data and accurately tracking mailbox activity. Mailroom was developed for shelters and other non-profit organizations providing a mailing address for people who are unhoused or otherwise do not have access to a safe place to consistently receive mail
 
-**Link to project:** [Mailroom](https://mailroom-co4f.onrender.com/)
+🌐 [Project Link](https://mailroom-co4f.onrender.com/)
 
 ## Screenshots
 
